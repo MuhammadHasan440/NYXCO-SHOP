@@ -1,11 +1,14 @@
-<!-- how-to-order.html - How To Order Page -->
-<!DOCTYPE html>
+
+# Let me create the fully mobile-responsive version of the how-to-order.html page
+# I'll fix the layout issues and ensure it works perfectly on all devices
+
+html_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Learn how to order from nyxco. Simple 5-step process. Screenshot, DM, get price, pay, and receive your item.">
-<title>How To Order | NYXCO</title>
+    <title>How To Order | NYXCO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -28,10 +31,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
@@ -40,10 +45,16 @@
             color: var(--white);
             overflow-x: hidden;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         h1, h2, h3, .brand-font {
             font-family: 'Playfair Display', serif;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         /* Navigation */
@@ -52,16 +63,18 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            padding: 1.5rem 4rem;
-            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 1.5rem;
+            background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             transition: all 0.4s var(--transition-smooth);
         }
 
         .navbar.scrolled {
-            padding: 1rem 4rem;
-            background: rgba(10, 10, 10, 0.98);
+            padding: 0.75rem 1.5rem;
+            background: rgba(10, 10, 10, 0.99);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         .nav-container {
@@ -74,71 +87,84 @@
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--gold);
             text-decoration: none;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             position: relative;
         }
 
         .logo::after {
             content: '®';
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             position: absolute;
             top: 0;
-            right: -18px;
+            right: -14px;
             color: var(--gold);
         }
 
         .nav-links {
-            display: flex;
-            gap: 4rem;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--black);
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 0;
+            border-top: 1px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             list-style: none;
+        }
+
+        .nav-links.active {
+            display: flex;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .nav-links a {
             color: var(--white);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: 0.5rem 0;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--black-lighter);
+            transition: all 0.3s ease;
+            display: block;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
+        .nav-links a:last-child {
+            border-bottom: none;
         }
 
         .nav-links a:hover {
             color: var(--gold);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+            padding-left: 1rem;
         }
 
         .mobile-menu-btn {
-            display: none;
+            display: flex;
             background: none;
             border: none;
             color: var(--gold);
             cursor: pointer;
+            padding: 0.5rem;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Page Header */
         .page-header {
-            padding: 10rem 4rem 6rem;
+            padding: 7rem 1.5rem 3rem;
             background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
             text-align: center;
             position: relative;
@@ -151,70 +177,70 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .page-label {
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
             display: block;
             position: relative;
+            font-weight: 600;
         }
 
         .page-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            margin-bottom: 1rem;
             position: relative;
+            line-height: 1.1;
         }
 
         .page-subtitle {
             color: var(--gray);
-            font-size: 1.3rem;
-            max-width: 700px;
+            font-size: clamp(0.95rem, 4vw, 1.3rem);
+            max-width: 600px;
             margin: 0 auto;
             position: relative;
+            line-height: 1.7;
+            padding: 0 0.5rem;
         }
 
         /* Steps Section */
         .steps-section {
-            padding: 6rem 4rem;
+            padding: 3rem 1rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .steps-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
             position: relative;
         }
 
         .steps-container::before {
-            content: '';
-            position: absolute;
-            top: 60px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            z-index: 0;
+            display: none;
         }
 
         .step-card {
             text-align: center;
             position: relative;
-            z-index: 1;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--black-lighter);
         }
 
         .step-number {
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             background: var(--black);
             border: 3px solid var(--gold);
             border-radius: 50%;
@@ -222,28 +248,20 @@
             align-items: center;
             justify-content: center;
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--gold);
-            margin: 0 auto 2rem;
+            margin: 0 auto 1.5rem;
             position: relative;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
-            transition: all 0.4s ease;
-        }
-
-        .step-card:hover .step-number {
-            background: var(--gold);
-            color: var(--black);
-            transform: scale(1.1);
-            box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
         }
 
         .step-icon {
             position: absolute;
-            bottom: -10px;
-            right: -10px;
-            width: 40px;
-            height: 40px;
+            bottom: -8px;
+            right: -8px;
+            width: 32px;
+            height: 32px;
             background: var(--black-light);
             border: 2px solid var(--gold);
             border-radius: 50%;
@@ -253,21 +271,26 @@
             color: var(--gold);
         }
 
+        .step-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
         .step-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
         }
 
         .step-desc {
             color: var(--gray);
             font-size: 0.95rem;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         /* Payment Methods */
         .payment-section {
-            padding: 6rem 4rem;
+            padding: 3rem 1rem;
             background: var(--black-light);
             border-top: 1px solid var(--black-lighter);
             border-bottom: 1px solid var(--black-lighter);
@@ -275,97 +298,112 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 2.5rem;
+            padding: 0 1rem;
         }
 
         .section-label {
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.75rem;
             display: block;
+            font-weight: 600;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1rem;
+            font-size: clamp(1.75rem, 6vw, 3rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 0.95rem;
         }
 
         .payment-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 0.5rem;
         }
 
         .payment-card {
             background: var(--black);
             border: 1px solid var(--black-lighter);
-            padding: 3rem 2rem;
+            padding: 1.75rem 1.5rem;
             text-align: center;
             transition: all 0.4s ease;
+            border-radius: 8px;
         }
 
         .payment-card:hover {
             border-color: var(--gold);
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
         .payment-icon {
-            width: 70px;
-            height: 70px;
+            width: 56px;
+            height: 56px;
             background: rgba(212, 175, 55, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 1rem;
             color: var(--gold);
         }
 
+        .payment-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
         .payment-name {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .payment-desc {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
         }
 
         /* Trust Section */
         .trust-section {
-            padding: 6rem 4rem;
+            padding: 3rem 1rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .trust-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
 
         .trust-card {
             display: flex;
-            gap: 1.5rem;
-            padding: 2.5rem;
+            gap: 1rem;
+            padding: 1.5rem;
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
+            border-radius: 8px;
             transition: all 0.4s ease;
         }
 
         .trust-card:hover {
             border-color: rgba(212, 175, 55, 0.3);
-            transform: translateY(-5px);
         }
 
         .trust-icon {
-            width: 60px;
-            height: 60px;
+            width: 48px;
+            height: 48px;
             background: rgba(212, 175, 55, 0.1);
             border-radius: 50%;
             display: flex;
@@ -375,20 +413,25 @@
             flex-shrink: 0;
         }
 
+        .trust-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
         .trust-content h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
         }
 
         .trust-content p {
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             line-height: 1.6;
         }
 
         /* FAQ Section */
         .faq-section {
-            padding: 6rem 4rem;
+            padding: 3rem 1rem;
             background: var(--black);
         }
 
@@ -404,17 +447,18 @@
 
         .faq-question {
             width: 100%;
-            padding: 2rem 0;
+            padding: 1.25rem 0;
             background: none;
             border: none;
             color: var(--white);
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             text-align: left;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
             transition: color 0.3s ease;
         }
 
@@ -422,12 +466,15 @@
             color: var(--gold);
         }
 
-        .faq-question i {
+        .faq-question svg {
             transition: transform 0.3s ease;
             color: var(--gold);
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
         }
 
-        .faq-item.active .faq-question i {
+        .faq-item.active .faq-question svg {
             transform: rotate(180deg);
         }
 
@@ -436,17 +483,18 @@
             overflow: hidden;
             transition: max-height 0.4s ease, padding 0.4s ease;
             color: var(--gray);
-            line-height: 1.8;
+            font-size: 0.9rem;
+            line-height: 1.7;
         }
 
         .faq-item.active .faq-answer {
             max-height: 300px;
-            padding-bottom: 2rem;
+            padding-bottom: 1.25rem;
         }
 
         /* CTA Section */
         .cta-section {
-            padding: 8rem 4rem;
+            padding: 4rem 1.5rem;
             text-align: center;
             background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
             position: relative;
@@ -458,28 +506,29 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .cta-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1.5rem;
+            font-size: clamp(1.5rem, 6vw, 3rem);
+            margin-bottom: 1rem;
             position: relative;
         }
 
         .cta-text {
             color: var(--gray);
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            margin-bottom: 2rem;
             position: relative;
+            padding: 0 0.5rem;
         }
 
         .btn {
-            padding: 1.2rem 3rem;
-            font-size: 0.9rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -489,25 +538,33 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
-            position: relative;
+            justify-content: center;
+            gap: 0.5rem;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 280px;
         }
 
         .btn-primary {
             background: var(--gold);
             color: var(--black);
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.35);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
         }
 
         /* Footer */
         footer {
             background: var(--black);
-            padding: 6rem 4rem 2rem;
+            padding: 3rem 1.5rem 1.5rem;
             border-top: 1px solid var(--black-lighter);
         }
 
@@ -515,32 +572,34 @@
             max-width: 1600px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 6rem;
-            margin-bottom: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .footer-brand .logo {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: inline-block;
-            font-size: 2.5rem;
+            font-size: 2rem;
         }
 
         .footer-brand p {
             color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .social-links a {
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             border: 1px solid var(--black-lighter);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -554,12 +613,18 @@
             color: var(--black);
         }
 
+        .social-links a svg {
+            width: 18px;
+            height: 18px;
+        }
+
         .footer-links h4 {
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .footer-links ul {
@@ -567,12 +632,13 @@
         }
 
         .footer-links li {
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .footer-links a {
             color: var(--gray);
             text-decoration: none;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
@@ -582,17 +648,17 @@
 
         .footer-bottom {
             text-align: center;
-            padding-top: 3rem;
+            padding-top: 2rem;
             border-top: 1px solid var(--black-lighter);
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         /* Animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .fade-in.visible {
@@ -600,92 +666,324 @@
             transform: translateY(0);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 1200px) {
-            .steps-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .steps-container::before {
-                display: none;
-            }
-            
-            .payment-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .trust-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 968px) {
+        /* TABLET BREAKPOINT (768px and up) */
+        @media (min-width: 768px) {
             .navbar {
-                padding: 1rem 2rem;
+                padding: 1.25rem 2rem;
             }
 
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--black);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                border-top: 1px solid var(--gold);
-            }
-
-            .nav-links.active {
-                display: flex;
+            .logo {
+                font-size: 1.75rem;
             }
 
             .mobile-menu-btn {
-                display: block;
+                display: none;
+            }
+
+            .nav-links {
+                display: flex !important;
+                position: static;
+                flex-direction: row;
+                padding: 0;
+                gap: 2rem;
+                border: none;
+                box-shadow: none;
+                background: transparent;
+                width: auto;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0;
+                border: none;
+                font-size: 0.8rem;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--gold);
+                transition: width 0.3s ease;
+            }
+
+            .nav-links a:hover {
+                padding-left: 0;
+                color: var(--gold);
+            }
+
+            .nav-links a:hover::after {
+                width: 100%;
             }
 
             .page-header {
-                padding: 8rem 1.5rem 4rem;
+                padding: 9rem 2rem 5rem;
+            }
+
+            .page-label {
+                font-size: 0.8rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
             }
 
             .steps-section {
-                padding: 4rem 1.5rem;
+                padding: 4rem 2rem;
             }
 
             .steps-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .step-card {
+                padding: 2rem;
             }
 
             .step-number {
-                width: 100px;
-                height: 100px;
-                font-size: 2.5rem;
+                width: 90px;
+                height: 90px;
+                font-size: 2.25rem;
             }
 
             .payment-section,
             .trust-section,
-            .faq-section,
-            .cta-section {
-                padding: 4rem 1.5rem;
+            .faq-section {
+                padding: 4rem 2rem;
             }
 
             .payment-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .trust-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .trust-icon {
+                margin: 0 auto 1rem;
+                width: 60px;
+                height: 60px;
+            }
+
+            .trust-icon svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+                padding: 1.5rem 0;
+            }
+
+            .cta-section {
+                padding: 5rem 2rem;
+            }
+
+            .btn {
+                width: auto;
+                padding: 1.1rem 2.5rem;
             }
 
             footer {
-                padding: 4rem 1.5rem 2rem;
+                padding: 4rem 2rem 2rem;
             }
 
             .footer-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 3rem;
+            }
+        }
+
+        /* DESKTOP BREAKPOINT (1024px and up) */
+        @media (min-width: 1024px) {
+            .navbar {
+                padding: 1.5rem 4rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 3rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .page-header {
+                padding: 10rem 4rem 6rem;
+            }
+
+            .page-label {
+                font-size: 0.9rem;
+                letter-spacing: 4px;
+            }
+
+            .page-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .steps-section {
+                padding: 6rem 4rem;
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.5rem;
+            }
+
+            .steps-container::before {
+                display: block;
+                content: '';
+                position: absolute;
+                top: 60px;
+                left: 10%;
+                right: 10%;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--gold), transparent);
+                z-index: 0;
+            }
+
+            .step-card {
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+
+            .step-number {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+
+            .step-icon {
+                width: 40px;
+                height: 40px;
+                bottom: -10px;
+                right: -10px;
+            }
+
+            .step-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .step-title {
+                font-size: 1.3rem;
+            }
+
+            .payment-section,
+            .trust-section,
+            .faq-section {
+                padding: 6rem 4rem;
+            }
+
+            .payment-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+
+            .payment-card {
+                padding: 3rem 2rem;
+            }
+
+            .payment-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .payment-icon svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+
+            .trust-card {
+                flex-direction: row;
+                text-align: left;
+                padding: 2.5rem;
+            }
+
+            .trust-icon {
+                margin: 0;
+            }
+
+            .faq-question {
+                padding: 2rem 0;
+                font-size: 1.1rem;
+            }
+
+            .faq-item.active .faq-answer {
+                padding-bottom: 2rem;
+            }
+
+            .cta-section {
+                padding: 8rem 4rem;
+            }
+
+            .cta-text {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 1.2rem 3rem;
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 6rem 4rem 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 6rem;
+            }
+
+            .footer-brand .logo {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* LARGE DESKTOP (1440px and up) */
+        @media (min-width: 1440px) {
+            .steps-container {
+                gap: 2rem;
+            }
+
+            .payment-grid {
+                gap: 2.5rem;
+            }
+        }
+
+        /* REDUCED MOTION */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -702,8 +1000,8 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
             </button>
         </div>
     </nav>
@@ -722,7 +1020,7 @@
                 <div class="step-number">
                     1
                     <div class="step-icon">
-                        <i data-lucide="smartphone" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="smartphone"></i>
                     </div>
                 </div>
                 <h3 class="step-title">Screenshot Item</h3>
@@ -733,7 +1031,7 @@
                 <div class="step-number">
                     2
                     <div class="step-icon">
-                        <i data-lucide="send" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="send"></i>
                     </div>
                 </div>
                 <h3 class="step-title">Send DM</h3>
@@ -744,7 +1042,7 @@
                 <div class="step-number">
                     3
                     <div class="step-icon">
-                        <i data-lucide="tag" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="tag"></i>
                     </div>
                 </div>
                 <h3 class="step-title">Get Price</h3>
@@ -755,7 +1053,7 @@
                 <div class="step-number">
                     4
                     <div class="step-icon">
-                        <i data-lucide="credit-card" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="credit-card"></i>
                     </div>
                 </div>
                 <h3 class="step-title">Make Payment</h3>
@@ -766,7 +1064,7 @@
                 <div class="step-number">
                     5
                     <div class="step-icon">
-                        <i data-lucide="package" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="package"></i>
                     </div>
                 </div>
                 <h3 class="step-title">Receive Item</h3>
@@ -780,13 +1078,13 @@
         <div class="section-header fade-in">
             <span class="section-label">Accepted Payments</span>
             <h2 class="section-title">Payment Methods</h2>
-            <p style="color: var(--gray);">Secure manual payment options. No automated checkout required.</p>
+            <p>Secure manual payment options. No automated checkout required.</p>
         </div>
         
         <div class="payment-grid">
             <div class="payment-card fade-in">
                 <div class="payment-icon">
-                    <i data-lucide="building-2" style="width: 32px; height: 32px;"></i>
+                    <i data-lucide="building-2"></i>
                 </div>
                 <h3 class="payment-name">Bank Transfer</h3>
                 <p class="payment-desc">Direct wire transfer<br>Most secure option</p>
@@ -794,7 +1092,7 @@
             
             <div class="payment-card fade-in">
                 <div class="payment-icon">
-                    <i data-lucide="wallet" style="width: 32px; height: 32px;"></i>
+                    <i data-lucide="wallet"></i>
                 </div>
                 <h3 class="payment-name">CashApp</h3>
                 <p class="payment-desc">Instant transfer<br>$Cashtag payment</p>
@@ -802,7 +1100,7 @@
             
             <div class="payment-card fade-in">
                 <div class="payment-icon">
-                    <i data-lucide="zap" style="width: 32px; height: 32px;"></i>
+                    <i data-lucide="zap"></i>
                 </div>
                 <h3 class="payment-name">Zelle</h3>
                 <p class="payment-desc">Bank to bank<br>No fees</p>
@@ -810,7 +1108,7 @@
             
             <div class="payment-card fade-in">
                 <div class="payment-icon">
-                    <i data-lucide="repeat" style="width: 32px; height: 32px;"></i>
+                    <i data-lucide="repeat"></i>
                 </div>
                 <h3 class="payment-name">Trade</h3>
                 <p class="payment-desc">Item exchange<br>Plus cash adjustment</p>
@@ -828,7 +1126,7 @@
         <div class="trust-grid">
             <div class="trust-card fade-in">
                 <div class="trust-icon">
-                    <i data-lucide="shield-check" style="width: 28px; height: 28px;"></i>
+                    <i data-lucide="shield-check"></i>
                 </div>
                 <div class="trust-content">
                     <h3>Secure Transactions</h3>
@@ -838,7 +1136,7 @@
             
             <div class="trust-card fade-in">
                 <div class="trust-icon">
-                    <i data-lucide="badge-check" style="width: 28px; height: 28px;"></i>
+                    <i data-lucide="badge-check"></i>
                 </div>
                 <div class="trust-content">
                     <h3>Authentication First</h3>
@@ -848,7 +1146,7 @@
             
             <div class="trust-card fade-in">
                 <div class="trust-icon">
-                    <i data-lucide="message-circle" style="width: 28px; height: 28px;"></i>
+                    <i data-lucide="message-circle"></i>
                 </div>
                 <div class="trust-content">
                     <h3>Direct Communication</h3>
@@ -869,7 +1167,7 @@
             <div class="faq-item fade-in">
                 <button class="faq-question">
                     How long does shipping take?
-                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="chevron-down"></i>
                 </button>
                 <div class="faq-answer">
                     We ship within 48 hours of payment confirmation. Domestic shipping typically takes 3-5 business days. Express shipping available upon request.
@@ -879,7 +1177,7 @@
             <div class="faq-item fade-in">
                 <button class="faq-question">
                     Do you accept returns?
-                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="chevron-down"></i>
                 </button>
                 <div class="faq-answer">
                     All sales are final unless the item is not as described. We provide detailed photos and descriptions to ensure you know exactly what you're getting.
@@ -889,7 +1187,7 @@
             <div class="faq-item fade-in">
                 <button class="faq-question">
                     Can I negotiate on price?
-                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="chevron-down"></i>
                 </button>
                 <div class="faq-answer">
                     Yes! We are open to reasonable offers. DM us with your offer and we can discuss. Bundle deals available for multiple items.
@@ -899,7 +1197,7 @@
             <div class="faq-item fade-in">
                 <button class="faq-question">
                     How do trades work?
-                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="chevron-down"></i>
                 </button>
                 <div class="faq-answer">
                     Send us photos of your item along with what you're interested in. If we like your item, we'll work out a fair trade value plus any cash adjustment needed.
@@ -909,7 +1207,7 @@
             <div class="faq-item fade-in">
                 <button class="faq-question">
                     Is local pickup available?
-                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="chevron-down"></i>
                 </button>
                 <div class="faq-answer">
                     Yes! We're based in Hammond, Louisiana and offer free local delivery within the area. Contact us to arrange a meetup.
@@ -925,7 +1223,7 @@
             <p class="cta-text">Browse our current collection and find your next grail piece.</p>
             <a href="shop.html" class="btn btn-primary">
                 View Collection
-                <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+                <i data-lucide="arrow-right"></i>
             </a>
         </div>
     </section>
@@ -937,9 +1235,15 @@
                 <a href="index.html" class="logo">NYXCO</a>
                 <p>Premium streetwear marketplace based in Hammond, Louisiana.</p>
                 <div class="social-links">
-                    <a href="https://instagram.com" target="_blank"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
-                    <a href="https://wa.me/1234567890" target="_blank"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i></a>
-                    <a href="mailto:contact@nyxco.com"><i data-lucide="mail" style="width: 20px; height: 20px;"></i></a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="https://wa.me/1234567890" target="_blank" aria-label="WhatsApp">
+                        <i data-lucide="message-circle"></i>
+                    </a>
+                    <a href="mailto:contact@nyxco.com" aria-label="Email">
+                        <i data-lucide="mail"></i>
+                    </a>
                 </div>
             </div>
             <div class="footer-links">
@@ -972,31 +1276,35 @@
     </footer>
 
     <script>
+        // Initialize Lucide icons
         lucide.createIcons();
 
-        // Mobile Menu
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');
+            const isOpen = navLinks.classList.contains('active');
+            mobileMenuBtn.innerHTML = isOpen 
+                ? '<i data-lucide="x" style="width: 24px; height: 24px;"></i>'
+                : '<i data-lucide="menu" style="width: 24px; height: 24px;"></i>';
             lucide.createIcons();
         });
 
+        // Close mobile menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.setAttribute('data-lucide', 'menu');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" style="width: 24px; height: 24px;"></i>';
                 lucide.createIcons();
             });
         });
 
-        // Navbar Scroll
+        // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
         // FAQ Accordion
@@ -1012,19 +1320,25 @@
                 if (!isActive) {
                     item.classList.add('active');
                 }
-                
-                lucide.createIcons();
             });
         });
 
-        // Intersection Observer
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
-</html>
+</html>'''
+
