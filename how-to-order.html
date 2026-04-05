@@ -1,0 +1,1030 @@
+<!-- how-to-order.html - How To Order Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to order from nyxco. Simple 5-step process. Screenshot, DM, get price, pay, and receive your item.">
+<title>How To Order | NYXCO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-light: #111111;
+            --black-lighter: #1a1a1a;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --gold-dark: #b8860b;
+            --white: #ffffff;
+            --gray: #888888;
+            --gray-light: #cccccc;
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(10, 10, 10, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '®';
+            font-size: 0.7rem;
+            position: absolute;
+            top: 0;
+            right: -18px;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 4rem 6rem;
+            background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-label {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            display: block;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Steps Section */
+        .steps-section {
+            padding: 6rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            z-index: 0;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 120px;
+            height: 120px;
+            background: var(--black);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 0 auto 2rem;
+            position: relative;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .step-card:hover .step-number {
+            background: var(--gold);
+            color: var(--black);
+            transform: scale(1.1);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
+        }
+
+        .step-icon {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            background: var(--black-light);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .step-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* Payment Methods */
+        .payment-section {
+            padding: 6rem 4rem;
+            background: var(--black-light);
+            border-top: 1px solid var(--black-lighter);
+            border-bottom: 1px solid var(--black-lighter);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .payment-card {
+            background: var(--black);
+            border: 1px solid var(--black-lighter);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .payment-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .payment-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--gold);
+        }
+
+        .payment-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Trust Section */
+        .trust-section {
+            padding: 6rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .trust-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 2.5rem;
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            transition: all 0.4s ease;
+        }
+
+        .trust-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .trust-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 4rem;
+            background: var(--black);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--black-lighter);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 2rem 0;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--gold);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--gold);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 2rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .cta-text {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 6rem 4rem 2rem;
+            border-top: 1px solid var(--black-lighter);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            font-size: 2.5rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--black-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .footer-links h4 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid var(--black-lighter);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .steps-container::before {
+                display: none;
+            }
+            
+            .payment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .navbar {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--black);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-top: 1px solid var(--gold);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header {
+                padding: 8rem 1.5rem 4rem;
+            }
+
+            .steps-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .step-number {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .payment-section,
+            .trust-section,
+            .faq-section,
+            .cta-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 4rem 1.5rem 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NYXCO</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="how-to-order.html">How to Order</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <span class="page-label">Simple Process</span>
+        <h1 class="page-title">How To Order</h1>
+        <p class="page-subtitle">No complicated checkout. Just screenshot, DM, and deal. We make buying luxury streetwear simple and secure.</p>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps-section">
+        <div class="steps-container">
+            <div class="step-card fade-in">
+                <div class="step-number">
+                    1
+                    <div class="step-icon">
+                        <i data-lucide="smartphone" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+                <h3 class="step-title">Screenshot Item</h3>
+                <p class="step-desc">Browse our collection and screenshot the item(s) you're interested in purchasing or trading.</p>
+            </div>
+            
+            <div class="step-card fade-in">
+                <div class="step-number">
+                    2
+                    <div class="step-icon">
+                        <i data-lucide="send" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+                <h3 class="step-title">Send DM</h3>
+                <p class="step-desc">Message us on Instagram or WhatsApp with the screenshot. We typically respond within 10 minutes.</p>
+            </div>
+            
+            <div class="step-card fade-in">
+                <div class="step-number">
+                    3
+                    <div class="step-icon">
+                        <i data-lucide="tag" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+                <h3 class="step-title">Get Price</h3>
+                <p class="step-desc">We'll send you the price, condition details, and additional photos. Open to reasonable offers.</p>
+            </div>
+            
+            <div class="step-card fade-in">
+                <div class="step-number">
+                    4
+                    <div class="step-icon">
+                        <i data-lucide="credit-card" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+                <h3 class="step-title">Make Payment</h3>
+                <p class="step-desc">Pay via Bank Transfer, CashApp, or Zelle. Once confirmed, your item is reserved and packaged.</p>
+            </div>
+            
+            <div class="step-card fade-in">
+                <div class="step-number">
+                    5
+                    <div class="step-icon">
+                        <i data-lucide="package" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+                <h3 class="step-title">Receive Item</h3>
+                <p class="step-desc">We ship nationwide with tracking within 48 hours. Local delivery available in Hammond, LA.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="payment-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Accepted Payments</span>
+            <h2 class="section-title">Payment Methods</h2>
+            <p style="color: var(--gray);">Secure manual payment options. No automated checkout required.</p>
+        </div>
+        
+        <div class="payment-grid">
+            <div class="payment-card fade-in">
+                <div class="payment-icon">
+                    <i data-lucide="building-2" style="width: 32px; height: 32px;"></i>
+                </div>
+                <h3 class="payment-name">Bank Transfer</h3>
+                <p class="payment-desc">Direct wire transfer<br>Most secure option</p>
+            </div>
+            
+            <div class="payment-card fade-in">
+                <div class="payment-icon">
+                    <i data-lucide="wallet" style="width: 32px; height: 32px;"></i>
+                </div>
+                <h3 class="payment-name">CashApp</h3>
+                <p class="payment-desc">Instant transfer<br>$Cashtag payment</p>
+            </div>
+            
+            <div class="payment-card fade-in">
+                <div class="payment-icon">
+                    <i data-lucide="zap" style="width: 32px; height: 32px;"></i>
+                </div>
+                <h3 class="payment-name">Zelle</h3>
+                <p class="payment-desc">Bank to bank<br>No fees</p>
+            </div>
+            
+            <div class="payment-card fade-in">
+                <div class="payment-icon">
+                    <i data-lucide="repeat" style="width: 32px; height: 32px;"></i>
+                </div>
+                <h3 class="payment-name">Trade</h3>
+                <p class="payment-desc">Item exchange<br>Plus cash adjustment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Why This Works</span>
+            <h2 class="section-title">Trust & Safety</h2>
+        </div>
+        
+        <div class="trust-grid">
+            <div class="trust-card fade-in">
+                <div class="trust-icon">
+                    <i data-lucide="shield-check" style="width: 28px; height: 28px;"></i>
+                </div>
+                <div class="trust-content">
+                    <h3>Secure Transactions</h3>
+                    <p>Every payment is verified before shipping. We provide proof of shipping and tracking numbers immediately.</p>
+                </div>
+            </div>
+            
+            <div class="trust-card fade-in">
+                <div class="trust-icon">
+                    <i data-lucide="badge-check" style="width: 28px; height: 28px;"></i>
+                </div>
+                <div class="trust-content">
+                    <h3>Authentication First</h3>
+                    <p>All items are authenticated before listing. We guarantee 100% authenticity or your money back.</p>
+                </div>
+            </div>
+            
+            <div class="trust-card fade-in">
+                <div class="trust-icon">
+                    <i data-lucide="message-circle" style="width: 28px; height: 28px;"></i>
+                </div>
+                <div class="trust-content">
+                    <h3>Direct Communication</h3>
+                    <p>Deal directly with us. No middlemen, no hidden fees. Build a relationship with your seller.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Questions</span>
+            <h2 class="section-title">Frequently Asked</h2>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    How long does shipping take?
+                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                </button>
+                <div class="faq-answer">
+                    We ship within 48 hours of payment confirmation. Domestic shipping typically takes 3-5 business days. Express shipping available upon request.
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    Do you accept returns?
+                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                </button>
+                <div class="faq-answer">
+                    All sales are final unless the item is not as described. We provide detailed photos and descriptions to ensure you know exactly what you're getting.
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    Can I negotiate on price?
+                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                </button>
+                <div class="faq-answer">
+                    Yes! We are open to reasonable offers. DM us with your offer and we can discuss. Bundle deals available for multiple items.
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    How do trades work?
+                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                </button>
+                <div class="faq-answer">
+                    Send us photos of your item along with what you're interested in. If we like your item, we'll work out a fair trade value plus any cash adjustment needed.
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    Is local pickup available?
+                    <i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i>
+                </button>
+                <div class="faq-answer">
+                    Yes! We're based in Hammond, Louisiana and offer free local delivery within the area. Contact us to arrange a meetup.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="fade-in">
+            <h2 class="cta-title">Ready to Shop?</h2>
+            <p class="cta-text">Browse our current collection and find your next grail piece.</p>
+            <a href="shop.html" class="btn btn-primary">
+                View Collection
+                <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">NYXCO</a>
+                <p>Premium streetwear marketplace based in Hammond, Louisiana.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com" target="_blank"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
+                    <a href="https://wa.me/1234567890" target="_blank"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i></a>
+                    <a href="mailto:contact@nyxco.com"><i data-lucide="mail" style="width: 20px; height: 20px;"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">All Items</a></li>
+                    <li><a href="shop.html">Bags</a></li>
+                    <li><a href="shop.html">Hoodies</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="how-to-order.html">How to Order</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NYXCO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');
+            lucide.createIcons();
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                
+                // Open clicked if wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+                
+                lucide.createIcons();
+            });
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

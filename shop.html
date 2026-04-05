@@ -1,0 +1,1372 @@
+<!-- shop.html - Shop/Collection Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop premium luxury streetwear at NYXCO. Authentic designer bags, hoodies, and accessories. Contact for pricing.">
+    <title>Shop Collection | NYXCO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-light: #111111;
+            --black-lighter: #1a1a1a;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --gold-dark: #b8860b;
+            --white: #ffffff;
+            --gray: #888888;
+            --gray-light: #cccccc;
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(10, 10, 10, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '®';
+            font-size: 0.7rem;
+            position: absolute;
+            top: 0;
+            right: -18px;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 4rem 4rem;
+            background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
+            text-align: center;
+            border-bottom: 1px solid var(--black-lighter);
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 2rem 4rem;
+            background: var(--black);
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            border-bottom: 1px solid var(--black-lighter);
+        }
+
+        .filter-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.9rem 2rem;
+            background: transparent;
+            border: 1px solid var(--black-lighter);
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s var(--transition-smooth);
+            font-weight: 500;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .filter-info {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .filter-info span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Product Grid */
+        .shop-section {
+            padding: 4rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            overflow: hidden;
+            transition: all 0.5s var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            group: true;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(212,175,55,0.1);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition-smooth);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .product-tag.limited {
+            background: var(--black);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .product-tag.new {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .product-tag.sold {
+            background: #ff3333;
+            color: var(--white);
+        }
+
+        .product-tag.hot {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: var(--white);
+        }
+
+        .quick-view {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s var(--transition-smooth);
+        }
+
+        .product-card:hover .quick-view {
+            transform: translateY(0);
+        }
+
+        .quick-view-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-view-btn:hover {
+            background: var(--gold-light);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-category {
+            color: var(--gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--white);
+            line-height: 1.3;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--black-lighter);
+        }
+
+        .product-condition {
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-condition i {
+            color: var(--gold);
+            width: 16px;
+            height: 16px;
+        }
+
+        .product-price {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Product Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--black-light);
+            max-width: 1200px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--black-lighter);
+            color: var(--white);
+            cursor: pointer;
+            z-index: 10;
+            padding: 1rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: rotate(90deg);
+        }
+
+        .modal-gallery {
+            position: relative;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .modal-thumbnails {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--black-light);
+        }
+
+        .modal-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .modal-thumb.active, .modal-thumb:hover {
+            border-color: var(--gold);
+            opacity: 1;
+        }
+
+        .modal-details {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .modal-category {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .modal-condition-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            width: fit-content;
+        }
+
+        .modal-description {
+            color: var(--gray-light);
+            line-height: 1.9;
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+
+        .modal-features {
+            margin-bottom: 2.5rem;
+        }
+
+        .modal-features h4 {
+            color: var(--white);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-features ul {
+            list-style: none;
+        }
+
+        .modal-features li {
+            color: var(--gray);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .modal-features li::before {
+            content: '•';
+            color: var(--gold);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .modal-price-box {
+            background: var(--black);
+            padding: 2rem;
+            border: 1px solid var(--black-lighter);
+            margin-bottom: 2rem;
+        }
+
+        .modal-price-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .modal-note {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .modal-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1.2rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.3);
+        }
+
+        .btn-instagram:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(225, 48, 108, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--black-lighter);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Recently Sold Section */
+        .sold-section {
+            padding: 6rem 4rem;
+            background: var(--black-light);
+            border-top: 1px solid var(--black-lighter);
+        }
+
+        .sold-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .sold-grid {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--black);
+        }
+
+        .sold-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .sold-grid::-webkit-scrollbar-track {
+            background: var(--black);
+            border-radius: 4px;
+        }
+
+        .sold-grid::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        .sold-item {
+            min-width: 280px;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .sold-item:hover {
+            opacity: 0.8;
+            filter: grayscale(50%);
+        }
+
+        .sold-item img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border: 1px solid var(--black-lighter);
+        }
+
+        .sold-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #ff3333;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sold-info {
+            padding: 1.5rem;
+            background: var(--black);
+            border: 1px solid var(--black-lighter);
+            border-top: none;
+        }
+
+        .sold-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+
+        .sold-date {
+            font-size: 0.85rem;
+            color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 6rem 4rem 2rem;
+            border-top: 1px solid var(--black-lighter);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            font-size: 2.5rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--black-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .footer-links h4 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid var(--black-lighter);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1400px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .navbar {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--black);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-top: 1px solid var(--gold);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header {
+                padding: 8rem 1.5rem 3rem;
+            }
+
+            .filter-section {
+                padding: 1.5rem;
+                position: relative;
+                top: 0;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .category-tabs {
+                justify-content: center;
+            }
+
+            .tab-btn {
+                flex: 1;
+                text-align: center;
+                padding: 0.8rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .shop-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+                max-height: 100vh;
+                border: none;
+            }
+
+            .modal-main-image {
+                height: 300px;
+            }
+
+            .modal-details {
+                padding: 2rem;
+            }
+
+            .modal-title {
+                font-size: 1.8rem;
+            }
+
+            .modal-thumbnails {
+                overflow-x: auto;
+            }
+
+            .sold-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .sold-item {
+                min-width: 240px;
+            }
+
+            .sold-item img {
+                width: 240px;
+                height: 240px;
+            }
+
+            footer {
+                padding: 4rem 1.5rem 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal {
+                padding: 0;
+            }
+
+            .modal-content {
+                max-height: 100vh;
+            }
+
+            .modal-close {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NYXCO</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="how-to-order.html">How to Order</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <span style="color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 1rem;">The Collection</span>
+        <h1 class="page-title">Shop All Items</h1>
+        <p class="page-subtitle">Authenticated luxury streetwear. DM for pricing—every item is negotiable and open for trades.</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="all">All Items</button>
+                <button class="tab-btn" data-category="bags">Bags</button>
+                <button class="tab-btn" data-category="hoodies">Hoodies</button>
+                <button class="tab-btn" data-category="accessories">Accessories</button>
+            </div>
+            <div class="filter-info">
+                Showing <span id="itemCount">6</span> items
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="shop-section">
+        <div class="product-grid" id="productGrid">
+            <!-- Products populated by JS -->
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+            </button>
+            <div class="modal-gallery">
+                <img src="" alt="" class="modal-main-image" id="modalImage">
+                <div class="modal-thumbnails" id="modalThumbnails">
+                    <!-- Thumbnails populated by JS -->
+                </div>
+            </div>
+            <div class="modal-details">
+                <div class="modal-header">
+                    <div class="modal-category" id="modalCategory">Category</div>
+                    <h2 class="modal-title" id="modalTitle">Product Name</h2>
+                    <div class="modal-condition-badge">
+                        <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                        <span id="modalCondition">Condition</span>
+                    </div>
+                </div>
+                
+                <p class="modal-description" id="modalDescription">Description goes here.</p>
+                
+                <div class="modal-features">
+                    <h4>Item Details</h4>
+                    <ul id="modalFeatures">
+                        <!-- Features populated by JS -->
+                    </ul>
+                </div>
+
+                <div class="modal-price-box">
+                    <div class="modal-price-label">Price</div>
+                    <div class="modal-price" id="modalPrice">Contact for Price</div>
+                    <div class="modal-note">DM for exact pricing and trades accepted</div>
+                </div>
+
+                <div class="modal-cta">
+                    <a href="#" class="btn btn-whatsapp" id="whatsappBtn" target="_blank">
+                        <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i>
+                        Message on WhatsApp
+                    </a>
+                    <a href="#" class="btn btn-instagram" id="instagramBtn" target="_blank">
+                        <i data-lucide="instagram" style="width: 22px; height: 22px;"></i>
+                        DM on Instagram
+                    </a>
+                    <button class="btn btn-secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recently Sold -->
+    <section class="sold-section">
+        <div class="sold-header">
+            <span style="color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 1rem;">Gone Fast</span>
+            <h2 class="page-title" style="font-size: 2.5rem;">Recently Sold</h2>
+            <p class="page-subtitle">These items found new homes. Don't miss out on current stock.</p>
+        </div>
+        <div class="sold-grid" id="soldGrid">
+            <!-- Sold items populated by JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">NYXCO</a>
+                <p>Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com" target="_blank"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
+                    <a href="https://wa.me/1234567890" target="_blank"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i></a>
+                    <a href="mailto:contact@nyxco.com"><i data-lucide="mail" style="width: 20px; height: 20px;"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">All Items</a></li>
+                    <li><a href="shop.html#bags">Bags</a></li>
+                    <li><a href="shop.html#hoodies">Hoodies</a></li>
+                    <li><a href="shop.html#accessories">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="how-to-order.html">How to Order</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NYXCO. All rights reserved. | Hammond, Louisiana</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Louis Vuitton Keepall 55",
+                category: "bags",
+                condition: "Like New",
+                price: "Contact for Price",
+                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
+                    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
+                    "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80"
+                ],
+                description: "Authentic Louis Vuitton Keepall 55 in Monogram canvas. 9/10 condition with minimal wear. Includes original dust bag, lock, keys, and receipt. Perfect weekender bag.",
+                features: ["100% Authentic", "Date Code: SD4129", "Includes Dust Bag", "Original Receipt", "Minor Patina on Handles"],
+                tag: "limited"
+            },
+            {
+                id: 2,
+                name: "Travis Scott Cactus Jack Hoodie",
+                category: "hoodies",
+                condition: "New",
+                price: "Contact for Price",
+                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
+                    "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80"
+                ],
+                description: "Brand new Travis Scott Cactus Jack hoodie from the Astroworld collection. Size Large. Never worn, stored in original packaging. Rare colorway.",
+                features: ["Size: Large", "Never Worn", "Original Tags Attached", "Astroworld Collection", "Smoke-Free Storage"],
+                tag: "new"
+            },
+            {
+                id: 3,
+                name: "Gucci Marmont Belt Bag",
+                category: "bags",
+                condition: "Used",
+                price: "Contact for Price",
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
+                    "https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800&q=80"
+                ],
+                description: "Gucci GG Marmont matelassé leather belt bag in black. 8/10 condition. Some wear on hardware but leather is in excellent shape. Adjustable belt strap.",
+                features: ["100% Authentic", "Adjustable Strap", "Includes Box", "8/10 Condition", "Black Matelassé Leather"],
+                tag: null
+            },
+            {
+                id: 4,
+                name: "Off-White Industrial Belt",
+                category: "accessories",
+                condition: "Like New",
+                price: "Contact for Price",
+                image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1622445275576-721325763afe?w=800&q=80",
+                    "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80"
+                ],
+                description: "Iconic Off-White industrial belt in classic yellow. 9.5/10 condition, worn once. The ultimate streetwear accessory to elevate any fit.",
+                features: ["Classic Yellow Color", "200cm Length", "Metal Buckle", "9.5/10 Condition", "Original Packaging"],
+                tag: "hot"
+            },
+            {
+                id: 5,
+                name: "Fear of God Essentials Hoodie",
+                category: "hoodies",
+                condition: "New",
+                price: "Contact for Price",
+                image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80",
+                    "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80"
+                ],
+                description: "Essentials by Fear of God hoodie in stretch limo black. Size Medium. Brand new with tags from the latest season drop.",
+                features: ["Size: Medium", "Stretch Limo Black", "Latest Season", "Brand New with Tags", "Relaxed Fit"],
+                tag: "new"
+            },
+            {
+                id: 6,
+                name: "Prada Re-Edition 2005",
+                category: "bags",
+                condition: "Like New",
+                price: "Contact for Price",
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
+                    "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80"
+                ],
+                description: "Prada Re-Edition 2005 nylon mini bag with gold hardware. 9/10 condition. Includes authenticity card, dust bag, and detachable chain strap.",
+                features: ["100% Authentic", "Nylon Material", "Gold Hardware", "Includes Chain Strap", "Enameled Logo Plaque"],
+                tag: "limited"
+            }
+        ];
+
+        // Sold Items Data
+        const soldItems = [
+            { image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80", name: "LV Keepall 45", date: "2 days ago" },
+            { image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80", name: "Kith Hoodie", date: "3 days ago" },
+            { image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80", name: "Gucci Tote", date: "5 days ago" },
+            { image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=400&q=80", name: "Chrome Hearts", date: "1 week ago" },
+            { image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400&q=80", name: "Yeezy Hoodie", date: "1 week ago" },
+            { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80", name: "Balenciaga Bag", date: "2 weeks ago" }
+        ];
+
+        // Render Products
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('productGrid');
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+            
+            document.getElementById('itemCount').textContent = filtered.length;
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card fade-in" onclick="openModal(${product.id})">
+                    ${product.tag ? `<span class="product-tag ${product.tag}">${product.tag === 'limited' ? 'Limited Stock' : product.tag === 'new' ? 'New Arrival' : product.tag === 'hot' ? 'Hot Item' : 'Sold'}</span>` : ''}
+                    <div class="product-image-wrapper">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="quick-view">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-meta">
+                            <span class="product-condition">
+                                <i data-lucide="check-circle"></i>
+                                ${product.condition}
+                            </span>
+                            <span class="product-price">${product.price}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            lucide.createIcons();
+            
+            // Re-trigger fade in
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.classList.remove('visible');
+                setTimeout(() => el.classList.add('visible'), 100);
+            });
+        }
+
+        // Render Sold Items
+        function renderSold() {
+            const grid = document.getElementById('soldGrid');
+            grid.innerHTML = soldItems.map(item => `
+                <div class="sold-item">
+                    <div style="position: relative;">
+                        <img src="${item.image}" alt="${item.name}">
+                        <span class="sold-badge">SOLD</span>
+                    </div>
+                    <div class="sold-info">
+                        <h4 class="sold-name">${item.name}</h4>
+                        <p class="sold-date">Sold ${item.date}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal Functions
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modalImage').src = product.gallery[0];
+            document.getElementById('modalCategory').textContent = product.category;
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalCondition').textContent = product.condition;
+            document.getElementById('modalDescription').textContent = product.description;
+            
+            // Thumbnails
+            document.getElementById('modalThumbnails').innerHTML = product.gallery.map((img, idx) => `
+                <img src="${img}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
+            `).join('');
+            
+            // Features
+            document.getElementById('modalFeatures').innerHTML = product.features.map(f => `
+                <li>${f}</li>
+            `).join('');
+            
+            // WhatsApp link
+            const phone = "1234567890"; // Replace with actual number
+            const message = encodeURIComponent(`Hi, I'm interested in: ${product.name}`);
+            document.getElementById('whatsappBtn').href = `https://wa.me/${phone}?text=${message}`;
+            document.getElementById('instagramBtn').href = `https://instagram.com/direct/inbox`; // Replace with actual IG
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function changeImage(src, thumb) {
+            document.getElementById('modalImage').src = src;
+            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modalClose').addEventListener('click', closeModal);
+        document.getElementById('productModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // Tab Filtering
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProducts(btn.dataset.category);
+            });
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');
+            lucide.createIcons();
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Initialize
+        renderProducts();
+        renderSold();
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

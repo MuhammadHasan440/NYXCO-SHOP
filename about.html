@@ -1,0 +1,994 @@
+<!-- about.html - About Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about NYXCO Exchange. Premium streetwear marketplace based in Hammond, Louisiana. 800+ successful sales, trusted seller, nationwide shipping.">
+    <title>About Us | NYXCO EXCHANGE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-light: #111111;
+            --black-lighter: #1a1a1a;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --gold-dark: #b8860b;
+            --white: #ffffff;
+            --gray: #888888;
+            --gray-light: #cccccc;
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(10, 10, 10, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '®';
+            font-size: 0.7rem;
+            position: absolute;
+            top: 0;
+            right: -18px;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .about-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 4rem 6rem;
+            background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            mask-image: linear-gradient(to left, black, transparent);
+            -webkit-mask-image: linear-gradient(to left, black, transparent);
+        }
+
+        .about-hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-label {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .about-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .about-subtitle {
+            color: var(--gray);
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 8rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .story-image {
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: -30px;
+            bottom: -30px;
+            border: 3px solid var(--gold);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-content p {
+            color: var(--gray-light);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 6rem 4rem;
+            background: var(--black-light);
+            border-top: 1px solid var(--black-lighter);
+            border-bottom: 1px solid var(--black-lighter);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 80px;
+            background: var(--black-lighter);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 8rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-icon {
+            width: 90px;
+            height: 90px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: var(--gold);
+            transition: all 0.4s ease;
+        }
+
+        .value-card:hover .value-icon {
+            background: var(--gold);
+            color: var(--black);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-desc {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: 8rem 4rem;
+            background: linear-gradient(180deg, var(--black) 0%, var(--black-light) 100%);
+        }
+
+        .location-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .location-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-content p {
+            color: var(--gray-light);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .location-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .location-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .location-feature i {
+            color: var(--gold);
+            width: 24px;
+            height: 24px;
+        }
+
+        .location-feature span {
+            color: var(--white);
+            font-size: 1.1rem;
+        }
+
+        .location-map {
+            background: var(--black);
+            border: 2px solid var(--gold);
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-map::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80');
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .map-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .map-pin {
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--black);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .map-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-content p {
+            color: var(--gray);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 4rem;
+            text-align: center;
+            background: var(--black);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .cta-text {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black-light);
+            padding: 6rem 4rem 2rem;
+            border-top: 1px solid var(--black-lighter);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            font-size: 2.5rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--black-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .footer-links h4 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid var(--black-lighter);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .story-section,
+            .location-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .story-image {
+                order: -1;
+            }
+
+            .story-image img {
+                height: 400px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:not(:last-child)::after,
+            .stat-item:nth-child(2)::after {
+                display: none;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .navbar {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--black);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-top: 1px solid var(--gold);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .about-hero {
+                padding: 8rem 1.5rem 4rem;
+                min-height: auto;
+            }
+
+            .about-hero::before {
+                width: 100%;
+                opacity: 0.2;
+            }
+
+            .story-section,
+            .values-section,
+            .location-section,
+            .cta-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stat-item::after {
+                display: none !important;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+
+            .location-map {
+                height: 350px;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            footer {
+                padding: 4rem 1.5rem 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NYXCO</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="how-to-order.html">How to Order</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <span class="about-label">Our Story</span>
+            <h1 class="about-title">Built on Trust & Authenticity</h1>
+            <p class="about-subtitle">NYXCO Exchange started with a simple mission: provide a trusted marketplace for luxury streetwear enthusiasts to buy, sell, and trade authenticated pieces.</p>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="story-content fade-in">
+            <h2>From Passion to Business</h2>
+            <p>What began as a personal collection quickly evolved into something bigger. Based in <span class="highlight">Hammond, Louisiana</span>, we recognized the need for a reliable source of authenticated luxury streetwear in the community.</p>
+            <p>Every piece in our collection is hand-selected, thoroughly inspected, and verified for authenticity. We don't just sell products—we curate experiences for collectors who understand the value of genuine craftsmanship.</p>
+            <p>With over <span class="highlight">800 successful transactions</span>, we've built our reputation on transparency, fair pricing, and exceptional customer service. Whether you're looking for that grail piece or trying to trade up, we're here to make it happen.</p>
+        </div>
+        <div class="story-image fade-in">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="NYXCO Exchange Story">
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item fade-in">
+                <div class="stat-number">800+</div>
+                <div class="stat-label">Successful Sales</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Authentic Guarantee</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">48h</div>
+                <div class="stat-label">Shipping Time</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">DM Support</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="section-header fade-in">
+            <span class="section-label">What We Stand For</span>
+            <h2 class="section-title">Our Values</h2>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <i data-lucide="shield-check" style="width: 36px; height: 36px;"></i>
+                </div>
+                <h3 class="value-title">Authenticity First</h3>
+                <p class="value-desc">We guarantee 100% authenticity on every item. Each piece undergoes rigorous inspection before listing.</p>
+            </div>
+            
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <i data-lucide="users" style="width: 36px; height: 36px;"></i>
+                </div>
+                <h3 class="value-title">Community Focused</h3>
+                <p class="value-desc">We're collectors too. We understand the culture and treat every customer like family.</p>
+            </div>
+            
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <i data-lucide="handshake" style="width: 36px; height: 36px;"></i>
+                </div>
+                <h3 class="value-title">Fair Deals</h3>
+                <p class="value-desc">Transparent pricing, open to negotiations, and fair trade values. No lowballing, no inflated prices.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section">
+        <div class="location-container">
+            <div class="location-content fade-in">
+                <span class="section-label">Based In</span>
+                <h2>Hammond, Louisiana</h2>
+                <p>Serving the streetwear community nationwide from our home base in Hammond, LA. We offer local delivery within the area and are always open to local meetups for transactions.</p>
+                <div class="location-features">
+                    <div class="location-feature">
+                        <i data-lucide="map-pin"></i>
+                        <span>Hammond, Louisiana</span>
+                    </div>
+                    <div class="location-feature">
+                        <i data-lucide="truck"></i>
+                        <span>Nationwide Shipping</span>
+                    </div>
+                    <div class="location-feature">
+                        <i data-lucide="home"></i>
+                        <span>Local Delivery Available</span>
+                    </div>
+                    <div class="location-feature">
+                        <i data-lucide="clock"></i>
+                        <span>Same-Day Local Response</span>
+                    </div>
+                </div>
+            </div>
+            <div class="location-map fade-in">
+                <div class="map-content">
+                    <div class="map-pin">
+                        <i data-lucide="map-pin" style="width: 40px; height: 40px;"></i>
+                    </div>
+                    <h3>Hammond, LA</h3>
+                    <p>Serving Southeast Louisiana</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="fade-in">
+            <h2 class="cta-title">Join the NYXCO Community</h2>
+            <p class="cta-text">Whether you're buying, selling, or trading, we're here to help.</p>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <a href="shop.html" class="btn btn-primary">
+                    Browse Collection
+                    <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">NYXCO</a>
+                <p>Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com" target="_blank"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
+                    <a href="https://wa.me/1234567890" target="_blank"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i></a>
+                    <a href="mailto:contact@nyxco.exchange"><i data-lucide="mail" style="width: 20px; height: 20px;"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">All Items</a></li>
+                    <li><a href="shop.html">Bags</a></li>
+                    <li><a href="shop.html">Hoodies</a></li>
+                    <li><a href="shop.html">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="how-to-order.html">How to Order</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NYXCO Exchange. All rights reserved. | Hammond, Louisiana</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');
+            lucide.createIcons();
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
