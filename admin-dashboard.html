@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | NYXCO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-nyxco-black: #0a0a0a;
+            --color-nyxco-black-light: #111111;
+            --color-nyxco-black-lighter: #1a1a1a;
+            --color-nyxco-gold: #d4af37;
+            --color-nyxco-gold-light: #f4d03f;
+            --color-nyxco-gold-dark: #b8860b;
+            --color-nyxco-white: #ffffff;
+            --color-nyxco-gray: #888888;
+            --color-nyxco-gray-light: #cccccc;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        .sidebar-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--color-nyxco-gold);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        .sidebar-link:hover::before, .sidebar-link.active::before {
+            transform: scaleY(1);
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(212,175,55,0.05);
+            color: var(--color-nyxco-gold);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(17,17,17,1) 100%);
+        }
+        
+        .table-row:hover {
+            background: rgba(212,175,55,0.03);
+        }
+        
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+        }
+        
+        .btn-gold {
+            background: var(--color-nyxco-gold);
+            color: var(--color-nyxco-black);
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            background: var(--color-nyxco-gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.2);
+        }
+        
+        .btn-danger {
+            background: rgba(239,68,68,0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239,68,68,0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-danger:hover {
+            background: rgba(239,68,68,0.2);
+        }
+        
+        .form-input {
+            background: var(--color-nyxco-black);
+            border: 1px solid var(--color-nyxco-black-lighter);
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-nyxco-gold);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+        
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .toast {
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        /* File Upload Styles */
+        .file-upload-zone {
+            border: 2px dashed var(--color-nyxco-black-lighter);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .file-upload-zone:hover, .file-upload-zone.dragover {
+            border-color: var(--color-nyxco-gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .file-upload-zone.has-file {
+            border-color: var(--color-nyxco-gold);
+            background: rgba(212,175,55,0.08);
+        }
+        
+        .gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+        }
+        .gallery-preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--color-nyxco-black-lighter);
+        }
+        .gallery-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-preview-item .remove-img {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: rgba(239,68,68,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .gallery-preview-item:hover .remove-img {
+            opacity: 1;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--color-nyxco-black); }
+        ::-webkit-scrollbar-thumb { background: var(--color-nyxco-gold); border-radius: 3px; }
+    </style>
+</head>
+<body class="font-body bg-nyxco-black text-nyxco-white min-h-screen">
+    
+    <!-- Mobile Header -->
+    <div class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-nyxco-black-light border-b border-nyxco-black-lighter px-4 py-3 flex justify-between items-center">
+        <span class="font-display text-xl font-bold text-nyxco-gold tracking-[3px]">NYXCO</span>
+        <button id="mobileSidebarToggle" class="text-nyxco-gold p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <div class="flex min-h-screen pt-14 lg:pt-0">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed lg:sticky top-0 left-0 w-[280px] h-screen bg-nyxco-black-light border-r border-nyxco-black-lighter z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto">
+            <div class="p-8">
+                <a href="index.html" class="font-display text-2xl font-bold text-nyxco-gold tracking-[4px] relative inline-block no-underline mb-2">NYXCO<span class="text-xs absolute -top-1 -right-5">®</span></a>
+                <p class="text-nyxco-gray text-xs uppercase tracking-[2px]">Admin Dashboard</p>
+            </div>
+
+            <nav class="mt-4">
+                <a href="#" data-section="dashboard" class="sidebar-link active flex items-center gap-4 px-8 py-4 text-sm font-medium text-nyxco-gray no-underline">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    Dashboard
+                </a>
+                <a href="#" data-section="products" class="sidebar-link flex items-center gap-4 px-8 py-4 text-sm font-medium text-nyxco-gray no-underline">
+                    <i data-lucide="package" class="w-5 h-5"></i>
+                    Products
+                </a>
+                <a href="#" data-section="categories" class="sidebar-link flex items-center gap-4 px-8 py-4 text-sm font-medium text-nyxco-gray no-underline">
+                    <i data-lucide="tags" class="w-5 h-5"></i>
+                    Categories
+                </a>
+                <a href="#" data-section="settings" class="sidebar-link flex items-center gap-4 px-8 py-4 text-sm font-medium text-nyxco-gray no-underline">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="absolute bottom-0 left-0 right-0 p-8 border-t border-nyxco-black-lighter">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-nyxco-gold/10 border border-nyxco-gold/30 rounded-full flex items-center justify-center">
+                        <i data-lucide="user" class="w-5 h-5 text-nyxco-gold"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-white" id="adminUser">Admin</p>
+                        <p class="text-xs text-nyxco-gray">Super Admin</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="w-full py-3 border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] hover:border-nyxco-gold hover:text-nyxco-gold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Overlay for mobile -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"></div>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 lg:p-10 overflow-x-hidden">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="section-content">
+                <div class="flex justify-between items-center mb-10">
+                    <div>
+                        <h1 class="font-display text-3xl lg:text-4xl mb-2">Dashboard</h1>
+                        <p class="text-nyxco-gray">Welcome back! Here is what is happening with your store.</p>
+                    </div>
+                    <div class="hidden lg:block text-right">
+                        <p class="text-nyxco-gold text-sm uppercase tracking-[2px]" id="currentDate"></p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+                    <div class="stat-card border border-nyxco-black-lighter p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 bg-nyxco-gold/10 border border-nyxco-gold/20 rounded-lg flex items-center justify-center">
+                                <i data-lucide="package" class="w-6 h-6 text-nyxco-gold"></i>
+                            </div>
+                            <span class="text-green-400 text-xs font-medium flex items-center gap-1">
+                                <i data-lucide="trending-up" class="w-3 h-3"></i> +12%
+                            </span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-1" id="totalProducts">0</h3>
+                        <p class="text-nyxco-gray text-sm">Total Products</p>
+                    </div>
+
+                    <div class="stat-card border border-nyxco-black-lighter p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-center justify-center">
+                                <i data-lucide="tags" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <span class="text-nyxco-gray text-xs">Active</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-1" id="totalCategories">5</h3>
+                        <p class="text-nyxco-gray text-sm">Categories</p>
+                    </div>
+
+                    <div class="stat-card border border-nyxco-black-lighter p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 bg-purple-500/10 border border-purple-500/20 rounded-lg flex items-center justify-center">
+                                <i data-lucide="zap" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                            <span class="text-nyxco-gray text-xs">Featured</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-1" id="featuredProducts">0</h3>
+                        <p class="text-nyxco-gray text-sm">Featured Items</p>
+                    </div>
+
+                    <div class="stat-card border border-nyxco-black-lighter p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-center">
+                                <i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>
+                            </div>
+                            <span class="text-nyxco-gray text-xs">In Stock</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-1" id="inStockProducts">0</h3>
+                        <p class="text-nyxco-gray text-sm">Available Items</p>
+                    </div>
+                </div>
+
+                <!-- Recent Products Preview -->
+                <div class="border border-nyxco-black-lighter bg-nyxco-black-light">
+                    <div class="p-6 border-b border-nyxco-black-lighter flex justify-between items-center">
+                        <h2 class="font-display text-xl">Recent Products</h2>
+                        <button onclick="showSection('products')" class="text-nyxco-gold text-sm hover:underline cursor-pointer">View All</button>
+                    </div>
+                    <div class="p-6">
+                        <div id="recentProductsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products-section" class="section-content hidden">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-10">
+                    <div>
+                        <h1 class="font-display text-3xl lg:text-4xl mb-2">Products</h1>
+                        <p class="text-nyxco-gray">Manage your inventory and product listings.</p>
+                    </div>
+                    <button onclick="openProductModal()" class="btn-gold px-6 py-3 text-sm font-semibold uppercase tracking-[2px] flex items-center gap-2 cursor-pointer">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Add Product
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-col lg:flex-row gap-4 mb-6">
+                    <div class="relative flex-1">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-nyxco-gray"></i>
+                        <input type="text" id="searchProducts" placeholder="Search products..." 
+                            class="w-full bg-nyxco-black-light border border-nyxco-black-lighter text-white pl-12 pr-4 py-3 text-sm form-input placeholder:text-nyxco-gray/50">
+                    </div>
+                    <select id="filterCategory" class="bg-nyxco-black-light border border-nyxco-black-lighter text-white px-4 py-3 text-sm form-input cursor-pointer">
+                        <option value="all">All Categories</option>
+                        <option value="designer">Designer Collection</option>
+                        <option value="streetwear">Streetwear Collection</option>
+                        <option value="regular">Regular Collection</option>
+                        <option value="bags">Bags & Accessories</option>
+                        <option value="shoes">Shoes</option>
+                    </select>
+                </div>
+
+                <!-- Products Table -->
+                <div class="border border-nyxco-black-lighter bg-nyxco-black-light overflow-x-auto">
+                    <table class="w-full min-w-[800px]">
+                        <thead>
+                            <tr class="border-b border-nyxco-black-lighter text-left">
+                                <th class="p-4 text-xs uppercase tracking-[2px] text-nyxco-gray font-semibold">Product</th>
+                                <th class="p-4 text-xs uppercase tracking-[2px] text-nyxco-gray font-semibold">Category</th>
+                                <th class="p-4 text-xs uppercase tracking-[2px] text-nyxco-gray font-semibold">Condition</th>
+                                <th class="p-4 text-xs uppercase tracking-[2px] text-nyxco-gray font-semibold">Tag</th>
+                                <th class="p-4 text-xs uppercase tracking-[2px] text-nyxco-gray font-semibold text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories-section" class="section-content hidden">
+                <div class="mb-10">
+                    <h1 class="font-display text-3xl lg:text-4xl mb-2">Categories</h1>
+                    <p class="text-nyxco-gray">Manage your product categories.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-nyxco-black-lighter bg-nyxco-black-light p-6 group hover:border-nyxco-gold/40 transition-all duration-300">
+                        <div class="w-14 h-14 bg-nyxco-gold/10 border border-nyxco-gold/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-nyxco-gold/20 transition-all">
+                            <i data-lucide="gem" class="w-7 h-7 text-nyxco-gold"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Designer Collection</h3>
+                        <p class="text-nyxco-gray text-sm mb-4">High-end luxury brands and designer pieces.</p>
+                        <span class="text-nyxco-gold text-sm font-medium" id="cat-designer-count">0 products</span>
+                    </div>
+
+                    <div class="border border-nyxco-black-lighter bg-nyxco-black-light p-6 group hover:border-nyxco-gold/40 transition-all duration-300">
+                        <div class="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-all">
+                            <i data-lucide="flame" class="w-7 h-7 text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Streetwear Collection</h3>
+                        <p class="text-nyxco-gray text-sm mb-4">Urban and street fashion items.</p>
+                        <span class="text-nyxco-gold text-sm font-medium" id="cat-streetwear-count">0 products</span>
+                    </div>
+
+                    <div class="border border-nyxco-black-lighter bg-nyxco-black-light p-6 group hover:border-nyxco-gold/40 transition-all duration-300">
+                        <div class="w-14 h-14 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-all">
+                            <i data-lucide="shirt" class="w-7 h-7 text-green-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Regular Collection</h3>
+                        <p class="text-nyxco-gray text-sm mb-4">Everyday essentials and basics.</p>
+                        <span class="text-nyxco-gold text-sm font-medium" id="cat-regular-count">0 products</span>
+                    </div>
+
+                    <div class="border border-nyxco-black-lighter bg-nyxco-black-light p-6 group hover:border-nyxco-gold/40 transition-all duration-300">
+                        <div class="w-14 h-14 bg-purple-500/10 border border-purple-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-all">
+                            <i data-lucide="briefcase" class="w-7 h-7 text-purple-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Bags & Accessories</h3>
+                        <p class="text-nyxco-gray text-sm mb-4">Bags, belts, and accessories.</p>
+                        <span class="text-nyxco-gold text-sm font-medium" id="cat-bags-count">0 products</span>
+                    </div>
+                    <div class="border border-nyxco-black-lighter bg-nyxco-black-light p-6 group hover:border-nyxco-gold/40 transition-all duration-300">
+    <div class="w-14 h-14 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-yellow-500/20 transition-all">
+        <i data-lucide="footprints" class="w-7 h-7 text-yellow-400"></i>
+    </div>
+    <h3 class="text-lg font-semibold mb-2">Shoes</h3>
+    <p class="text-nyxco-gray text-sm mb-4">Sneakers, formal and luxury footwear.</p>
+    <span class="text-nyxco-gold text-sm font-medium" id="cat-shoes-count">0 products</span>
+</div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="section-content hidden">
+                <div class="mb-10">
+                    <h1 class="font-display text-3xl lg:text-4xl mb-2">Settings</h1>
+                    <p class="text-nyxco-gray">Manage your admin preferences.</p>
+                </div>
+
+                <div class="max-w-2xl border border-nyxco-black-lighter bg-nyxco-black-light p-8">
+                    <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                        <i data-lucide="shield" class="w-5 h-5 text-nyxco-gold"></i>
+                        Admin Credentials
+                    </h3>
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2">Current Username</label>
+                            <input type="text" value="nyxco_admin" disabled class="w-full bg-nyxco-black border border-nyxco-black-lighter text-nyxco-gray px-4 py-3 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2">Current Password</label>
+                            <input type="text" value="Nyxco@2026#" disabled class="w-full bg-nyxco-black border border-nyxco-black-lighter text-nyxco-gray px-4 py-3 text-sm">
+                        </div>
+                    </div>
+                    <div class="p-4 bg-nyxco-gold/5 border border-nyxco-gold/20 rounded">
+                        <p class="text-nyxco-gold text-sm flex items-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4"></i>
+                            Credentials are hardcoded. To change, edit the admin-login.html file.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Product Modal (Add/Edit) -->
+    <div id="productModal" class="hidden fixed inset-0 bg-black/80 modal-overlay z-[2000] overflow-y-auto p-4">
+        <div class="bg-nyxco-black-light max-w-[700px] w-full mx-auto mt-10 mb-10 border border-nyxco-black-lighter shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+            <div class="p-6 border-b border-nyxco-black-lighter flex justify-between items-center">
+                <h2 class="font-display text-2xl" id="modalTitle">Add Product</h2>
+                <button onclick="closeProductModal()" class="text-nyxco-gray hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <form id="productForm" class="p-6 space-y-6">
+                <input type="hidden" id="productId">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Product Name *</label>
+                        <input type="text" id="prodName" required class="w-full form-input text-white px-4 py-3 text-sm placeholder:text-nyxco-gray/50" placeholder="e.g. Louis Vuitton Keepall 55">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Category *</label>
+                        <select id="prodCategory" required class="w-full form-input text-white px-4 py-3 text-sm cursor-pointer">
+                            <option value="designer">Designer Collection</option>
+                            <option value="streetwear">Streetwear Collection</option>
+                            <option value="regular">Regular Collection</option>
+                            <option value="bags">Bags & Accessories</option>
+                            <option value="shoes">Shoes</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Condition *</label>
+                        <select id="prodCondition" required class="w-full form-input text-white px-4 py-3 text-sm cursor-pointer">
+                            <option value="New">New</option>
+                            <option value="Like New">Like New</option>
+                            <option value="Used">Used</option>
+                            <option value="Vintage">Vintage</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Price</label>
+                        <input type="text" id="prodPrice" class="w-full form-input text-white px-4 py-3 text-sm placeholder:text-nyxco-gray/50" placeholder="Contact for Price">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Tag</label>
+                        <select id="prodTag" class="w-full form-input text-white px-4 py-3 text-sm cursor-pointer">
+                            <option value="">None</option>
+                            <option value="new">New Arrival</option>
+                            <option value="hot">Hot Item</option>
+                            <option value="limited">Limited Stock</option>
+                            <option value="sold">Sold</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Main Image Upload -->
+                <div>
+                    <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Main Product Image *</label>
+                    <div class="file-upload-zone rounded-lg p-6 text-center" id="mainImageZone" onclick="document.getElementById('mainImageInput').click()">
+                        <input type="file" id="mainImageInput" accept="image/*" class="hidden" onchange="handleMainImageUpload(this)">
+                        <div id="mainImagePreview" class="hidden mb-3">
+                            <img id="mainImagePreviewImg" class="w-32 h-32 object-cover mx-auto rounded border border-nyxco-black-lighter">
+                        </div>
+                        <div id="mainImagePlaceholder">
+                            <i data-lucide="upload-cloud" class="w-10 h-10 text-nyxco-gray mx-auto mb-2"></i>
+                            <p class="text-sm text-nyxco-gray">Click to upload main image</p>
+                            <p class="text-xs text-nyxco-gray/50 mt-1">JPG, PNG, WEBP (max 5MB)</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="prodImage" required>
+                </div>
+                
+                <!-- Gallery Images Upload -->
+                <div>
+                    <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Gallery Images (Optional)</label>
+                    <div class="file-upload-zone rounded-lg p-4 text-center mb-3" id="galleryZone" onclick="document.getElementById('galleryInput').click()">
+                        <input type="file" id="galleryInput" accept="image/*" multiple class="hidden" onchange="handleGalleryUpload(this)">
+                        <i data-lucide="images" class="w-8 h-8 text-nyxco-gray mx-auto mb-1"></i>
+                        <p class="text-sm text-nyxco-gray">Click to add gallery images</p>
+                        <p class="text-xs text-nyxco-gray/50 mt-1">Select multiple images</p>
+                    </div>
+                    <div id="galleryPreview" class="gallery-preview hidden">
+                        <!-- Gallery preview items -->
+                    </div>
+                    <input type="hidden" id="prodGallery">
+                </div>
+                
+                <div>
+                    <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Description *</label>
+                    <textarea id="prodDescription" rows="4" required class="w-full form-input text-white px-4 py-3 text-sm placeholder:text-nyxco-gray/50 resize-none" placeholder="Product description..."></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-xs uppercase tracking-[2px] text-nyxco-gray mb-2 font-medium">Features (one per line)</label>
+                    <textarea id="prodFeatures" rows="4" class="w-full form-input text-white px-4 py-3 text-sm placeholder:text-nyxco-gray/50 resize-none" placeholder="100% Authentic&#10;Includes Box&#10;Original Receipt"></textarea>
+                </div>
+                
+                <div class="flex gap-4 pt-4 border-t border-nyxco-black-lighter">
+                    <button type="submit" class="btn-gold flex-1 py-3 text-sm font-semibold uppercase tracking-[2px] cursor-pointer">Save Product</button>
+                    <button type="button" onclick="closeProductModal()" class="flex-1 py-3 border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] hover:border-nyxco-gold hover:text-nyxco-gold transition-all duration-300 cursor-pointer">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="hidden fixed inset-0 bg-black/80 modal-overlay z-[2001] flex items-center justify-center p-4">
+        <div class="bg-nyxco-black-light max-w-[400px] w-full border border-nyxco-black-lighter p-8 text-center">
+            <div class="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="trash-2" class="w-8 h-8 text-red-400"></i>
+            </div>
+            <h3 class="font-display text-xl mb-2">Delete Product?</h3>
+            <p class="text-nyxco-gray text-sm mb-6">This action cannot be undone. The product will be permanently removed from your store.</p>
+            <div class="flex gap-4">
+                <button onclick="confirmDelete()" class="btn-danger flex-1 py-3 text-sm font-semibold uppercase tracking-[2px] cursor-pointer">Delete</button>
+                <button onclick="closeDeleteModal()" class="flex-1 py-3 border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] hover:border-nyxco-gold hover:text-nyxco-gold transition-all duration-300 cursor-pointer">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-6 right-6 z-[3000] space-y-3"></div>
+
+    <script>
+        // ========== ADMIN DASHBOARD JS WITH FILE UPLOAD ==========
+        
+        const STORAGE_KEY = 'nyxco_products';
+        const SESSION_KEY = 'nyxco_admin_session';
+        
+        let products = [];
+        let deleteProductId = null;
+        let currentGalleryImages = [];
+        let currentMainImage = '';
+        
+        // Category config
+        const categoryConfig = {
+            designer: { name: 'Designer Collection', icon: 'gem', color: 'text-nyxco-gold' },
+            streetwear: { name: 'Streetwear Collection', icon: 'flame', color: 'text-blue-400' },
+            regular: { name: 'Regular Collection', icon: 'shirt', color: 'text-green-400' },
+            bags: { name: 'Bags & Accessories', icon: 'briefcase', color: 'text-purple-400' },
+            shoes: { name: 'Shoes', icon: 'shoe', color: 'text-yellow-400' }
+        };
+        
+        const tagConfig = {
+            new: { label: 'New Arrival', class: 'bg-nyxco-gold text-nyxco-black' },
+            hot: { label: 'Hot Item', class: 'bg-red-500 text-white' },
+            limited: { label: 'Limited', class: 'bg-nyxco-black text-nyxco-gold border border-nyxco-gold' },
+            sold: { label: 'Sold', class: 'bg-red-600 text-white' }
+        };
+
+        // Auth check
+        if (!localStorage.getItem(SESSION_KEY)) {
+            window.location.href = 'admin-login.html';
+        }
+
+        // ========== FILE UPLOAD FUNCTIONS ==========
+        
+        // Convert file to Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // Handle main image upload
+        async function handleMainImageUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Image size must be less than 5MB', 'error');
+                return;
+            }
+            
+            try {
+                const base64 = await fileToBase64(file);
+                currentMainImage = base64;
+                
+                // Show preview
+                document.getElementById('mainImagePreviewImg').src = base64;
+                document.getElementById('mainImagePreview').classList.remove('hidden');
+                document.getElementById('mainImagePlaceholder').classList.add('hidden');
+                document.getElementById('mainImageZone').classList.add('has-file');
+                document.getElementById('prodImage').value = base64;
+                
+                lucide.createIcons();
+            } catch (err) {
+                showToast('Error uploading image', 'error');
+            }
+        }
+        
+        // Handle gallery images upload
+        async function handleGalleryUpload(input) {
+            const files = Array.from(input.files);
+            
+            for (const file of files) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast(`Skipped ${file.name} (too large)`, 'error');
+                    continue;
+                }
+                
+                try {
+                    const base64 = await fileToBase64(file);
+                    currentGalleryImages.push(base64);
+                } catch (err) {
+                    showToast(`Error uploading ${file.name}`, 'error');
+                }
+            }
+            
+            updateGalleryPreview();
+            updateGalleryInput();
+        }
+        
+        // Update gallery preview
+        function updateGalleryPreview() {
+            const preview = document.getElementById('galleryPreview');
+            
+            if (currentGalleryImages.length === 0) {
+                preview.classList.add('hidden');
+                return;
+            }
+            
+            preview.classList.remove('hidden');
+            preview.innerHTML = currentGalleryImages.map((img, idx) => `
+                <div class="gallery-preview-item">
+                    <img src="${img}" alt="Gallery ${idx + 1}">
+                    <div class="remove-img" onclick="removeGalleryImage(${idx}, event)">
+                        <i data-lucide="x" class="w-3 h-3 text-white"></i>
+                    </div>
+                </div>
+            `).join('');
+            
+            lucide.createIcons();
+        }
+        
+        // Remove gallery image
+        function removeGalleryImage(index, event) {
+            event.stopPropagation();
+            currentGalleryImages.splice(index, 1);
+            updateGalleryPreview();
+            updateGalleryInput();
+        }
+        
+        // Update hidden gallery input
+        function updateGalleryInput() {
+            document.getElementById('prodGallery').value = currentGalleryImages.join('|||');
+        }
+        
+        // Drag and drop support
+        function setupDragDrop() {
+            const zones = ['mainImageZone', 'galleryZone'];
+            
+            zones.forEach(zoneId => {
+                const zone = document.getElementById(zoneId);
+                if (!zone) return;
+                
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('dragover');
+                });
+                
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('dragover');
+                });
+                
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('dragover');
+                    
+                    const files = e.dataTransfer.files;
+                    if (zoneId === 'mainImageZone' && files.length > 0) {
+                        const input = document.getElementById('mainImageInput');
+                        input.files = files;
+                        handleMainImageUpload(input);
+                    } else if (zoneId === 'galleryZone') {
+                        const input = document.getElementById('galleryInput');
+                        input.files = files;
+                        handleGalleryUpload(input);
+                    }
+                });
+            });
+        }
+
+        // ========== PRODUCT FUNCTIONS ==========
+        
+        // Load products
+        function loadProducts() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try { 
+                    products = JSON.parse(stored); 
+                    return;
+                } catch(e) {}
+            }
+            products = [];
+        }
+
+        function saveProducts() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+            window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY }));
+        }
+
+        // Navigation
+        function showSection(sectionName) {
+            document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`[data-section="${sectionName}"]`)?.classList.add('active');
+            
+            if (sectionName === 'products') renderProductsTable();
+            if (sectionName === 'categories') renderCategories();
+            if (sectionName === 'dashboard') renderDashboard();
+            
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.add('hidden');
+        }
+
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(link.dataset.section);
+            });
+        });
+
+        // Mobile sidebar
+        document.getElementById('mobileSidebarToggle').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        });
+        document.getElementById('sidebarOverlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.add('hidden');
+        });
+
+        // Dashboard
+        function renderDashboard() {
+            document.getElementById('totalProducts').textContent = products.length;
+            document.getElementById('featuredProducts').textContent = products.filter(p => p.tag && p.tag !== 'sold').length;
+            document.getElementById('inStockProducts').textContent = products.filter(p => p.tag !== 'sold').length;
+            
+            const recent = [...products].reverse().slice(0, 3);
+            const grid = document.getElementById('recentProductsGrid');
+            grid.innerHTML = recent.map(p => `
+                <div class="flex gap-4 p-4 border border-nyxco-black-lighter hover:border-nyxco-gold/30 transition-all">
+                    <img src="${p.image}" class="w-16 h-16 object-cover border border-nyxco-black-lighter flex-shrink-0" onerror="this.src='https://via.placeholder.com/100x100/111111/d4af37?text=NYXCO'">
+                    <div class="min-w-0">
+                        <h4 class="text-sm font-medium truncate mb-1">${p.name}</h4>
+                        <p class="text-xs text-nyxco-gray mb-1">${categoryConfig[p.category]?.name || p.category}</p>
+                        <span class="text-xs text-nyxco-gold">${p.condition}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Products Table
+        function renderProductsTable() {
+            const tbody = document.getElementById('productsTableBody');
+            const search = document.getElementById('searchProducts').value.toLowerCase();
+            const catFilter = document.getElementById('filterCategory').value;
+            
+            let filtered = products;
+            if (search) filtered = filtered.filter(p => p.name.toLowerCase().includes(search));
+            if (catFilter !== 'all') filtered = filtered.filter(p => p.category === catFilter);
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-nyxco-gray">
+                            <i data-lucide="package-x" class="w-12 h-12 mx-auto mb-3 opacity-30"></i>
+                            <p>No products found.</p>
+                        </td>
+                    </tr>
+                `;
+                lucide.createIcons();
+                return;
+            }
+            
+            tbody.innerHTML = filtered.map(p => {
+                const tag = p.tag ? tagConfig[p.tag] : null;
+                return `
+                <tr class="table-row border-b border-nyxco-black-lighter transition-colors">
+                    <td class="p-4">
+                        <div class="flex items-center gap-3">
+                            <img src="${p.image}" class="w-12 h-12 object-cover border border-nyxco-black-lighter flex-shrink-0" onerror="this.src='https://via.placeholder.com/50x50/111111/d4af37?text=N'">
+                            <div>
+                                <p class="text-sm font-medium text-white">${p.name}</p>
+                                <p class="text-xs text-nyxco-gray">ID: ${p.id}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <span class="text-sm text-nyxco-gray">${categoryConfig[p.category]?.name || p.category}</span>
+                    </td>
+                    <td class="p-4">
+                        <span class="text-sm text-nyxco-gray">${p.condition}</span>
+                    </td>
+                    <td class="p-4">
+                        ${tag ? `<span class="tag-badge ${tag.class}">${tag.label}</span>` : '<span class="text-nyxco-gray text-sm">-</span>'}
+                    </td>
+                    <td class="p-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="editProduct(${p.id})" class="w-9 h-9 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:border-nyxco-gold hover:text-nyxco-gold transition-all cursor-pointer" title="Edit">
+                                <i data-lucide="pencil" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="deleteProduct(${p.id})" class="w-9 h-9 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:border-red-500 hover:text-red-500 transition-all cursor-pointer" title="Delete">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+            
+            lucide.createIcons();
+        }
+
+        // Categories
+        function renderCategories() {
+            const counts = {};
+            products.forEach(p => {
+                counts[p.category] = (counts[p.category] || 0) + 1;
+            });
+            
+            Object.keys(categoryConfig).forEach(cat => {
+                const el = document.getElementById(`cat-${cat}-count`);
+                if (el) el.textContent = `${counts[cat] || 0} products`;
+            });
+        }
+
+        // Product Modal
+        function openProductModal(productId = null) {
+            // Reset form
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            
+            // Reset image states
+            currentMainImage = '';
+            currentGalleryImages = [];
+            
+            // Reset UI
+            document.getElementById('mainImagePreview').classList.add('hidden');
+            document.getElementById('mainImagePlaceholder').classList.remove('hidden');
+            document.getElementById('mainImageZone').classList.remove('has-file');
+            document.getElementById('galleryPreview').classList.add('hidden');
+            document.getElementById('prodImage').value = '';
+            document.getElementById('prodGallery').value = '';
+            
+            if (productId) {
+                const p = products.find(x => x.id === productId);
+                if (!p) return;
+                
+                document.getElementById('modalTitle').textContent = 'Edit Product';
+                document.getElementById('productId').value = p.id;
+                document.getElementById('prodName').value = p.name;
+                document.getElementById('prodCategory').value = p.category;
+                document.getElementById('prodCondition').value = p.condition;
+                document.getElementById('prodPrice').value = p.price;
+                document.getElementById('prodTag').value = p.tag || '';
+                document.getElementById('prodDescription').value = p.description;
+                document.getElementById('prodFeatures').value = p.features?.join('\\n') || '';
+                
+                // Load existing images
+                if (p.image) {
+                    currentMainImage = p.image;
+                    document.getElementById('mainImagePreviewImg').src = p.image;
+                    document.getElementById('mainImagePreview').classList.remove('hidden');
+                    document.getElementById('mainImagePlaceholder').classList.add('hidden');
+                    document.getElementById('mainImageZone').classList.add('has-file');
+                    document.getElementById('prodImage').value = p.image;
+                }
+                
+                if (p.gallery && p.gallery.length > 0) {
+                    currentGalleryImages = [...p.gallery];
+                    updateGalleryPreview();
+                    updateGalleryInput();
+                }
+            } else {
+                document.getElementById('modalTitle').textContent = 'Add Product';
+            }
+            
+            document.getElementById('productModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Form Submit
+        document.getElementById('productForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('productId').value;
+            const featuresStr = document.getElementById('prodFeatures').value;
+            const mainImage = document.getElementById('prodImage').value;
+            const galleryStr = document.getElementById('prodGallery').value;
+            
+            if (!mainImage) {
+                showToast('Please upload a main product image', 'error');
+                return;
+            }
+            
+            const productData = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('prodName').value.trim(),
+                category: document.getElementById('prodCategory').value,
+                condition: document.getElementById('prodCondition').value,
+                price: document.getElementById('prodPrice').value.trim() || 'Contact for Price',
+                tag: document.getElementById('prodTag').value || null,
+                image: mainImage,
+                gallery: galleryStr ? galleryStr.split('|||').filter(u => u) : [mainImage],
+                description: document.getElementById('prodDescription').value.trim(),
+                features: featuresStr ? featuresStr.split('\\n').map(f => f.trim()).filter(f => f) : []
+            };
+            
+            if (id) {
+                const idx = products.findIndex(p => p.id === parseInt(id));
+                if (idx !== -1) products[idx] = productData;
+                showToast('Product updated successfully!', 'success');
+            } else {
+                products.push(productData);
+                showToast('Product added successfully!', 'success');
+            }
+            
+            saveProducts();
+            closeProductModal();
+            renderProductsTable();
+            renderDashboard();
+        });
+
+        // Edit
+        function editProduct(id) {
+            openProductModal(id);
+        }
+
+        // Delete
+        function deleteProduct(id) {
+            deleteProductId = id;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function confirmDelete() {
+            if (deleteProductId) {
+                products = products.filter(p => p.id !== deleteProductId);
+                saveProducts();
+                showToast('Product deleted successfully!', 'success');
+                renderProductsTable();
+                renderDashboard();
+            }
+            closeDeleteModal();
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+            deleteProductId = null;
+        }
+
+        // Search & Filter
+        document.getElementById('searchProducts').addEventListener('input', renderProductsTable);
+        document.getElementById('filterCategory').addEventListener('change', renderProductsTable);
+
+        // Toast
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const icon = type === 'success' ? 'check-circle' : 'alert-circle';
+            const color = type === 'success' ? 'text-green-400 border-green-500/30 bg-green-500/10' : 'text-red-400 border-red-500/30 bg-red-500/10';
+            
+            toast.className = `toast flex items-center gap-3 px-6 py-4 border ${color} min-w-[300px]`;
+            toast.innerHTML = `
+                <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i>
+                <span class="text-sm font-medium">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem(SESSION_KEY);
+            localStorage.removeItem('nyxco_admin_user');
+            window.location.href = 'admin-login.html';
+        }
+
+        // Date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        });
+        
+        // Admin name
+        const adminUser = localStorage.getItem('nyxco_admin_user');
+        if (adminUser) document.getElementById('adminUser').textContent = adminUser;
+
+        // Initialize
+        loadProducts();
+        renderDashboard();
+        setupDragDrop();
+        lucide.createIcons();
+
+        // Close modals on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProductModal();
+                closeDeleteModal();
+            }
+        });
+    </script>
+</body>
+</html>

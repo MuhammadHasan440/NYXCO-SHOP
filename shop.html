@@ -1,4 +1,4 @@
-<!-- shop.html - Shop/Collection Page -->
+<!-- ========== SHOP.HTML ========== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,388 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --black: #0a0a0a;
-            --black-light: #111111;
-            --black-lighter: #1a1a1a;
-            --gold: #d4af37;
-            --gold-light: #f4d03f;
-            --gold-dark: #b8860b;
-            --white: #ffffff;
-            --gray: #888888;
-            --gray-light: #cccccc;
-            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, .brand-font {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.5rem 4rem;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.4s var(--transition-smooth);
-        }
-
-        .navbar.scrolled {
-            padding: 1rem 4rem;
-            background: rgba(10, 10, 10, 0.98);
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 4px;
-            position: relative;
-        }
-
-        .logo::after {
-            content: '®';
-            font-size: 0.7rem;
-            position: absolute;
-            top: 0;
-            right: -18px;
-            color: var(--gold);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 4rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            cursor: pointer;
-        }
-
-        /* Page Header */
-        .page-header {
-            padding: 10rem 4rem 4rem;
-            background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
-            text-align: center;
-            border-bottom: 1px solid var(--black-lighter);
-        }
-
-        .page-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-        }
-
-        .page-subtitle {
-            color: var(--gray);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            padding: 2rem 4rem;
-            background: var(--black);
-            position: sticky;
-            top: 80px;
-            z-index: 100;
-            border-bottom: 1px solid var(--black-lighter);
-        }
-
-        .filter-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .category-tabs {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 0.9rem 2rem;
-            background: transparent;
-            border: 1px solid var(--black-lighter);
-            color: var(--gray);
-            cursor: pointer;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s var(--transition-smooth);
-            font-weight: 500;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--gold);
-            color: var(--black);
-            border-color: var(--gold);
-        }
-
-        .filter-info {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .filter-info span {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        /* Product Grid */
-        .shop-section {
-            padding: 4rem;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2.5rem;
-        }
-
-        .product-card {
-            background: var(--black-light);
-            border: 1px solid var(--black-lighter);
-            overflow: hidden;
-            transition: all 0.5s var(--transition-smooth);
-            cursor: pointer;
-            position: relative;
-            group: true;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(212,175,55,0.1);
-        }
-
-        .product-image-wrapper {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 1;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s var(--transition-smooth);
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.08);
-        }
-
-        .product-tag {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            padding: 0.6rem 1.2rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 2;
-        }
-
-        .product-tag.limited {
-            background: var(--black);
-            color: var(--gold);
-            border: 1px solid var(--gold);
-        }
-
-        .product-tag.new {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .product-tag.sold {
-            background: #ff3333;
-            color: var(--white);
-        }
-
-        .product-tag.hot {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: var(--white);
-        }
-
-        .quick-view {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(100%);
-            transition: transform 0.4s var(--transition-smooth);
-        }
-
-        .product-card:hover .quick-view {
-            transform: translateY(0);
-        }
-
-        .quick-view-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gold);
-            color: var(--black);
-            border: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .quick-view-btn:hover {
-            background: var(--gold-light);
-        }
-
-        .product-info {
-            padding: 2rem;
-        }
-
-        .product-category {
-            color: var(--gold);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--white);
-            line-height: 1.3;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--black-lighter);
-        }
-
-        .product-condition {
-            color: var(--gray);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .product-condition i {
-            color: var(--gold);
-            width: 16px;
-            height: 16px;
-        }
-
-        .product-price {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-
-        /* Product Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-nyxco-black: #0a0a0a;
+            --color-nyxco-black-light: #111111;
+            --color-nyxco-black-lighter: #1a1a1a;
+            --color-nyxco-gold: #d4af37;
+            --color-nyxco-gold-light: #f4d03f;
+            --color-nyxco-gold-dark: #b8860b;
+            --color-nyxco-white: #ffffff;
+            --color-nyxco-gray: #888888;
+            --color-nyxco-gray-light: #cccccc;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         @keyframes fadeIn {
@@ -399,974 +31,548 @@
             to { opacity: 1; }
         }
 
-        .modal-content {
-            background: var(--black-light);
-            max-width: 1200px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            position: relative;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .modal-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid var(--black-lighter);
-            color: var(--white);
-            cursor: pointer;
-            z-index: 10;
-            padding: 1rem;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
 
-        .modal-close:hover {
-            background: var(--gold);
-            color: var(--black);
-            transform: rotate(90deg);
-        }
-
-        .modal-gallery {
-            position: relative;
-            background: var(--black);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-main-image {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-        }
-
-        .modal-thumbnails {
-            display: flex;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: var(--black-light);
-        }
-
-        .modal-thumb {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 0.6;
-        }
-
-        .modal-thumb.active, .modal-thumb:hover {
-            border-color: var(--gold);
-            opacity: 1;
-        }
-
-        .modal-details {
-            padding: 4rem;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            margin-bottom: 2rem;
-        }
-
-        .modal-category {
-            color: var(--gold);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .modal-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .modal-condition-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            width: fit-content;
-        }
-
-        .modal-description {
-            color: var(--gray-light);
-            line-height: 1.9;
-            margin-bottom: 2.5rem;
-            font-size: 1.05rem;
-        }
-
-        .modal-features {
-            margin-bottom: 2.5rem;
-        }
-
-        .modal-features h4 {
-            color: var(--white);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .modal-features ul {
-            list-style: none;
-        }
-
-        .modal-features li {
-            color: var(--gray);
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .modal-features li::before {
-            content: '•';
-            color: var(--gold);
-            position: absolute;
-            left: 0;
-            font-size: 1.2rem;
-        }
-
-        .modal-price-box {
-            background: var(--black);
-            padding: 2rem;
-            border: 1px solid var(--black-lighter);
-            margin-bottom: 2rem;
-        }
-
-        .modal-price-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        .modal-note {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        .modal-cta {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 1.2rem 2rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.4s var(--transition-smooth);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
-        }
-
-        .btn-whatsapp:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
-        }
-
-        .btn-instagram {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.3);
-        }
-
-        .btn-instagram:hover {
-            opacity: 0.95;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(225, 48, 108, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--black-lighter);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        /* Recently Sold Section */
-        .sold-section {
-            padding: 6rem 4rem;
-            background: var(--black-light);
-            border-top: 1px solid var(--black-lighter);
-        }
-
-        .sold-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .sold-grid {
-            display: flex;
-            gap: 2rem;
-            overflow-x: auto;
-            padding: 1rem 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold) var(--black);
-        }
-
-        .sold-grid::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .sold-grid::-webkit-scrollbar-track {
-            background: var(--black);
-            border-radius: 4px;
-        }
-
-        .sold-grid::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 4px;
-        }
-
-        .sold-item {
-            min-width: 280px;
-            opacity: 0.5;
-            filter: grayscale(100%);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .sold-item:hover {
-            opacity: 0.8;
-            filter: grayscale(50%);
-        }
-
-        .sold-item img {
-            width: 280px;
-            height: 280px;
-            object-fit: cover;
-            border: 1px solid var(--black-lighter);
-        }
-
-        .sold-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #ff3333;
-            color: white;
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .sold-info {
-            padding: 1.5rem;
-            background: var(--black);
-            border: 1px solid var(--black-lighter);
-            border-top: none;
-        }
-
-        .sold-name {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            text-decoration: line-through;
-            color: var(--gray);
-        }
-
-        .sold-date {
-            font-size: 0.85rem;
-            color: var(--gold);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--black);
-            padding: 6rem 4rem 2rem;
-            border-top: 1px solid var(--black-lighter);
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 6rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            font-size: 2.5rem;
-        }
-
-        .footer-brand p {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            width: 45px;
-            height: 45px;
-            border: 1px solid var(--black-lighter);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
-        }
-
-        .footer-links h4 {
-            color: var(--gold);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 3rem;
-            border-top: 1px solid var(--black-lighter);
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 1400px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-nyxco-gold);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .product-card img {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+        .product-card .quick-view {
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover .quick-view {
+            transform: translateY(0);
         }
 
-        @media (max-width: 1100px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
         }
 
-        @media (max-width: 968px) {
-            .navbar {
-                padding: 1rem 2rem;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--black);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                border-top: 1px solid var(--gold);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .page-header {
-                padding: 8rem 1.5rem 3rem;
-            }
-
-            .filter-section {
-                padding: 1.5rem;
-                position: relative;
-                top: 0;
-            }
-
-            .filter-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .category-tabs {
-                justify-content: center;
-            }
-
-            .tab-btn {
-                flex: 1;
-                text-align: center;
-                padding: 0.8rem 1rem;
-                font-size: 0.75rem;
-            }
-
-            .shop-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .modal-content {
-                grid-template-columns: 1fr;
-                max-height: 100vh;
-                border: none;
-            }
-
-            .modal-main-image {
-                height: 300px;
-            }
-
-            .modal-details {
-                padding: 2rem;
-            }
-
-            .modal-title {
-                font-size: 1.8rem;
-            }
-
-            .modal-thumbnails {
-                overflow-x: auto;
-            }
-
-            .sold-section {
-                padding: 4rem 1.5rem;
-            }
-
-            .sold-item {
-                min-width: 240px;
-            }
-
-            .sold-item img {
-                width: 240px;
-                height: 240px;
-            }
-
-            footer {
-                padding: 4rem 1.5rem 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
+        .sold-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        .sold-grid::-webkit-scrollbar-track {
+            background: var(--color-nyxco-black);
+            border-radius: 4px;
+        }
+        .sold-grid::-webkit-scrollbar-thumb {
+            background: var(--color-nyxco-gold);
+            border-radius: 4px;
         }
 
-        @media (max-width: 480px) {
-            .modal {
-                padding: 0;
-            }
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--color-nyxco-gold);
+            color: var(--color-nyxco-black);
+            border-color: var(--color-nyxco-gold);
+        }
 
-            .modal-content {
-                max-height: 100vh;
-            }
+        .modal-thumb.active, .modal-thumb:hover {
+            border-color: var(--color-nyxco-gold);
+            opacity: 1;
+        }
 
-            .modal-close {
-                top: 1rem;
-                right: 1rem;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
 </head>
-<body>
+<body class="font-body bg-nyxco-black text-nyxco-white overflow-x-hidden leading-relaxed">
+
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">NYXCO</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="how-to-order.html">How to Order</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+     <nav id="navbar" class="fixed top-0 w-full z-50 px-8 lg:px-16 py-3 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#d4af37]/10 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-display text-2xl font-bold text-[#d4af37] tracking-[4px] relative hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 flex items-center gap-3">
+    
+    <!-- LOGO IMAGE -->
+    <img src="/images/logo.jpg" alt="NYXCO Logo" class="h-14 w-auto object-contain">
+
+    NYXCO
+    <span class="text-[0.7rem] absolute -top-1 -right-5">®</span>
+</a>
+            <ul id="navLinks" class="hidden lg:flex gap-16 list-none">
+                <li><a href="index.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Home</a></li>
+                <li><a href="shop.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Shop</a></li>
+                <li><a href="how-to-order.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">How to Order</a></li>
+                <li><a href="about.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">About</a></li>
+                <li><a href="contact.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            <button id="mobileMenuBtn" class="lg:hidden bg-transparent border-none text-nyxco-gold cursor-pointer p-2" aria-label="Toggle menu">
+                <i data-lucide="menu" class="w-7 h-7"></i>
             </button>
         </div>
+        <!-- Mobile Menu -->
+        <ul id="mobileNavLinks" class="hidden lg:hidden flex-col absolute top-full left-0 w-full bg-nyxco-black p-8 gap-6 border-t border-nyxco-gold shadow-[0_20px_40px_rgba(0,0,0,0.5)] list-none">
+            <li><a href="index.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Home</a></li>
+            <li><a href="shop.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Shop</a></li>
+            <li><a href="how-to-order.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">How to Order</a></li>
+            <li><a href="about.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">About</a></li>
+            <li><a href="contact.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header">
-        <span style="color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 1rem;">The Collection</span>
-        <h1 class="page-title">Shop All Items</h1>
-        <p class="page-subtitle">Authenticated luxury streetwear. DM for pricing—every item is negotiable and open for trades.</p>
+    <section class="pt-40 pb-16 px-8 lg:px-16 text-center bg-linear-to-b from-nyxco-black-light to-nyxco-black border-b border-nyxco-black-lighter">
+        <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-4 font-semibold">The Collection</span>
+        <h1 class="font-display text-[clamp(2.5rem,5vw,4rem)] mb-4">Shop All Items</h1>
+        <p class="text-nyxco-gray text-lg lg:text-xl max-w-[600px] mx-auto">Authenticated luxury streetwear. DM for pricing—every item is negotiable and open for trades.</p>
     </section>
 
     <!-- Filter Section -->
-    <section class="filter-section">
-        <div class="filter-container">
-            <div class="category-tabs">
-                <button class="tab-btn active" data-category="all">All Items</button>
-                <button class="tab-btn" data-category="bags">Bags</button>
-                <button class="tab-btn" data-category="hoodies">Hoodies</button>
-                <button class="tab-btn" data-category="accessories">Accessories</button>
+    <section class="py-8 px-8 lg:px-16 bg-nyxco-black top-[80px] z-40 border-b border-nyxco-black-lighter  lg:top-[80px]">
+        <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-center gap-6">
+            <div class="flex flex-wrap gap-4 justify-center lg:justify-start" id="categoryTabs">
+                <button class="tab-btn active px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="all">All Items</button>
+                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="designer">Designer Collection</button>
+                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="streetwear">Streetwear Collection</button>
+                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="regular">Regular Collection</button>
+                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="bags">Bags & Accessories</button>
+                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="shoes">
+Shoes Collection
+</button>
             </div>
-            <div class="filter-info">
-                Showing <span id="itemCount">6</span> items
-            </div>
+            <div class="text-nyxco-gray text-sm">Showing <span id="itemCount" class="text-nyxco-gold font-semibold">0</span> items</div>
         </div>
     </section>
 
     <!-- Product Grid -->
-    <section class="shop-section">
-        <div class="product-grid" id="productGrid">
-            <!-- Products populated by JS -->
+    <section class="py-16 px-8 lg:px-16 max-w-[1600px] mx-auto">
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
+            <!-- Products populated by JS from localStorage -->
         </div>
     </section>
 
     <!-- Product Modal -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">
-                <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+    <div id="productModal" class="hidden fixed inset-0 bg-black/95 z-[2000] overflow-y-auto backdrop-blur-lg p-8 lg:p-8 items-center justify-center">
+        <div class="bg-nyxco-black-light max-w-[1200px] w-full max-h-[90vh] overflow-y-auto border border-nyxco-gold/30 relative grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+            <button id="modalClose" class="absolute top-8 right-8 bg-black/80 border border-nyxco-black-lighter text-white cursor-pointer z-10 p-4 rounded-full hover:bg-nyxco-gold hover:text-nyxco-black hover:rotate-90 transition-all duration-300 flex items-center justify-center">
+                <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            <div class="modal-gallery">
-                <img src="" alt="" class="modal-main-image" id="modalImage">
-                <div class="modal-thumbnails" id="modalThumbnails">
+            <div class="relative bg-nyxco-black flex flex-col">
+                <img src="" alt="" id="modalImage" class="w-full h-[300px] lg:h-[500px] object-cover">
+                <div id="modalThumbnails" class="flex gap-4 p-6 bg-nyxco-black-light overflow-x-auto">
                     <!-- Thumbnails populated by JS -->
                 </div>
             </div>
-            <div class="modal-details">
-                <div class="modal-header">
-                    <div class="modal-category" id="modalCategory">Category</div>
-                    <h2 class="modal-title" id="modalTitle">Product Name</h2>
-                    <div class="modal-condition-badge">
-                        <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+            <div class="p-8 lg:p-16 flex flex-col overflow-y-auto">
+                <div class="mb-8">
+                    <div id="modalCategory" class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-4 font-semibold">Category</div>
+                    <h2 id="modalTitle" class="font-display text-[1.8rem] lg:text-[2.5rem] mb-4 leading-tight">Product Name</h2>
+                    <div class="inline-flex items-center gap-2 px-6 py-3 bg-nyxco-gold/10 border border-nyxco-gold text-nyxco-gold text-sm">
+                        <i data-lucide="check-circle" class="w-[18px] h-[18px]"></i>
                         <span id="modalCondition">Condition</span>
                     </div>
                 </div>
-                
-                <p class="modal-description" id="modalDescription">Description goes here.</p>
-                
-                <div class="modal-features">
-                    <h4>Item Details</h4>
-                    <ul id="modalFeatures">
+
+                <p id="modalDescription" class="text-nyxco-gray-light leading-[1.9] mb-10 text-base lg:text-[1.05rem]">Description goes here.</p>
+
+                <div class="mb-10">
+                    <h4 class="text-white text-base uppercase tracking-[2px] mb-4 font-semibold">Item Details</h4>
+                    <ul id="modalFeatures" class="list-none">
                         <!-- Features populated by JS -->
                     </ul>
                 </div>
 
-                <div class="modal-price-box">
-                    <div class="modal-price-label">Price</div>
-                    <div class="modal-price" id="modalPrice">Contact for Price</div>
-                    <div class="modal-note">DM for exact pricing and trades accepted</div>
+                <div class="bg-nyxco-black p-8 border border-nyxco-black-lighter mb-8">
+                    <div class="text-nyxco-gray text-sm uppercase tracking-[2px] mb-2">Price</div>
+                    <div id="modalPrice" class="font-display text-[2.5rem] text-nyxco-gold font-bold">Contact for Price</div>
+                    <div class="text-nyxco-gray text-sm mt-2">DM for exact pricing and trades accepted</div>
                 </div>
 
-                <div class="modal-cta">
-                    <a href="#" class="btn btn-whatsapp" id="whatsappBtn" target="_blank">
-                        <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i>
+                <div class="flex flex-col gap-4">
+                    <a href="#" id="whatsappBtn" target="_blank" class="px-8 py-4 bg-[#25D366] text-white text-sm font-semibold uppercase tracking-[2px] inline-flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(37,211,102,0.3)] hover:bg-[#128C7E] hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(37,211,102,0.4)] transition-all duration-400 no-underline">
+                        <i data-lucide="message-circle" class="w-[22px] h-[22px]"></i>
                         Message on WhatsApp
                     </a>
-                    <a href="#" class="btn btn-instagram" id="instagramBtn" target="_blank">
-                        <i data-lucide="instagram" style="width: 22px; height: 22px;"></i>
+                    <a href="#" id="instagramBtn" target="_blank" class="px-8 py-4 text-white text-sm font-semibold uppercase tracking-[2px] inline-flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(225,48,108,0.3)] hover:opacity-95 hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(225,48,108,0.4)] transition-all duration-400 no-underline" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
+                        <i data-lucide="instagram" class="w-[22px] h-[22px]"></i>
                         DM on Instagram
                     </a>
-                    <button class="btn btn-secondary" onclick="closeModal()">Continue Shopping</button>
+                    <button onclick="closeModal()" class="px-8 py-4 bg-transparent text-white text-sm font-semibold uppercase tracking-[2px] border-2 border-nyxco-black-lighter hover:border-nyxco-gold hover:text-nyxco-gold transition-all duration-400 cursor-pointer">Continue Shopping</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Recently Sold -->
-    <section class="sold-section">
-        <div class="sold-header">
-            <span style="color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 1rem;">Gone Fast</span>
-            <h2 class="page-title" style="font-size: 2.5rem;">Recently Sold</h2>
-            <p class="page-subtitle">These items found new homes. Don't miss out on current stock.</p>
+    <section class="py-16 lg:py-24 px-8 lg:px-16 bg-nyxco-black-light border-t border-nyxco-black-lighter">
+        <div class="text-center mb-16">
+            <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-4 font-semibold">Gone Fast</span>
+            <h2 class="font-display text-[2.5rem] lg:text-[3rem] mb-4">Recently Sold</h2>
+            <p class="text-nyxco-gray text-lg max-w-[600px] mx-auto">These items found new homes. Don't miss out on current stock.</p>
         </div>
-        <div class="sold-grid" id="soldGrid">
+        <div id="soldGrid" class="flex gap-8 overflow-x-auto py-4 px-2" style="scrollbar-width: thin; scrollbar-color: var(--color-nyxco-gold) var(--color-nyxco-black);">
             <!-- Sold items populated by JS -->
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">NYXCO</a>
-                <p>Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
-                <div class="social-links">
-                    <a href="https://instagram.com" target="_blank"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
-                    <a href="https://wa.me/1234567890" target="_blank"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i></a>
-                    <a href="mailto:contact@nyxco.com"><i data-lucide="mail" style="width: 20px; height: 20px;"></i></a>
+    <footer class="bg-nyxco-black pt-24 pb-8 px-8 lg:px-16 border-t border-nyxco-black-lighter">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 lg:gap-24 mb-16">
+            <div>
+                <a href="index.html" class="font-display text-[2.5rem] font-bold text-nyxco-gold tracking-[4px] relative inline-block mb-6 no-underline">NYXCO<span class="text-[0.7rem] absolute top-0 -right-4.5">®</span></a>
+                <p class="text-nyxco-gray leading-relaxed mb-8">Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://wa.me/1234567890" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="WhatsApp">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:contact@nyxco.com" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Email">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
                 </div>
             </div>
-            <div class="footer-links">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="shop.html">All Items</a></li>
-                    <li><a href="shop.html#bags">Bags</a></li>
-                    <li><a href="shop.html#hoodies">Hoodies</a></li>
-                    <li><a href="shop.html#accessories">Accessories</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Shop</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="shop.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">All Items</a></li>
+                    <li class="mb-4"><a href="shop.html#bags" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Bags</a></li>
+                    <li class="mb-4"><a href="shop.html#hoodies" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Hoodies</a></li>
+                    <li class="mb-4"><a href="shop.html#accessories" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Accessories</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="how-to-order.html">How to Order</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Support</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="how-to-order.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">How to Order</a></li>
+                    <li class="mb-4"><a href="about.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">About Us</a></li>
+                    <li class="mb-4"><a href="contact.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Contact</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Legal</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="#" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Terms of Service</a></li>
+                    <li class="mb-4"><a href="#" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="text-center pt-12 border-t border-nyxco-black-lighter text-nyxco-gray text-sm">
             <p>&copy; 2026 NYXCO. All rights reserved. | Hammond, Louisiana</p>
         </div>
     </footer>
-
     <script>
+        // ========== SHOP.JS ==========
+
+const STORAGE_KEY = 'nyxco_products';
+
+// Default products (fallback if localStorage empty)
+
+
+// Load products from localStorage (or use defaults)
+function loadProducts() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+        try { return JSON.parse(stored); } catch(e) { return defaultProducts; }
+    }
+    // First time - save defaults
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProducts));
+    return defaultProducts;
+}
+
+let products = loadProducts();
+
+// Sold Items Data
+const soldItems = [
+    { image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80", name: "LV Keepall 45", date: "2 days ago" },
+    { image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80", name: "Kith Hoodie", date: "3 days ago" },
+    { image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80", name: "Gucci Tote", date: "5 days ago" },
+    { image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=400&q=80", name: "Chrome Hearts", date: "1 week ago" },
+    { image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400&q=80", name: "Yeezy Hoodie", date: "1 week ago" },
+    { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80", name: "Balenciaga Bag", date: "2 weeks ago" }
+];
+
+// Tag labels mapping
+const tagLabels = { limited: 'Limited Stock', new: 'New Arrival', hot: 'Hot Item', sold: 'Sold' };
+const tagColors = {
+    limited: 'bg-nyxco-black text-nyxco-gold border border-nyxco-gold',
+    new: 'bg-nyxco-gold text-nyxco-black',
+    hot: 'bg-linear-to-br from-[#ff6b6b] to-[#ee5a24] text-white',
+    sold: 'bg-[#ff3333] text-white'
+};
+
+// Category display names
+const categoryNames = {
+    'all': 'All Items',
+    'designer': 'Designer Collection',
+    'streetwear': 'Streetwear Collection',
+    'regular': 'Regular Collection',
+    'bags': 'Bags & Accessories',
+    'shoes': 'Shoes Collection',
+};
+
+// Render Products
+function renderProducts(category = 'all') {
+    const grid = document.getElementById('productGrid');
+    const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+    document.getElementById('itemCount').textContent = filtered.length;
+
+    if (filtered.length === 0) {
+        grid.innerHTML = `
+            <div class="col-span-full text-center py-20">
+                <i data-lucide="package-x" class="w-16 h-16 text-nyxco-gold/30 mx-auto mb-4"></i>
+                <h3 class="text-xl text-nyxco-gray mb-2">No products found</h3>
+                <p class="text-nyxco-gray/60">Check back later for new arrivals.</p>
+            </div>
+        `;
         lucide.createIcons();
+        return;
+    }
 
-        // Product Data
-        const products = [
-            {
-                id: 1,
-                name: "Louis Vuitton Keepall 55",
-                category: "bags",
-                condition: "Like New",
-                price: "Contact for Price",
-                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
-                gallery: [
-                    "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
-                    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
-                    "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80"
-                ],
-                description: "Authentic Louis Vuitton Keepall 55 in Monogram canvas. 9/10 condition with minimal wear. Includes original dust bag, lock, keys, and receipt. Perfect weekender bag.",
-                features: ["100% Authentic", "Date Code: SD4129", "Includes Dust Bag", "Original Receipt", "Minor Patina on Handles"],
-                tag: "limited"
-            },
-            {
-                id: 2,
-                name: "Travis Scott Cactus Jack Hoodie",
-                category: "hoodies",
-                condition: "New",
-                price: "Contact for Price",
-                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
-                gallery: [
-                    "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
-                    "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80"
-                ],
-                description: "Brand new Travis Scott Cactus Jack hoodie from the Astroworld collection. Size Large. Never worn, stored in original packaging. Rare colorway.",
-                features: ["Size: Large", "Never Worn", "Original Tags Attached", "Astroworld Collection", "Smoke-Free Storage"],
-                tag: "new"
-            },
-            {
-                id: 3,
-                name: "Gucci Marmont Belt Bag",
-                category: "bags",
-                condition: "Used",
-                price: "Contact for Price",
-                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
-                gallery: [
-                    "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
-                    "https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800&q=80"
-                ],
-                description: "Gucci GG Marmont matelassé leather belt bag in black. 8/10 condition. Some wear on hardware but leather is in excellent shape. Adjustable belt strap.",
-                features: ["100% Authentic", "Adjustable Strap", "Includes Box", "8/10 Condition", "Black Matelassé Leather"],
-                tag: null
-            },
-            {
-                id: 4,
-                name: "Off-White Industrial Belt",
-                category: "accessories",
-                condition: "Like New",
-                price: "Contact for Price",
-                image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=800&q=80",
-                gallery: [
-                    "https://images.unsplash.com/photo-1622445275576-721325763afe?w=800&q=80",
-                    "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80"
-                ],
-                description: "Iconic Off-White industrial belt in classic yellow. 9.5/10 condition, worn once. The ultimate streetwear accessory to elevate any fit.",
-                features: ["Classic Yellow Color", "200cm Length", "Metal Buckle", "9.5/10 Condition", "Original Packaging"],
-                tag: "hot"
-            },
-            {
-                id: 5,
-                name: "Fear of God Essentials Hoodie",
-                category: "hoodies",
-                condition: "New",
-                price: "Contact for Price",
-                image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80",
-                gallery: [
-                    "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80",
-                    "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80"
-                ],
-                description: "Essentials by Fear of God hoodie in stretch limo black. Size Medium. Brand new with tags from the latest season drop.",
-                features: ["Size: Medium", "Stretch Limo Black", "Latest Season", "Brand New with Tags", "Relaxed Fit"],
-                tag: "new"
-            },
-            {
-                id: 6,
-                name: "Prada Re-Edition 2005",
-                category: "bags",
-                condition: "Like New",
-                price: "Contact for Price",
-                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
-                gallery: [
-                    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
-                    "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80"
-                ],
-                description: "Prada Re-Edition 2005 nylon mini bag with gold hardware. 9/10 condition. Includes authenticity card, dust bag, and detachable chain strap.",
-                features: ["100% Authentic", "Nylon Material", "Gold Hardware", "Includes Chain Strap", "Enameled Logo Plaque"],
-                tag: "limited"
-            }
-        ];
-
-        // Sold Items Data
-        const soldItems = [
-            { image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80", name: "LV Keepall 45", date: "2 days ago" },
-            { image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80", name: "Kith Hoodie", date: "3 days ago" },
-            { image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80", name: "Gucci Tote", date: "5 days ago" },
-            { image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=400&q=80", name: "Chrome Hearts", date: "1 week ago" },
-            { image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400&q=80", name: "Yeezy Hoodie", date: "1 week ago" },
-            { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80", name: "Balenciaga Bag", date: "2 weeks ago" }
-        ];
-
-        // Render Products
-        function renderProducts(category = 'all') {
-            const grid = document.getElementById('productGrid');
-            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
-            
-            document.getElementById('itemCount').textContent = filtered.length;
-            
-            grid.innerHTML = filtered.map(product => `
-                <div class="product-card fade-in" onclick="openModal(${product.id})">
-                    ${product.tag ? `<span class="product-tag ${product.tag}">${product.tag === 'limited' ? 'Limited Stock' : product.tag === 'new' ? 'New Arrival' : product.tag === 'hot' ? 'Hot Item' : 'Sold'}</span>` : ''}
-                    <div class="product-image-wrapper">
-                        <img src="${product.image}" alt="${product.name}" class="product-image">
-                        <div class="quick-view">
-                            <button class="quick-view-btn">Quick View</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">${product.category}</div>
-                        <h3 class="product-name">${product.name}</h3>
-                        <div class="product-meta">
-                            <span class="product-condition">
-                                <i data-lucide="check-circle"></i>
-                                ${product.condition}
-                            </span>
-                            <span class="product-price">${product.price}</span>
-                        </div>
-                    </div>
+    grid.innerHTML = filtered.map(product => {
+        const tagClass = product.tag ? tagColors[product.tag] || '' : '';
+        const tagText = product.tag ? tagLabels[product.tag] || product.tag : '';
+        const catName = categoryNames[product.category] || product.category;
+        return `
+        <div class="product-card bg-nyxco-black-light border border-nyxco-black-lighter overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer relative hover:-translate-y-2.5 hover:border-nyxco-gold/40 hover:shadow-[0_30px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(212,175,55,0.1)] " onclick="openModal(${product.id})">
+            ${product.tag ? `<span class="absolute top-6 left-6 px-5 py-1.5 text-xs font-bold uppercase tracking-wide z-10 ${tagClass}">${tagText}</span>` : ''}
+            <div class="relative overflow-hidden aspect-square">
+                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x600/111111/d4af37?text=NYXCO'">
+                <div class="quick-view absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black/90 to-transparent">
+                    <button class="w-full py-4 bg-nyxco-gold text-nyxco-black text-sm font-semibold uppercase tracking-[2px] cursor-pointer hover:bg-nyxco-gold-light transition-colors duration-300">Quick View</button>
                 </div>
-            `).join('');
-            
-            lucide.createIcons();
-            
-            // Re-trigger fade in
-            document.querySelectorAll('.fade-in').forEach(el => {
-                el.classList.remove('visible');
-                setTimeout(() => el.classList.add('visible'), 100);
-            });
-        }
-
-        // Render Sold Items
-        function renderSold() {
-            const grid = document.getElementById('soldGrid');
-            grid.innerHTML = soldItems.map(item => `
-                <div class="sold-item">
-                    <div style="position: relative;">
-                        <img src="${item.image}" alt="${item.name}">
-                        <span class="sold-badge">SOLD</span>
-                    </div>
-                    <div class="sold-info">
-                        <h4 class="sold-name">${item.name}</h4>
-                        <p class="sold-date">Sold ${item.date}</p>
-                    </div>
+            </div>
+            <div class="p-8">
+                <div class="text-nyxco-gold text-xs uppercase tracking-[2px] mb-2">${catName}</div>
+                <h3 class="text-[1.3rem] font-semibold mb-4 text-white leading-tight">${product.name}</h3>
+                <div class="flex justify-between items-center pt-4 border-t border-nyxco-black-lighter">
+                    <span class="text-nyxco-gray text-sm flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-nyxco-gold"></i>
+                        ${product.condition}
+                    </span>
+                    <span class="text-nyxco-gold font-bold text-base tracking-wide">${product.price}</span>
                 </div>
-            `).join('');
+            </div>
+        </div>`;
+    }).join('');
+
+    lucide.createIcons();
+    document.querySelectorAll('.fade-in').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => el.classList.add('visible'), 100);
+    });
+}
+
+// Render Sold Items
+function renderSold() {
+    const grid = document.getElementById('soldGrid');
+    grid.innerHTML = soldItems.map(item => `
+        <div class="min-w-[240px] lg:min-w-[280px] opacity-50 grayscale hover:opacity-80 hover:grayscale-[50%] transition-all duration-400 relative">
+            <div class="relative">
+                <img src="${item.image}" alt="${item.name}" class="w-[240px] lg:w-[280px] h-[240px] lg:h-[280px] object-cover border border-nyxco-black-lighter" onerror="this.src='https://via.placeholder.com/400x400/111111/d4af37?text=SOLD'">
+                <span class="absolute top-4 left-4 bg-[#ff3333] text-white px-4 py-1 text-xs font-bold uppercase tracking-wide">SOLD</span>
+            </div>
+            <div class="p-6 bg-nyxco-black border border-nyxco-black-lighter border-t-0">
+                <h4 class="text-[1.1rem] mb-2 line-through text-nyxco-gray">${item.name}</h4>
+                <p class="text-nyxco-gold text-sm">Sold ${item.date}</p>
+            </div>
+        </div>
+    `).join('');
+}
+// Modal Functions
+function openModal(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    // Fill modal data
+    document.getElementById('modalImage').src = product.gallery[0];
+    document.getElementById('modalImage').alt = product.name;
+
+    document.getElementById('modalCategory').textContent =
+        categoryNames[product.category] || product.category;
+
+    document.getElementById('modalTitle').textContent = product.name;
+    document.getElementById('modalCondition').textContent = product.condition;
+    document.getElementById('modalDescription').textContent = product.description;
+    document.getElementById('modalPrice').textContent = product.price;
+
+    // Gallery thumbnails
+    document.getElementById('modalThumbnails').innerHTML = product.gallery.map((img, idx) => `
+        <img 
+            src="${img}" 
+            class="modal-thumb w-20 h-20 object-cover border-2 border-transparent cursor-pointer transition-all duration-300 opacity-60 ${idx === 0 ? 'active opacity-100 border-nyxco-gold' : ''}"
+            onclick="changeImage('${img}', this)"
+            onerror="this.src='https://via.placeholder.com/100x100/111111/d4af37?text=IMG'"
+        >
+    `).join('');
+
+    // Features
+    document.getElementById('modalFeatures').innerHTML = product.features.map(f => `
+        <li class="text-nyxco-gray py-2 pl-6 relative before:content-['•'] before:text-nyxco-gold before:absolute before:left-0 before:text-lg">
+            ${f}
+        </li>
+    `).join('');
+
+    // Contact buttons
+    const phone = "1234567890";
+    const message = encodeURIComponent(`Hi, I'm interested in: ${product.name}`);
+
+    document.getElementById('whatsappBtn').href =
+        `https://wa.me/${phone}?text=${message}`;
+
+    document.getElementById('instagramBtn').href =
+        `https://instagram.com/direct/inbox`;
+
+    // ===== FIXED MODAL OPEN =====
+    const modal = document.getElementById('productModal');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex', 'active');
+
+    document.body.style.overflow = 'hidden';
+
+    lucide.createIcons();
+}
+
+function changeImage(src, thumb) {
+    document.getElementById('modalImage').src = src;
+    document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+}
+
+function closeModal() {
+    const modal = document.getElementById('productModal');
+
+    // Hide modal properly
+    modal.classList.remove('flex', 'active');
+    modal.classList.add('hidden');
+
+    // Enable page scroll again
+    document.body.style.overflow = '';
+
+    // Optional reset image
+    document.getElementById('modalImage').src = '';
+}
+
+
+// Tab Filtering
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(btn.dataset.category);
+    });
+});
+
+// Mobile Menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileNavLinks = document.getElementById('mobileNavLinks');
+mobileMenuBtn.addEventListener('click', () => {
+    const isHidden = mobileNavLinks.classList.contains('hidden');
+    if (isHidden) {
+        mobileNavLinks.classList.remove('hidden');
+        mobileNavLinks.classList.add('flex');
+        mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
+    } else {
+        mobileNavLinks.classList.add('hidden');
+        mobileNavLinks.classList.remove('flex');
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+    }
+    lucide.createIcons();
+});
+document.querySelectorAll('#mobileNavLinks a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileNavLinks.classList.add('hidden');
+        mobileNavLinks.classList.remove('flex');
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+        lucide.createIcons();
+    });
+});
+
+     // Navbar Scroll Effect
+      window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('py-2');
+            navbar.classList.remove('py-3');
+
+            navbar.classList.add('bg-[#0a0a0a]/[0.98]');
+            navbar.classList.remove('bg-[#0a0a0a]/95');
+
+            navbar.classList.add('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+
+        } else {
+            navbar.classList.add('py-3');
+            navbar.classList.remove('py-2');
+
+            navbar.classList.add('bg-[#0a0a0a]/95');
+            navbar.classList.remove('bg-[#0a0a0a]/[0.98]');
+
+            navbar.classList.remove('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
         }
+    }
+});
 
-        // Modal Functions
-        function openModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+// Listen for storage changes (when admin updates products)
+window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+        products = loadProducts();
+        const activeTab = document.querySelector('.tab-btn.active');
+        renderProducts(activeTab ? activeTab.dataset.category : 'all');
+    }
+});
 
-            document.getElementById('modalImage').src = product.gallery[0];
-            document.getElementById('modalCategory').textContent = product.category;
-            document.getElementById('modalTitle').textContent = product.name;
-            document.getElementById('modalCondition').textContent = product.condition;
-            document.getElementById('modalDescription').textContent = product.description;
-            
-            // Thumbnails
-            document.getElementById('modalThumbnails').innerHTML = product.gallery.map((img, idx) => `
-                <img src="${img}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
-            `).join('');
-            
-            // Features
-            document.getElementById('modalFeatures').innerHTML = product.features.map(f => `
-                <li>${f}</li>
-            `).join('');
-            
-            // WhatsApp link
-            const phone = "1234567890"; // Replace with actual number
-            const message = encodeURIComponent(`Hi, I'm interested in: ${product.name}`);
-            document.getElementById('whatsappBtn').href = `https://wa.me/${phone}?text=${message}`;
-            document.getElementById('instagramBtn').href = `https://instagram.com/direct/inbox`; // Replace with actual IG
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    renderProducts();
+    renderSold();
 
-            document.getElementById('productModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            lucide.createIcons();
-        }
+    // Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        function changeImage(src, thumb) {
-            document.getElementById('modalImage').src = src;
-            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-        }
+    // Modal close events
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('productModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeModal();
+    });
 
-        function closeModal() {
-            document.getElementById('productModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        document.getElementById('modalClose').addEventListener('click', closeModal);
-        document.getElementById('productModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeModal();
-        });
-
-        // Tab Filtering
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderProducts(btn.dataset.category);
-            });
-        });
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');
-            lucide.createIcons();
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
-            });
-        });
-
-        // Navbar Scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Initialize
-        renderProducts();
-        renderSold();
-
-        // Intersection Observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+    // Escape key
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+});
     </script>
 </body>
 </html>

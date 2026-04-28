@@ -1,4 +1,3 @@
-<!-- index.html - Homepage -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,308 +10,84 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tailwind CSS v3 + Custom Styles (fixed @theme compatibility) -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Custom CSS variables and animations - replacing @theme */
         :root {
-            --black: #0a0a0a;
-            --black-light: #111111;
-            --black-lighter: #1a1a1a;
-            --gold: #d4af37;
-            --gold-light: #f4d03f;
-            --gold-dark: #b8860b;
-            --white: #ffffff;
-            --gray: #888888;
-            --gray-light: #cccccc;
-            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --color-nyxco-black: #0a0a0a;
+            --color-nyxco-black-light: #111111;
+            --color-nyxco-black-lighter: #1a1a1a;
+            --color-nyxco-gold: #d4af37;
+            --color-nyxco-gold-light: #f4d03f;
+            --color-nyxco-gold-dark: #b8860b;
+            --color-nyxco-white: #ffffff;
+            --color-nyxco-gray: #888888;
+            --color-nyxco-gray-light: #cccccc;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, .brand-font {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.5rem 4rem;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.4s var(--transition-smooth);
-        }
-
-        .navbar.scrolled {
-            padding: 1rem 4rem;
-            background: rgba(10, 10, 10, 0.98);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 4px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-        }
-
-        .logo::after {
-            content: '®';
-            font-size: 0.7rem;
-            position: absolute;
-            top: 0;
-            right: -18px;
-            color: var(--gold);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 4rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s var(--transition-smooth);
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 8rem 2rem 4rem;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.5) contrast(1.1);
-            z-index: -2;
-            animation: slowZoom 20s ease-in-out infinite alternate;
-        }
-
+        
         @keyframes slowZoom {
             from { transform: scale(1); }
             to { transform: scale(1.1); }
         }
-
-        .hero-glow {
-            position: absolute;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse 4s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        @keyframes pulse {
+        
+        @keyframes pulseGlow {
             0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
             50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
         }
-
-        .hero-content {
-            text-align: center;
-            max-width: 1000px;
-            z-index: 1;
-            animation: fadeInUp 1.2s var(--transition-smooth);
-        }
-
+        
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 2rem;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: var(--gold);
-            margin-bottom: 2.5rem;
-            animation: glow 2s ease-in-out infinite alternate;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        @keyframes glow {
+        
+        @keyframes glowBadge {
             from { box-shadow: 0 0 5px rgba(212,175,55,0.2), inset 0 0 10px rgba(212,175,55,0.05); }
             to { box-shadow: 0 0 30px rgba(212,175,55,0.4), inset 0 0 20px rgba(212,175,55,0.1); }
         }
-
-        .hero h1 {
-            font-size: clamp(3rem, 7vw, 6rem);
-            font-weight: 700;
-            line-height: 1.05;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--white) 0%, var(--gold-light) 50%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: var(--gray-light);
-            margin-bottom: 3.5rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        
+        @keyframes shimmer {
+            from { left: -100%; }
+            to { left: 100%; }
         }
-
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            margin-bottom: 4rem;
-            flex-wrap: wrap;
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
         }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--gray-light);
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        
+        .font-body {
+            font-family: 'Inter', sans-serif;
         }
-
-        .trust-item:hover {
-            color: var(--gold);
-            transform: translateY(-2px);
+        
+        .hero-bg-animate {
+            animation: slowZoom 20s ease-in-out infinite alternate;
         }
-
-        .trust-item i {
-            color: var(--gold);
-            width: 22px;
-            height: 22px;
-            stroke-width: 2;
+        
+        .glow-animate {
+            animation: pulseGlow 4s ease-in-out infinite;
         }
-
-        .hero-cta {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        
+        .badge-glow {
+            animation: glowBadge 2s ease-in-out infinite alternate;
         }
-
-        .btn {
-            padding: 1.2rem 3rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.4s var(--transition-smooth);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
+        
+        .hero-content-animate {
+            animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .shimmer-effect {
             position: relative;
             overflow: hidden;
         }
-
-        .btn-primary {
-            background: var(--gold);
-            color: var(--black);
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-primary::before {
+        
+        .shimmer-effect::before {
             content: '';
             position: absolute;
             top: 0;
@@ -321,196 +96,56 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: left 0.6s ease;
+            pointer-events: none;
         }
-
-        .btn-primary:hover::before {
+        
+        .shimmer-effect:hover::before {
             left: 100%;
         }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+        
+        .mobile-menu-animate {
+            animation: slideDown 0.3s ease;
         }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255,255,255,0.3);
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--black);
-            border-color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(255,255,255,0.1);
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* Featured Collection Preview */
-        .featured-section {
-            padding: 8rem 4rem;
-            background: linear-gradient(180deg, var(--black) 0%, var(--black-light) 100%);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-
-        .section-label {
-            color: var(--gold);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 1.5rem;
-            display: block;
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .section-subtitle {
-            color: var(--gray);
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
+        
         .featured-card {
-            position: relative;
             overflow: hidden;
-            aspect-ratio: 3/4;
+            position: relative;
             cursor: pointer;
-            group: true;
         }
-
+        
         .featured-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s var(--transition-smooth);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
+        
         .featured-card:hover img {
             transform: scale(1.1);
         }
-
-        .featured-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2rem;
+        
+        .featured-card .featured-overlay {
             opacity: 0;
             transition: opacity 0.4s ease;
         }
-
+        
         .featured-card:hover .featured-overlay {
             opacity: 1;
         }
-
-        .featured-category {
-            color: var(--gold);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .featured-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            padding: 6rem 4rem;
-            background: var(--black);
-            border-top: 1px solid var(--black-lighter);
-            border-bottom: 1px solid var(--black-lighter);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .stat-item {
-            position: relative;
-        }
-
-        .stat-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 60px;
-            background: var(--black-lighter);
-        }
-
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            color: var(--gold);
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Why Choose Us */
-        .why-section {
-            padding: 8rem 4rem;
-            background: var(--black-light);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        
         .feature-card {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--black);
-            border: 1px solid var(--black-lighter);
-            transition: all 0.4s var(--transition-smooth);
             position: relative;
-            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
+        
         .feature-card::before {
             content: '';
             position: absolute;
@@ -518,573 +153,318 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: var(--gold);
+            background: var(--color-nyxco-gold);
             transform: scaleX(0);
-            transition: transform 0.4s var(--transition-smooth);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
         .feature-card:hover {
             transform: translateY(-10px);
             border-color: rgba(212, 175, 55, 0.3);
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            color: var(--gold);
-            transition: all 0.4s ease;
-        }
-
+        
         .feature-card:hover .feature-icon {
-            background: var(--gold);
-            color: var(--black);
+            background: var(--color-nyxco-gold);
+            color: var(--color-nyxco-black);
             transform: scale(1.1);
         }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .feature-desc {
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 10rem 4rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+        
+        .nav-link {
             position: relative;
-            overflow: hidden;
         }
-
-        .cta-section::before {
+        
+        .nav-link::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
-            pointer-events: none;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-nyxco-gold);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .cta-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 1.5rem;
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .stat-divider {
             position: relative;
-            z-index: 1;
         }
-
-        .cta-text {
-            color: var(--gray);
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--black);
-            padding: 6rem 4rem 2rem;
-            border-top: 1px solid var(--black-lighter);
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 6rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            font-size: 2.5rem;
-        }
-
-        .footer-brand p {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            width: 45px;
-            height: 45px;
-            border: 1px solid var(--black-lighter);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
-            transform: translateY(-3px);
-        }
-
-        .footer-links h4 {
-            color: var(--gold);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold);
-            transform: translateX(5px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 3rem;
-            border-top: 1px solid var(--black-lighter);
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 1200px) {
-            .featured-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 3rem;
-            }
-            
-            .stat-item:not(:last-child)::after,
-            .stat-item:nth-child(2)::after {
-                display: none;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-            }
-        }
-
-        @media (max-width: 968px) {
-            .navbar {
-                padding: 1rem 2rem;
-            }
-
-            .nav-links {
-                display: none;
+        
+        @media (min-width: 1200px) {
+            .stat-divider:not(:last-child)::after {
+                content: '';
                 position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--black);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                border-top: 1px solid var(--gold);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+                right: -2rem;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 1px;
+                height: 60px;
+                background: var(--color-nyxco-black-lighter);
             }
-
-            .nav-links.active {
-                display: flex;
-                animation: slideDown 0.3s ease;
-            }
-
-            @keyframes slideDown {
-                from { opacity: 0; transform: translateY(-10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero {
-                padding: 7rem 1.5rem 3rem;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-                letter-spacing: 2px;
-            }
-
-            .trust-badges {
-                gap: 1.5rem;
-            }
-
-            .trust-item {
-                font-size: 0.85rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .featured-section,
-            .why-section,
-            .cta-section {
-                padding: 4rem 1.5rem;
-            }
-
-            .featured-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .stats-section {
-                padding: 4rem 1.5rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .stat-item::after {
+        }
+        
+        @media (max-width: 968px) {
+            .stat-divider::after {
                 display: none !important;
             }
-
-            .stat-number {
-                font-size: 3rem;
-            }
-
-            .feature-card {
-                padding: 3rem 1.5rem;
-            }
-
-            footer {
-                padding: 4rem 1.5rem 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .footer-brand {
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .footer-links {
-                text-align: center;
-            }
-
-            .footer-links a:hover {
-                transform: translateX(0);
-            }
         }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .trust-badges {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
+        
+        /* Custom utility classes for gradients */
+        .bg-gradient-brand {
+            background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
+        }
+        
+        .text-gradient-gold {
+            background: linear-gradient(135deg, var(--color-nyxco-white) 0%, var(--color-nyxco-gold-light) 50%, var(--color-nyxco-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .shadow-gold-glow {
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+        
+        .hover\:shadow-gold-glow-lg:hover {
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
         }
     </style>
 </head>
-<body>
+<body class="font-body bg-[#0a0a0a] text-white overflow-x-hidden leading-relaxed">
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">NYXCO</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="how-to-order.html">How to Order</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+    <nav id="navbar" class="fixed top-0 w-full z-50 px-8 lg:px-16 py-3 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#d4af37]/10 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-display text-2xl font-bold text-[#d4af37] tracking-[4px] relative hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 flex items-center gap-3">
+    
+    <!-- LOGO IMAGE -->
+    <img src="/images/logo.jpg" alt="NYXCO Logo" class="h-14 w-auto object-contain">
+
+    NYXCO
+    <span class="text-[0.7rem] absolute -top-1 -right-5">®</span>
+</a>
+            <ul id="navLinks" class="hidden lg:flex gap-16 list-none">
+                <li><a href="index.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-[#d4af37] transition-colors duration-300">Home</a></li>
+                <li><a href="shop.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-[#d4af37] transition-colors duration-300">Shop</a></li>
+                <li><a href="how-to-order.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-[#d4af37] transition-colors duration-300">How to Order</a></li>
+                <li><a href="about.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-[#d4af37] transition-colors duration-300">About</a></li>
+                <li><a href="contact.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-[#d4af37] transition-colors duration-300">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+            <button id="mobileMenuBtn" class="lg:hidden bg-transparent border-none text-[#d4af37] cursor-pointer p-2 hover:scale-110 transition-transform duration-300" aria-label="Toggle menu">
+                <i data-lucide="menu" class="w-7 h-7"></i>
             </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-glow"></div>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-32 pb-16 px-4 sm:px-8">
+        <div class="absolute inset-0 z-[-2] hero-bg-animate" style="background: linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.85) 100%), url('https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1920&q=80'); background-size: cover; background-position: center; filter: brightness(0.5) contrast(1.1);"></div>
+        <div class="absolute w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(212,175,55,0.12)_0%,transparent_70%)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 glow-animate pointer-events-none z-[-1]"></div>
+        <div class="text-center max-w-[1000px] z-10 hero-content-animate">
+            <div class="inline-flex items-center gap-3 px-8 py-3 bg-[#d4af37]/10 border border-[#d4af37]/40 rounded-full text-sm text-[#d4af37] mb-10 badge-glow font-medium tracking-wide">
+                <i data-lucide="sparkles" class="w-[18px] h-[18px]"></i>
                 Exclusive Drops Weekly
             </div>
-            <h1>Premium Bags & Apparel<br>Buy • Sell • Trade</h1>
-            <p class="hero-subtitle">Curated luxury streetwear for the discerning collector</p>
+            <h1 class="font-display text-[clamp(3rem,5vw,6rem)] font-bold leading-[1.05] mb-6 tracking-tight text-gradient-gold">Premium Bags & Apparel<br>Buy • Sell • Trade</h1>
+            <p class="text-[#cccccc] text-xl sm:text-2xl mb-14 font-light tracking-[3px] uppercase">Curated luxury streetwear for the discerning collector</p>
             
-            <div class="trust-badges">
-                <div class="trust-item">
-                    <i data-lucide="check-circle"></i>
+            <div class="flex justify-center gap-8 sm:gap-16 mb-16 flex-wrap">
+                <div class="flex items-center gap-3 text-[#cccccc] text-sm sm:text-base font-medium hover:text-[#d4af37] hover:-translate-y-0.5 transition-all duration-300">
+                    <i data-lucide="check-circle" class="text-[#d4af37] w-[22px] h-[22px] stroke-[2]"></i>
                     <span>800+ Verified Sales</span>
                 </div>
-                <div class="trust-item">
-                    <i data-lucide="shield-check"></i>
+                <div class="flex items-center gap-3 text-[#cccccc] text-sm sm:text-base font-medium hover:text-[#d4af37] hover:-translate-y-0.5 transition-all duration-300">
+                    <i data-lucide="shield-check" class="text-[#d4af37] w-[22px] h-[22px] stroke-[2]"></i>
                     <span>100% Authentic</span>
                 </div>
-                <div class="trust-item">
-                    <i data-lucide="truck"></i>
+                <div class="flex items-center gap-3 text-[#cccccc] text-sm sm:text-base font-medium hover:text-[#d4af37] hover:-translate-y-0.5 transition-all duration-300">
+                    <i data-lucide="truck" class="text-[#d4af37] w-[22px] h-[22px] stroke-[2]"></i>
                     <span>Nationwide Shipping</span>
                 </div>
-                <div class="trust-item">
-                    <i data-lucide="repeat"></i>
+                <div class="flex items-center gap-3 text-[#cccccc] text-sm sm:text-base font-medium hover:text-[#d4af37] hover:-translate-y-0.5 transition-all duration-300">
+                    <i data-lucide="repeat" class="text-[#d4af37] w-[22px] h-[22px] stroke-[2]"></i>
                     <span>Trades Accepted</span>
                 </div>
             </div>
 
-            <div class="hero-cta">
-                <a href="shop.html" class="btn btn-primary">
+            <div class="flex gap-8 justify-center flex-wrap">
+                <a href="shop.html" class="relative overflow-hidden px-12 py-5 text-sm font-semibold uppercase tracking-[3px] bg-[#d4af37] text-[#0a0a0a] inline-flex items-center gap-3 shadow-[0_10px_40px_rgba(212,175,55,0.3)] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(212,175,55,0.4)] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline shimmer-effect">
                     Shop Collection
-                    <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </a>
-                <a href="how-to-order.html" class="btn btn-secondary">How It Works</a>
+                <a href="how-to-order.html" class="px-12 py-5 text-sm font-semibold uppercase tracking-[3px] bg-transparent text-white border-2 border-white/30 inline-flex items-center gap-3 hover:bg-white hover:text-[#0a0a0a] hover:border-white hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(255,255,255,0.1)] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline">
+                    How It Works
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Featured Collection -->
-    <section class="featured-section">
-        <div class="section-header fade-in">
-            <span class="section-label">Curated Selection</span>
-            <h2 class="section-title">Featured Drops</h2>
-            <p class="section-subtitle">Hand-picked pieces from this week's collection. DM for pricing and availability.</p>
+    <section class="py-32 px-4 sm:px-8 lg:px-16 bg-gradient-to-b from-[#0a0a0a] to-[#111111]">
+        <div class="text-center mb-20 fade-in">
+            <span class="text-[#d4af37] text-sm uppercase tracking-[4px] mb-6 block font-semibold">Curated Selection</span>
+            <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-semibold mb-6 leading-tight">Featured Drops</h2>
+            <p class="text-[#888888] text-lg sm:text-xl max-w-[700px] mx-auto font-light">Hand-picked pieces from this week's collection. DM for pricing and availability.</p>
         </div>
 
-        <div class="featured-grid">
-            <div class="featured-card fade-in" onclick="window.location.href='shop.html'">
-                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80" alt="Luxury Bag">
-                <div class="featured-overlay">
-                    <span class="featured-category">Bags</span>
-                    <h3 class="featured-name">Designer Collection</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1600px] mx-auto">
+            <div class="featured-card relative overflow-hidden aspect-[3/4] cursor-pointer fade-in" onclick="window.location.href='shop.html'">
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80" alt="Luxury Bag" class="w-full h-full object-cover">
+                <div class="featured-overlay absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-8">
+                    <span class="text-[#d4af37] text-sm uppercase tracking-[2px] mb-2">Bags</span>
+                    <h3 class="font-display text-2xl font-semibold">Designer Collection</h3>
                 </div>
             </div>
-            <div class="featured-card fade-in" onclick="window.location.href='shop.html'">
-                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" alt="Streetwear Hoodie">
-                <div class="featured-overlay">
-                    <span class="featured-category">Hoodies</span>
-                    <h3 class="featured-name">Premium Streetwear</h3>
+            <div class="featured-card relative overflow-hidden aspect-[3/4] cursor-pointer fade-in" onclick="window.location.href='shop.html'">
+                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" alt="Streetwear Hoodie" class="w-full h-full object-cover">
+                <div class="featured-overlay absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-8">
+                    <span class="text-[#d4af37] text-sm uppercase tracking-[2px] mb-2">Hoodies</span>
+                    <h3 class="font-display text-2xl font-semibold">Premium Streetwear</h3>
                 </div>
             </div>
-            <div class="featured-card fade-in" onclick="window.location.href='shop.html'">
-                <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80" alt="Accessories">
-                <div class="featured-overlay">
-                    <span class="featured-category">Accessories</span>
-                    <h3 class="featured-name">Luxury Details</h3>
+            <div class="featured-card relative overflow-hidden aspect-[3/4] cursor-pointer fade-in" onclick="window.location.href='shop.html'">
+                <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80" alt="Accessories" class="w-full h-full object-cover">
+                <div class="featured-overlay absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-8">
+                    <span class="text-[#d4af37] text-sm uppercase tracking-[2px] mb-2">Accessories</span>
+                    <h3 class="font-display text-2xl font-semibold">Luxury Details</h3>
                 </div>
             </div>
-            <div class="featured-card fade-in" onclick="window.location.href='shop.html'">
-                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=800&q=80" alt="New Arrivals">
-                <div class="featured-overlay">
-                    <span class="featured-category">New</span>
-                    <h3 class="featured-name">Just Dropped</h3>
+            <div class="featured-card relative overflow-hidden aspect-[3/4] cursor-pointer fade-in" onclick="window.location.href='shop.html'">
+                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=800&q=80" alt="New Arrivals" class="w-full h-full object-cover">
+                <div class="featured-overlay absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-8">
+                    <span class="text-[#d4af37] text-sm uppercase tracking-[2px] mb-2">New</span>
+                    <h3 class="font-display text-2xl font-semibold">Just Dropped</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="stats-grid fade-in">
-            <div class="stat-item">
-                <div class="stat-number">800+</div>
-                <div class="stat-label">Successful Sales</div>
+    <section class="py-24 px-4 sm:px-8 lg:px-16 bg-[#0a0a0a] border-y border-[#1a1a1a]">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16 max-w-[1400px] mx-auto text-center fade-in">
+            <div class="stat-divider">
+                <div class="font-display text-6xl lg:text-7xl text-[#d4af37] font-bold mb-2 leading-none">800+</div>
+                <div class="text-[#888888] text-sm uppercase tracking-[2px]">Successful Sales</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Authentic Guarantee</div>
+            <div class="stat-divider">
+                <div class="font-display text-6xl lg:text-7xl text-[#d4af37] font-bold mb-2 leading-none">100%</div>
+                <div class="text-[#888888] text-sm uppercase tracking-[2px]">Authentic Guarantee</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">48h</div>
-                <div class="stat-label">Fast Shipping</div>
+            <div class="stat-divider">
+                <div class="font-display text-6xl lg:text-7xl text-[#d4af37] font-bold mb-2 leading-none">48h</div>
+                <div class="text-[#888888] text-sm uppercase tracking-[2px]">Fast Shipping</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">DM Support</div>
+            <div>
+                <div class="font-display text-6xl lg:text-7xl text-[#d4af37] font-bold mb-2 leading-none">24/7</div>
+                <div class="text-[#888888] text-sm uppercase tracking-[2px]">DM Support</div>
             </div>
         </div>
     </section>
 
     <!-- Why Choose Us -->
-    <section class="why-section">
-        <div class="section-header fade-in">
-            <span class="section-label">The Experience</span>
-            <h2 class="section-title">Why Choose NYXCO</h2>
-            <p class="section-subtitle">Premium service for premium products</p>
+    <section class="py-32 px-4 sm:px-8 lg:px-16 bg-[#111111]">
+        <div class="text-center mb-20 fade-in">
+            <span class="text-[#d4af37] text-sm uppercase tracking-[4px] mb-6 block font-semibold">The Experience</span>
+            <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-semibold mb-6 leading-tight">Why Choose NYXCO</h2>
+            <p class="text-[#888888] text-lg sm:text-xl max-w-[700px] mx-auto font-light">Premium service for premium products</p>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <i data-lucide="badge-check" style="width: 32px; height: 32px;"></i>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-[1400px] mx-auto">
+            <div class="feature-card text-center p-16 px-8 bg-[#0a0a0a] border border-[#1a1a1a] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden fade-in">
+                <div class="feature-icon w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#d4af37] transition-all duration-400">
+                    <i data-lucide="badge-check" class="w-8 h-8"></i>
                 </div>
-                <h3 class="feature-title">Authentication Guaranteed</h3>
-                <p class="feature-desc">Every item is thoroughly inspected and verified authentic before listing. Shop with complete confidence.</p>
+                <h3 class="text-2xl mb-4 font-semibold">Authentication Guaranteed</h3>
+                <p class="text-[#888888] leading-relaxed">Every item is thoroughly inspected and verified authentic before listing. Shop with complete confidence.</p>
             </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <i data-lucide="zap" style="width: 32px; height: 32px;"></i>
+            <div class="feature-card text-center p-16 px-8 bg-[#0a0a0a] border border-[#1a1a1a] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden fade-in">
+                <div class="feature-icon w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#d4af37] transition-all duration-400">
+                    <i data-lucide="zap" class="w-8 h-8"></i>
                 </div>
-                <h3 class="feature-title">Lightning Fast DMs</h3>
-                <p class="feature-desc">Average response time under 10 minutes. Get your questions answered and deals closed quickly.</p>
+                <h3 class="text-2xl mb-4 font-semibold">Lightning Fast DMs</h3>
+                <p class="text-[#888888] leading-relaxed">Average response time under 10 minutes. Get your questions answered and deals closed quickly.</p>
             </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <i data-lucide="handshake" style="width: 32px; height: 32px;"></i>
+            <div class="feature-card text-center p-16 px-8 bg-[#0a0a0a] border border-[#1a1a1a] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden fade-in">
+                <div class="feature-icon w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#d4af37] transition-all duration-400">
+                    <i data-lucide="handshake" class="w-8 h-8"></i>
                 </div>
-                <h3 class="feature-title">Flexible Trading</h3>
-                <p class="feature-desc">Looking to trade? We accept trades on most items. Let's negotiate a deal that works for both.</p>
+                <h3 class="text-2xl mb-4 font-semibold">Flexible Trading</h3>
+                <p class="text-[#888888] leading-relaxed">Looking to trade? We accept trades on most items. Let's negotiate a deal that works for both.</p>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="fade-in">
-            <h2 class="cta-title">Ready to Upgrade Your Collection?</h2>
-            <p class="cta-text">Join 800+ satisfied customers. Browse our latest drops or DM us with what you're looking for.</p>
-            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                <a href="shop.html" class="btn btn-primary">
+    <section class="py-40 px-4 sm:px-8 lg:px-16 text-center bg-gradient-to-br from-[#0a0a0a] to-[#111111] relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(212,175,55,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+        <div class="fade-in relative z-10">
+            <h2 class="font-display text-[clamp(2.5rem,5vw,4rem)] mb-6">Ready to Upgrade Your Collection?</h2>
+            <p class="text-[#888888] text-lg sm:text-xl mb-12 max-w-[600px] mx-auto">Join 800+ satisfied customers. Browse our latest drops or DM us with what you're looking for.</p>
+            <div class="flex gap-6 justify-center flex-wrap">
+                <a href="shop.html" class="relative overflow-hidden px-12 py-5 text-sm font-semibold uppercase tracking-[3px] bg-[#d4af37] text-[#0a0a0a] inline-flex items-center gap-3 shadow-[0_10px_40px_rgba(212,175,55,0.3)] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(212,175,55,0.4)] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline shimmer-effect">
                     View All Items
-                    <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </a>
-                <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+                <a href="contact.html" class="px-12 py-5 text-sm font-semibold uppercase tracking-[3px] bg-transparent text-white border-2 border-white/30 inline-flex items-center gap-3 hover:bg-white hover:text-[#0a0a0a] hover:border-white hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(255,255,255,0.1)] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline">
+                    Contact Us
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">NYXCO</a>
-                <p>Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories. Buy, sell, and trade with confidence.</p>
-                <div class="social-links">
-                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-                        <i data-lucide="instagram" style="width: 20px; height: 20px;"></i>
+    <footer class="bg-[#0a0a0a] pt-24 pb-8 px-4 sm:px-8 lg:px-16 border-t border-[#1a1a1a]">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 lg:gap-24 mb-16">
+            <div class="sm:text-center lg:text-left">
+                <a href="index.html" class="font-display text-4xl font-bold text-[#d4af37] tracking-[4px] relative inline-block mb-6">NYXCO<span class="text-[0.7rem] absolute -top-1 -right-5">®</span></a>
+                <p class="text-[#888888] leading-relaxed mb-8 text-base">Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories..</p>
+                <div class="flex gap-4 sm:justify-center lg:justify-start">
+                    <a href="https://instagram.com" target="_blank" class="w-11 h-11 border border-[#1a1a1a] flex items-center justify-center text-[#888888] hover:bg-[#d4af37] hover:border-[#d4af37] hover:text-[#0a0a0a] hover:-translate-y-1 transition-all duration-300" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://wa.me/1234567890" target="_blank" aria-label="WhatsApp">
-                        <i data-lucide="message-circle" style="width: 20px; height: 20px;"></i>
+                    <a href="https://wa.me/1234567890" target="_blank" class="w-11 h-11 border border-[#1a1a1a] flex items-center justify-center text-[#888888] hover:bg-[#d4af37] hover:border-[#d4af37] hover:text-[#0a0a0a] hover:-translate-y-1 transition-all duration-300" aria-label="WhatsApp">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
                     </a>
-                    <a href="mailto:contact@nyco.com" aria-label="Email">
-                        <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+                    <a href="mailto:contact@nyco.com" class="w-11 h-11 border border-[#1a1a1a] flex items-center justify-center text-[#888888] hover:bg-[#d4af37] hover:border-[#d4af37] hover:text-[#0a0a0a] hover:-translate-y-1 transition-all duration-300" aria-label="Email">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
-            <div class="footer-links">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="shop.html">All Items</a></li>
-                    <li><a href="shop.html#bags">Bags</a></li>
-                    <li><a href="shop.html#hoodies">Hoodies</a></li>
-                    <li><a href="shop.html#accessories">Accessories</a></li>
+            <div>
+                <h4 class="text-[#d4af37] text-sm uppercase tracking-[3px] mb-8 font-semibold">Shop</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="shop.html" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">All Items</a></li>
+                    <li class="mb-4"><a href="shop.html#bags" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Bags</a></li>
+                    <li class="mb-4"><a href="shop.html#hoodies" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Hoodies</a></li>
+                    <li class="mb-4"><a href="shop.html#accessories" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Accessories</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="how-to-order.html">How to Order</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="#">Authentication</a></li>
+            <div>
+                <h4 class="text-[#d4af37] text-sm uppercase tracking-[3px] mb-8 font-semibold">Support</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="how-to-order.html" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">How to Order</a></li>
+                    <li class="mb-4"><a href="about.html" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">About Us</a></li>
+                    <li class="mb-4"><a href="contact.html" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Contact</a></li>
+                    <li class="mb-4"><a href="#" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Authentication</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                    <li><a href="#">Return Policy</a></li>
+            <div>
+                <h4 class="text-[#d4af37] text-sm uppercase tracking-[3px] mb-8 font-semibold">Legal</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="#" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Terms of Service</a></li>
+                    <li class="mb-4"><a href="#" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Privacy Policy</a></li>
+                    <li class="mb-4"><a href="#" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Shipping Policy</a></li>
+                    <li class="mb-4"><a href="#" class="text-[#888888] no-underline hover:text-[#d4af37] hover:translate-x-1 transition-all duration-300 inline-block text-sm sm:text-base">Return Policy</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="text-center pt-12 border-t border-[#1a1a1a] text-[#888888] text-sm">
             <p>&copy; 2026 NYXCO. All rights reserved. | Hammond, Louisiana</p>
         </div>
     </footer>
@@ -1097,36 +477,72 @@
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.setAttribute('data-lucide', 'x');
-            } else {
-                icon.setAttribute('data-lucide', 'menu');
-            }
-            lucide.createIcons();
-        });
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+        function closeMobileMenu() {
+            if (window.innerWidth < 1024 && navLinks && !navLinks.classList.contains('hidden')) {
+                navLinks.classList.add('hidden');
+                navLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-[#0a0a0a]', 'p-8', 'gap-6', 'border-t', 'border-[#d4af37]', 'shadow-[0_20px_40px_rgba(0,0,0,0.5)]', 'mobile-menu-animate');
                 const icon = mobileMenuBtn.querySelector('i');
-                icon.setAttribute('data-lucide', 'menu');
+                if (icon) icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            }
+        }
+
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('hidden');
+                navLinks.classList.toggle('flex');
+                navLinks.classList.toggle('flex-col');
+                navLinks.classList.toggle('absolute');
+                navLinks.classList.toggle('top-full');
+                navLinks.classList.toggle('left-0');
+                navLinks.classList.toggle('w-full');
+                navLinks.classList.toggle('bg-[#0a0a0a]');
+                navLinks.classList.toggle('p-8');
+                navLinks.classList.toggle('gap-6');
+                navLinks.classList.toggle('border-t');
+                navLinks.classList.toggle('border-[#d4af37]');
+                navLinks.classList.toggle('shadow-[0_20px_40px_rgba(0,0,0,0.5)]');
+                navLinks.classList.toggle('mobile-menu-animate');
+                
+                const icon = mobileMenuBtn.querySelector('i');
+                if (!navLinks.classList.contains('hidden')) {
+                    icon.setAttribute('data-lucide', 'x');
+                } else {
+                    icon.setAttribute('data-lucide', 'menu');
+                }
                 lucide.createIcons();
             });
-        });
+
+            document.querySelectorAll('#navLinks a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+        }
 
         // Navbar Scroll Effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+      window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('py-2');
+            navbar.classList.remove('py-3');
+
+            navbar.classList.add('bg-[#0a0a0a]/[0.98]');
+            navbar.classList.remove('bg-[#0a0a0a]/95');
+
+            navbar.classList.add('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+
+        } else {
+            navbar.classList.add('py-3');
+            navbar.classList.remove('py-2');
+
+            navbar.classList.add('bg-[#0a0a0a]/95');
+            navbar.classList.remove('bg-[#0a0a0a]/[0.98]');
+
+            navbar.classList.remove('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+        }
+    }
+});
 
         // Intersection Observer for Fade-in Animations
         const observerOptions = {

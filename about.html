@@ -9,357 +9,75 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --black: #0a0a0a;
-            --black-light: #111111;
-            --black-lighter: #1a1a1a;
-            --gold: #d4af37;
-            --gold-light: #f4d03f;
-            --gold-dark: #b8860b;
-            --white: #ffffff;
-            --gray: #888888;
-            --gray-light: #cccccc;
-            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-nyxco-black: #0a0a0a;
+            --color-nyxco-black-light: #111111;
+            --color-nyxco-black-lighter: #1a1a1a;
+            --color-nyxco-gold: #d4af37;
+            --color-nyxco-gold-light: #f4d03f;
+            --color-nyxco-gold-dark: #b8860b;
+            --color-nyxco-white: #ffffff;
+            --color-nyxco-gray: #888888;
+            --color-nyxco-gray-light: #cccccc;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
 
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, .brand-font {
-            font-family: 'Playfair Display', serif;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Navigation - Mobile First */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 1.5rem;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.4s var(--transition-smooth);
-        }
-
-        .navbar.scrolled {
-            padding: 0.75rem 1.5rem;
-            background: rgba(10, 10, 10, 0.99);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 3px;
-            position: relative;
-        }
-
-        .logo::after {
-            content: '®';
-            font-size: 0.6rem;
-            position: absolute;
-            top: 0;
-            right: -14px;
-            color: var(--gold);
-        }
-
-        .nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: var(--black);
-            flex-direction: column;
-            padding: 1.5rem;
-            gap: 0;
-            border-top: 1px solid var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            list-style: none;
-        }
-
-        .nav-links.active {
-            display: flex;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--black-lighter);
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .nav-links a:last-child {
-            border-bottom: none;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-            padding-left: 1rem;
-        }
-
-        .mobile-menu-btn {
-            display: flex;
-            background: none;
-            border: none;
-            color: var(--gold);
-            cursor: pointer;
-            padding: 0.5rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Hero Section - Mobile */
-        .about-hero {
-            min-height: auto;
-            display: flex;
-            align-items: center;
-            padding: 7rem 1.5rem 4rem;
-            background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-hero::before {
+        .nav-link::after {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.15;
-            mask-image: linear-gradient(to bottom, black 50%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent);
+            width: 0;
+            height: 2px;
+            background: var(--color-nyxco-gold);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .about-hero-content {
-            max-width: 100%;
-            position: relative;
-            z-index: 1;
-            text-align: center;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
-
-        .about-label {
-            color: var(--gold);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            display: block;
-            font-weight: 600;
-        }
-
-        .about-title {
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .about-subtitle {
-            color: var(--gray);
-            font-size: clamp(0.95rem, 4vw, 1.3rem);
-            line-height: 1.7;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Story Section - Mobile */
-        .story-section {
-            padding: 3rem 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .story-image {
-            position: relative;
-            order: -1;
-        }
-
-        .story-image img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border: 2px solid var(--gold);
-            border-radius: 4px;
-        }
+        .bounce { animation: bounce 2s infinite; }
 
         .story-image::before {
             content: '';
             position: absolute;
-            top: 15px;
-            left: 15px;
-            right: -15px;
-            bottom: -15px;
-            border: 2px solid var(--gold);
+            top: 30px;
+            left: 30px;
+            right: -30px;
+            bottom: -30px;
+            border: 2px solid var(--color-nyxco-gold);
             z-index: -1;
             opacity: 0.4;
             border-radius: 4px;
         }
 
-        .story-content h2 {
-            font-size: clamp(1.75rem, 6vw, 2.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .story-content p {
-            color: var(--gray-light);
-            line-height: 1.8;
-            margin-bottom: 1.25rem;
-            font-size: 0.95rem;
-        }
-
-        .highlight {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        /* Stats Section - Mobile */
-        .stats-section {
-            padding: 3rem 1rem;
-            background: var(--black-light);
-            border-top: 1px solid var(--black-lighter);
-            border-bottom: 1px solid var(--black-lighter);
-        }
-
-        .stats-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem 1rem;
-        }
-
-        .stat-item {
-            padding: 1.5rem 1rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .stat-item:nth-child(odd)::after {
+        .stat-divider::after {
             content: '';
             position: absolute;
-            right: -0.5rem;
+            right: -2rem;
             top: 50%;
             transform: translateY(-50%);
             width: 1px;
-            height: 50px;
-            background: var(--black-lighter);
-        }
-
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            color: var(--gold);
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            line-height: 1;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* Values Section - Mobile */
-        .values-section {
-            padding: 3rem 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .section-label {
-            color: var(--gold);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 0.75rem;
-            display: block;
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: clamp(1.75rem, 6vw, 3rem);
-            margin-bottom: 0.5rem;
-        }
-
-        .values-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .value-card {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: var(--black-light);
-            border: 1px solid var(--black-lighter);
-            border-radius: 8px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            height: 80px;
+            background: var(--color-nyxco-black-lighter);
         }
 
         .value-card::before {
@@ -369,116 +87,11 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: var(--gold);
+            background: var(--color-nyxco-gold);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
-
-        .value-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .value-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .value-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.25rem;
-            color: var(--gold);
-            transition: all 0.4s ease;
-        }
-
-        .value-icon svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        .value-card:hover .value-icon {
-            background: var(--gold);
-            color: var(--black);
-            transform: scale(1.05);
-        }
-
-        .value-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .value-desc {
-            color: var(--gray);
-            line-height: 1.7;
-            font-size: 0.9rem;
-        }
-
-        /* Location Section - Mobile */
-        .location-section {
-            padding: 3rem 1rem;
-            background: linear-gradient(180deg, var(--black) 0%, var(--black-light) 100%);
-        }
-
-        .location-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .location-content h2 {
-            font-size: clamp(1.75rem, 6vw, 2.5rem);
-            margin-bottom: 1rem;
-        }
-
-        .location-content p {
-            color: var(--gray-light);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .location-features {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .location-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.875rem;
-        }
-
-        .location-feature svg {
-            color: var(--gold);
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .location-feature span {
-            color: var(--white);
-            font-size: 0.95rem;
-        }
-
-        .location-map {
-            background: var(--black);
-            border: 2px solid var(--gold);
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-        }
+        .value-card:hover::before { transform: scaleX(1); }
 
         .location-map::before {
             content: '';
@@ -489,591 +102,18 @@
             opacity: 0.25;
         }
 
-        .map-content {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .map-pin {
-            width: 60px;
-            height: 60px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: var(--black);
-            animation: bounce 2s infinite;
-        }
-
-        .map-pin svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .map-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .map-content p {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        /* CTA Section - Mobile */
-        .cta-section {
-            padding: 4rem 1.5rem;
-            text-align: center;
-            background: var(--black);
-            position: relative;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-title {
-            font-size: clamp(1.5rem, 6vw, 3rem);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .cta-text {
-            color: var(--gray);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            position: relative;
-            padding: 0 0.5rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            border-radius: 4px;
-            width: 100%;
-            max-width: 280px;
-        }
-
-        .btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .btn-primary {
-            background: var(--gold);
-            color: var(--black);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.35);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-            margin-top: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--black);
-        }
-
-        /* Footer - Mobile */
-        footer {
-            background: var(--black-light);
-            padding: 3rem 1.5rem 1.5rem;
-            border-top: 1px solid var(--black-lighter);
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 1rem;
-            display: inline-block;
-            font-size: 2rem;
-        }
-
-        .footer-brand p {
-            color: var(--gray);
-            line-height: 1.7;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .social-links a {
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--black-lighter);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
-        }
-
-        .social-links a svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .footer-links h4 {
-            color: var(--gold);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--black-lighter);
-            color: var(--gray);
-            font-size: 0.8rem;
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* TABLET BREAKPOINT (768px and up) */
-        @media (min-width: 768px) {
-            .navbar {
-                padding: 1.25rem 2rem;
-            }
-
-            .logo {
-                font-size: 1.75rem;
-            }
-
-            .mobile-menu-btn {
-                display: none;
-            }
-
-            .nav-links {
-                display: flex !important;
-                position: static;
-                flex-direction: row;
-                padding: 0;
-                gap: 2rem;
-                border: none;
-                box-shadow: none;
-                background: transparent;
-                width: auto;
-            }
-
-            .nav-links a {
-                padding: 0.5rem 0;
-                border: none;
-                font-size: 0.8rem;
-                position: relative;
-            }
-
-            .nav-links a::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background: var(--gold);
-                transition: width 0.3s ease;
-            }
-
-            .nav-links a:hover {
-                padding-left: 0;
-                color: var(--gold);
-            }
-
-            .nav-links a:hover::after {
-                width: 100%;
-            }
-
-            .about-hero {
-                padding: 9rem 2rem 5rem;
-                min-height: 60vh;
-            }
-
-            .about-hero-content {
-                text-align: left;
-            }
-
-            .about-label {
-                font-size: 0.8rem;
-            }
-
-            .about-subtitle {
-                font-size: 1.1rem;
-                margin: 0;
-            }
-
-            .story-section {
-                padding: 4rem 2rem;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 3rem;
-                align-items: center;
-            }
-
-            .story-image {
-                order: 0;
-            }
-
-            .story-image img {
-                height: 400px;
-            }
-
+        @media (max-width: 1023px) {
+            .stat-divider::after { display: none; }
             .story-image::before {
-                top: 20px;
-                left: 20px;
-                right: -20px;
-                bottom: -20px;
-            }
-
-            .stats-section {
-                padding: 4rem 2rem;
-            }
-
-            .stats-container {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 2rem;
-            }
-
-            .stat-item {
-                padding: 2rem;
-            }
-
-            .stat-item:nth-child(odd)::after {
-                display: none;
-            }
-
-            .stat-item:not(:last-child)::after {
-                content: '';
-                position: absolute;
-                right: -1rem;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 1px;
-                height: 60px;
-                background: var(--black-lighter);
-            }
-
-            .stat-number {
-                font-size: 3rem;
-            }
-
-            .stat-label {
-                font-size: 0.85rem;
-                letter-spacing: 2px;
-            }
-
-            .values-section,
-            .location-section {
-                padding: 4rem 2rem;
-            }
-
-            .values-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1.5rem;
-            }
-
-            .value-card {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .value-icon {
-                width: 80px;
-                height: 80px;
-            }
-
-            .value-icon svg {
-                width: 32px;
-                height: 32px;
-            }
-
-            .location-container {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 3rem;
-                align-items: center;
-            }
-
-            .location-map {
-                height: 400px;
-            }
-
-            .map-pin {
-                width: 70px;
-                height: 70px;
-            }
-
-            .map-pin svg {
-                width: 32px;
-                height: 32px;
-            }
-
-            .cta-section {
-                padding: 5rem 2rem;
-            }
-
-            .btn {
-                width: auto;
-                padding: 1.1rem 2.5rem;
-            }
-
-            .btn-secondary {
-                margin-top: 0;
-                margin-left: 1rem;
-            }
-
-            footer {
-                padding: 4rem 2rem 2rem;
-            }
-
-            .footer-content {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 3rem;
+                top: 15px;
+                left: 15px;
+                right: -15px;
+                bottom: -15px;
             }
         }
 
-        /* DESKTOP BREAKPOINT (1024px and up) */
-        @media (min-width: 1024px) {
-            .navbar {
-                padding: 1.5rem 4rem;
-            }
-
-            .logo {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                gap: 3rem;
-            }
-
-            .nav-links a {
-                font-size: 0.85rem;
-            }
-
-            .about-hero {
-                padding: 10rem 4rem 6rem;
-                min-height: 70vh;
-            }
-
-            .about-label {
-                font-size: 0.9rem;
-                letter-spacing: 4px;
-            }
-
-            .about-subtitle {
-                font-size: 1.3rem;
-            }
-
-            .story-section {
-                padding: 6rem 4rem;
-                gap: 5rem;
-            }
-
-            .story-image img {
-                height: 550px;
-            }
-
-            .story-image::before {
-                top: 30px;
-                left: 30px;
-                right: -30px;
-                bottom: -30px;
-            }
-
-            .story-content h2 {
-                font-size: 2.5rem;
-            }
-
-            .story-content p {
-                font-size: 1.05rem;
-            }
-
-            .stats-section {
-                padding: 5rem 4rem;
-            }
-
-            .stats-container {
-                gap: 4rem;
-            }
-
-            .stat-item:not(:last-child)::after {
-                right: -2rem;
-                height: 80px;
-            }
-
-            .stat-number {
-                font-size: 4rem;
-            }
-
-            .values-section,
-            .location-section {
-                padding: 6rem 4rem;
-            }
-
-            .section-header {
-                margin-bottom: 4rem;
-            }
-
-            .values-grid {
-                gap: 2.5rem;
-            }
-
-            .value-card {
-                padding: 3.5rem 2rem;
-            }
-
-            .value-title {
-                font-size: 1.5rem;
-            }
-
-            .value-desc {
-                font-size: 1rem;
-            }
-
-            .location-container {
-                gap: 5rem;
-            }
-
-            .location-content h2 {
-                font-size: 2.5rem;
-            }
-
-            .location-map {
-                height: 500px;
-            }
-
-            .map-content h3 {
-                font-size: 1.8rem;
-            }
-
-            .cta-section {
-                padding: 6rem 4rem;
-            }
-
-            .cta-text {
-                font-size: 1.2rem;
-            }
-
-            .btn {
-                padding: 1.2rem 3rem;
-                font-size: 0.9rem;
-            }
-
-            footer {
-                padding: 5rem 4rem 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 2fr 1fr 1fr 1fr;
-                gap: 5rem;
-            }
-
-            .footer-brand .logo {
-                font-size: 2.5rem;
-            }
-        }
-
-        /* LARGE DESKTOP (1440px and up) */
-        @media (min-width: 1440px) {
-            .story-section {
-                gap: 6rem;
-            }
-
-            .values-grid {
-                gap: 3rem;
-            }
-        }
-
-        /* REDUCED MOTION */
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
@@ -1082,199 +122,221 @@
         }
     </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">NYXCO</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="how-to-order.html">How to Order</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+<body class="font-body bg-nyxco-black text-nyxco-white overflow-x-hidden leading-relaxed min-h-screen">
+
+    <!-- Navigation - Exact same as shop.html -->
+   <nav id="navbar" class="fixed top-0 w-full z-50 px-8 lg:px-16 py-3 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#d4af37]/10 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-display text-2xl font-bold text-[#d4af37] tracking-[4px] relative hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 flex items-center gap-3">
+    
+    <!-- LOGO IMAGE -->
+    <img src="/images/logo.jpg" alt="NYXCO Logo" class="h-14 w-auto object-contain">
+
+    NYXCO
+    <span class="text-[0.7rem] absolute -top-1 -right-5">®</span>
+</a>
+            <ul id="navLinks" class="hidden lg:flex gap-16 list-none">
+                <li><a href="index.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Home</a></li>
+                <li><a href="shop.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Shop</a></li>
+                <li><a href="how-to-order.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">How to Order</a></li>
+                <li><a href="about.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">About</a></li>
+                <li><a href="contact.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+            <button id="mobileMenuBtn" class="lg:hidden bg-transparent border-none text-nyxco-gold cursor-pointer p-2" aria-label="Toggle menu">
+                <i data-lucide="menu" class="w-7 h-7"></i>
             </button>
         </div>
+        <!-- Mobile Menu -->
+        <ul id="mobileNavLinks" class="hidden lg:hidden flex-col absolute top-full left-0 w-full bg-nyxco-black p-8 gap-6 border-t border-nyxco-gold shadow-[0_20px_40px_rgba(0,0,0,0.5)] list-none">
+            <li><a href="index.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Home</a></li>
+            <li><a href="shop.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Shop</a></li>
+            <li><a href="how-to-order.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">How to Order</a></li>
+            <li><a href="about.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">About</a></li>
+            <li><a href="contact.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Hero Section -->
-    <section class="about-hero">
-        <div class="about-hero-content">
-            <span class="about-label">Our Story</span>
-            <h1 class="about-title">Built on Trust & Authenticity</h1>
-            <p class="about-subtitle">NYXCO Exchange started with a simple mission: provide a trusted marketplace for luxury streetwear enthusiasts to buy, sell, and trade authenticated pieces.</p>
+    <section class="min-h-[70vh] flex items-center pt-32 pb-16 px-8 lg:px-16 bg-linear-to-br from-nyxco-black to-nyxco-black-light relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80')] bg-cover bg-center opacity-[0.15]" style="mask-image: linear-gradient(to bottom, black 50%, transparent); -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent);"></div>
+        <div class="max-w-[1600px] mx-auto relative z-10 text-center lg:text-left">
+            <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-4 font-semibold">Our Story</span>
+            <h1 class="font-display text-[clamp(2rem,8vw,4.5rem)] mb-4 leading-[1.1]">Built on Trust & Authenticity</h1>
+            <p class="text-nyxco-gray text-[clamp(0.95rem,4vw,1.3rem)] leading-relaxed max-w-[600px] mx-auto lg:mx-0">NYXCO Exchange started with a simple mission: provide a trusted marketplace for luxury streetwear enthusiasts to buy, sell, and trade authenticated pieces.</p>
         </div>
     </section>
 
     <!-- Story Section -->
-    <section class="story-section">
-        <div class="story-content fade-in">
-            <h2>From Passion to Business</h2>
-            <p>What began as a personal collection quickly evolved into something bigger. Based in <span class="highlight">Hammond, Louisiana</span>, we recognized the need for a reliable source of authenticated luxury streetwear in the community.</p>
-            <p>Every piece in our collection is hand-selected, thoroughly inspected, and verified for authenticity. We don't just sell products—we curate experiences for collectors who understand the value of genuine craftsmanship.</p>
-            <p>With over <span class="highlight">800 successful transactions</span>, we've built our reputation on transparency, fair pricing, and exceptional customer service. Whether you're looking for that grail piece or trying to trade up, we're here to make it happen.</p>
-        </div>
-        <div class="story-image fade-in">
-            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="NYXCO Exchange Story">
+    <section class="py-16 lg:py-24 px-8 lg:px-16 max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div class="order-2 lg:order-1 fade-in">
+                <h2 class="font-display text-[clamp(1.75rem,6vw,2.5rem)] mb-4 leading-[1.2]">From Passion to Business</h2>
+                <p class="text-nyxco-gray-light leading-relaxed mb-4">What began as a personal collection quickly evolved into something bigger. Based in <span class="text-nyxco-gold font-semibold">Hammond, Louisiana</span>, we recognized the need for a reliable source of authenticated luxury streetwear in the community.</p>
+                <p class="text-nyxco-gray-light leading-relaxed mb-4">Every piece in our collection is hand-selected, thoroughly inspected, and verified for authenticity. We do not just sell products—we curate experiences for collectors who understand the value of genuine craftsmanship.</p>
+                <p class="text-nyxco-gray-light leading-relaxed">With over <span class="text-nyxco-gold font-semibold">800 successful transactions</span>, we have built our reputation on transparency, fair pricing, and exceptional customer service. Whether you are looking for that grail piece or trying to trade up, we are here to make it happen.</p>
+            </div>
+            <div class="order-1 lg:order-2 relative fade-in story-image">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="NYXCO Exchange Story" class="w-full h-[300px] lg:h-[550px] object-cover border-2 border-nyxco-gold rounded">
+            </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stat-item fade-in">
-                <div class="stat-number">800+</div>
-                <div class="stat-label">Successful Sales</div>
+    <section class="py-16 lg:py-20 px-8 lg:px-16 bg-nyxco-black-light border-y border-nyxco-black-lighter">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-16">
+            <div class="text-center py-6 lg:py-8 relative fade-in stat-divider">
+                <div class="font-display text-[clamp(2.5rem,8vw,4rem)] text-nyxco-gold font-bold leading-none mb-1">800+</div>
+                <div class="text-nyxco-gray text-xs lg:text-sm uppercase tracking-[1.5px] lg:tracking-[2px]">Successful Sales</div>
             </div>
-            <div class="stat-item fade-in">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Authentic Guarantee</div>
+            <div class="text-center py-6 lg:py-8 relative fade-in stat-divider">
+                <div class="font-display text-[clamp(2.5rem,8vw,4rem)] text-nyxco-gold font-bold leading-none mb-1">100%</div>
+                <div class="text-nyxco-gray text-xs lg:text-sm uppercase tracking-[1.5px] lg:tracking-[2px]">Authentic Guarantee</div>
             </div>
-            <div class="stat-item fade-in">
-                <div class="stat-number">48h</div>
-                <div class="stat-label">Shipping Time</div>
+            <div class="text-center py-6 lg:py-8 relative fade-in stat-divider">
+                <div class="font-display text-[clamp(2.5rem,8vw,4rem)] text-nyxco-gold font-bold leading-none mb-1">48h</div>
+                <div class="text-nyxco-gray text-xs lg:text-sm uppercase tracking-[1.5px] lg:tracking-[2px]">Shipping Time</div>
             </div>
-            <div class="stat-item fade-in">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">DM Support</div>
+            <div class="text-center py-6 lg:py-8 relative fade-in">
+                <div class="font-display text-[clamp(2.5rem,8vw,4rem)] text-nyxco-gold font-bold leading-none mb-1">24/7</div>
+                <div class="text-nyxco-gray text-xs lg:text-sm uppercase tracking-[1.5px] lg:tracking-[2px]">DM Support</div>
             </div>
         </div>
     </section>
 
     <!-- Values Section -->
-    <section class="values-section">
-        <div class="section-header fade-in">
-            <span class="section-label">What We Stand For</span>
-            <h2 class="section-title">Our Values</h2>
+    <section class="py-16 lg:py-24 px-8 lg:px-16 max-w-[1400px] mx-auto">
+        <div class="text-center mb-10 lg:mb-16 fade-in">
+            <span class="text-nyxco-gold text-sm uppercase tracking-[3px] block mb-3 font-semibold">What We Stand For</span>
+            <h2 class="font-display text-[clamp(1.75rem,6vw,3rem)] mb-2">Our Values</h2>
         </div>
         
-        <div class="values-grid">
-            <div class="value-card fade-in">
-                <div class="value-icon">
-                    <i data-lucide="shield-check"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-10">
+            <div class="bg-nyxco-black-light border border-nyxco-black-lighter p-8 lg:p-14 text-center transition-all duration-400 hover:-translate-y-1 hover:border-nyxco-gold/30 relative overflow-hidden fade-in group">
+                <div class="w-[70px] h-[70px] lg:w-20 lg:h-20 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-5 text-nyxco-gold transition-all duration-400 group-hover:bg-nyxco-gold group-hover:text-nyxco-black group-hover:scale-105">
+                    <i data-lucide="shield-check" class="w-7 h-7 lg:w-8 lg:h-8"></i>
                 </div>
-                <h3 class="value-title">Authenticity First</h3>
-                <p class="value-desc">We guarantee 100% authenticity on every item. Each piece undergoes rigorous inspection before listing.</p>
+                <h3 class="font-display text-[1.25rem] lg:text-[1.5rem] mb-3">Authenticity First</h3>
+                <p class="text-nyxco-gray leading-relaxed text-sm lg:text-base">We guarantee 100% authenticity on every item. Each piece undergoes rigorous inspection before listing.</p>
             </div>
             
-            <div class="value-card fade-in">
-                <div class="value-icon">
-                    <i data-lucide="users"></i>
+            <div class="bg-nyxco-black-light border border-nyxco-black-lighter p-8 lg:p-14 text-center transition-all duration-400 hover:-translate-y-1 hover:border-nyxco-gold/30 relative overflow-hidden fade-in group">
+                <div class="w-[70px] h-[70px] lg:w-20 lg:h-20 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-5 text-nyxco-gold transition-all duration-400 group-hover:bg-nyxco-gold group-hover:text-nyxco-black group-hover:scale-105">
+                    <i data-lucide="users" class="w-7 h-7 lg:w-8 lg:h-8"></i>
                 </div>
-                <h3 class="value-title">Community Focused</h3>
-                <p class="value-desc">We're collectors too. We understand the culture and treat every customer like family.</p>
+                <h3 class="font-display text-[1.25rem] lg:text-[1.5rem] mb-3">Community Focused</h3>
+                <p class="text-nyxco-gray leading-relaxed text-sm lg:text-base">We are collectors too. We understand the culture and treat every customer like family.</p>
             </div>
             
-            <div class="value-card fade-in">
-                <div class="value-icon">
-                    <i data-lucide="handshake"></i>
+            <div class="bg-nyxco-black-light border border-nyxco-black-lighter p-8 lg:p-14 text-center transition-all duration-400 hover:-translate-y-1 hover:border-nyxco-gold/30 relative overflow-hidden fade-in group">
+                <div class="w-[70px] h-[70px] lg:w-20 lg:h-20 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-5 text-nyxco-gold transition-all duration-400 group-hover:bg-nyxco-gold group-hover:text-nyxco-black group-hover:scale-105">
+                    <i data-lucide="handshake" class="w-7 h-7 lg:w-8 lg:h-8"></i>
                 </div>
-                <h3 class="value-title">Fair Deals</h3>
-                <p class="value-desc">Transparent pricing, open to negotiations, and fair trade values. No lowballing, no inflated prices.</p>
+                <h3 class="font-display text-[1.25rem] lg:text-[1.5rem] mb-3">Fair Deals</h3>
+                <p class="text-nyxco-gray leading-relaxed text-sm lg:text-base">Transparent pricing, open to negotiations, and fair trade values. No lowballing, no inflated prices.</p>
             </div>
         </div>
     </section>
 
     <!-- Location Section -->
-    <section class="location-section">
-        <div class="location-container">
-            <div class="location-content fade-in">
-                <span class="section-label">Based In</span>
-                <h2>Hammond, Louisiana</h2>
-                <p>Serving the streetwear community nationwide from our home base in Hammond, LA. We offer local delivery within the area and are always open to local meetups for transactions.</p>
-                <div class="location-features">
-                    <div class="location-feature">
-                        <i data-lucide="map-pin"></i>
-                        <span>Hammond, Louisiana</span>
+    <section class="py-16 lg:py-24 px-8 lg:px-16 bg-linear-to-b from-nyxco-black to-nyxco-black-light">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+            <div class="fade-in">
+                <span class="text-nyxco-gold text-sm uppercase tracking-[3px] block mb-3 font-semibold">Based In</span>
+                <h2 class="font-display text-[clamp(1.75rem,6vw,2.5rem)] mb-4 leading-[1.2]">Hammond, Louisiana</h2>
+                <p class="text-nyxco-gray-light leading-relaxed mb-6">Serving the streetwear community nationwide from our home base in Hammond, LA. We offer local delivery within the area and are always open to local meetups for transactions.</p>
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-nyxco-gold flex-shrink-0"></i>
+                        <span class="text-white">Hammond, Louisiana</span>
                     </div>
-                    <div class="location-feature">
-                        <i data-lucide="truck"></i>
-                        <span>Nationwide Shipping</span>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="truck" class="w-5 h-5 text-nyxco-gold flex-shrink-0"></i>
+                        <span class="text-white">Nationwide Shipping</span>
                     </div>
-                    <div class="location-feature">
-                        <i data-lucide="home"></i>
-                        <span>Local Delivery Available</span>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="home" class="w-5 h-5 text-nyxco-gold flex-shrink-0"></i>
+                        <span class="text-white">Local Delivery Available</span>
                     </div>
-                    <div class="location-feature">
-                        <i data-lucide="clock"></i>
-                        <span>Same-Day Local Response</span>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-nyxco-gold flex-shrink-0"></i>
+                        <span class="text-white">Same-Day Local Response</span>
                     </div>
                 </div>
             </div>
-            <div class="location-map fade-in">
-                <div class="map-content">
-                    <div class="map-pin">
-                        <i data-lucide="map-pin"></i>
+            <div class="bg-nyxco-black border-2 border-nyxco-gold h-[300px] lg:h-[500px] flex items-center justify-center relative overflow-hidden rounded-lg fade-in location-map">
+                <div class="text-center relative z-10">
+                    <div class="w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] bg-nyxco-gold rounded-full flex items-center justify-center mx-auto mb-4 text-nyxco-black bounce">
+                        <i data-lucide="map-pin" class="w-7 h-7 lg:w-8 lg:h-8"></i>
                     </div>
-                    <h3>Hammond, LA</h3>
-                    <p>Serving Southeast Louisiana</p>
+                    <h3 class="font-display text-[1.5rem] lg:text-[1.8rem] mb-1">Hammond, LA</h3>
+                    <p class="text-nyxco-gray text-sm lg:text-base">Serving Southeast Louisiana</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="fade-in">
-            <h2 class="cta-title">Join the NYXCO Community</h2>
-            <p class="cta-text">Whether you're buying, selling, or trading, we're here to help.</p>
-            <div>
-                <a href="shop.html" class="btn btn-primary">
+    <section class="py-16 lg:py-24 px-8 lg:px-16 text-center bg-nyxco-black relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-[circle_at_center,rgba(212,175,55,0.05)_0%,transparent_70%] pointer-events-none"></div>
+        <div class="relative z-10 fade-in">
+            <h2 class="font-display text-[clamp(1.5rem,6vw,3rem)] mb-4">Join the NYXCO Community</h2>
+            <p class="text-nyxco-gray text-base lg:text-xl mb-8 max-w-[600px] mx-auto">Whether you are buying, selling, or trading, we are here to help.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="shop.html" class="px-8 py-4 bg-nyxco-gold text-nyxco-black text-sm font-semibold uppercase tracking-[2px] inline-flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(212,175,55,0.25)] hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(212,175,55,0.35)] transition-all duration-400 no-underline">
                     Browse Collection
-                    <i data-lucide="arrow-right"></i>
+                    <i data-lucide="arrow-right" class="w-[18px] h-[18px]"></i>
                 </a>
-                <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                <a href="contact.html" class="px-8 py-4 bg-transparent text-white text-sm font-semibold uppercase tracking-[2px] border-2 border-white inline-flex items-center justify-center gap-3 hover:bg-white hover:text-nyxco-black transition-all duration-400 no-underline">
+                    Get In Touch
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">NYXCO</a>
-                <p>Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
-                <div class="social-links">
-                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-                        <i data-lucide="instagram"></i>
+    <!-- Footer - Exact same as shop.html -->
+    <footer class="bg-nyxco-black-light pt-16 lg:pt-24 pb-8 px-8 lg:px-16 border-t border-nyxco-black-lighter">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 lg:gap-24 mb-16">
+            <div>
+                <a href="index.html" class="font-display text-[2.5rem] font-bold text-nyxco-gold tracking-[4px] relative inline-block mb-6 no-underline">NYXCO<span class="text-[0.7rem] absolute top-0 -right-4.5">®</span></a>
+                <p class="text-nyxco-gray leading-relaxed mb-8">Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://wa.me/1234567890" target="_blank" aria-label="WhatsApp">
-                        <i data-lucide="message-circle"></i>
+                    <a href="https://wa.me/1234567890" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="WhatsApp">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
                     </a>
-                    <a href="mailto:contact@nyxco.exchange" aria-label="Email">
-                        <i data-lucide="mail"></i>
+                    <a href="mailto:contact@nyxco.exchange" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Email">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
-            <div class="footer-links">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="shop.html">All Items</a></li>
-                    <li><a href="shop.html">Bags</a></li>
-                    <li><a href="shop.html">Hoodies</a></li>
-                    <li><a href="shop.html">Accessories</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Shop</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="shop.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">All Items</a></li>
+                    <li class="mb-4"><a href="shop.html#bags" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Bags</a></li>
+                    <li class="mb-4"><a href="shop.html#hoodies" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Hoodies</a></li>
+                    <li class="mb-4"><a href="shop.html#accessories" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Accessories</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="how-to-order.html">How to Order</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Support</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="how-to-order.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">How to Order</a></li>
+                    <li class="mb-4"><a href="about.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">About Us</a></li>
+                    <li class="mb-4"><a href="contact.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Contact</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Terms</a></li>
-                    <li><a href="#">Privacy</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Legal</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="#" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Terms of Service</a></li>
+                    <li class="mb-4"><a href="#" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="text-center pt-12 border-t border-nyxco-black-lighter text-nyxco-gray text-sm">
             <p>&copy; 2026 NYXCO Exchange. All rights reserved. | Hammond, Louisiana</p>
         </div>
     </footer>
@@ -1283,50 +345,61 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // Mobile Menu Toggle
+        // Mobile Menu - Exact same as shop.html
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
+        const mobileNavLinks = document.getElementById('mobileNavLinks');
         mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const isOpen = navLinks.classList.contains('active');
-            mobileMenuBtn.innerHTML = isOpen 
-                ? '<i data-lucide="x" style="width: 24px; height: 24px;"></i>'
-                : '<i data-lucide="menu" style="width: 24px; height: 24px;"></i>';
+            const isHidden = mobileNavLinks.classList.contains('hidden');
+            if (isHidden) {
+                mobileNavLinks.classList.remove('hidden');
+                mobileNavLinks.classList.add('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
+            } else {
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+            }
             lucide.createIcons();
         });
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        document.querySelectorAll('#mobileNavLinks a').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i data-lucide="menu" style="width: 24px; height: 24px;"></i>';
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
                 lucide.createIcons();
             });
         });
+       // Navbar Scroll Effect
+      window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
 
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('py-2');
+            navbar.classList.remove('py-3');
 
-        // Intersection Observer for Fade-in Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+            navbar.classList.add('bg-[#0a0a0a]/[0.98]');
+            navbar.classList.remove('bg-[#0a0a0a]/95');
 
+            navbar.classList.add('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+
+        } else {
+            navbar.classList.add('py-3');
+            navbar.classList.remove('py-2');
+
+            navbar.classList.add('bg-[#0a0a0a]/95');
+            navbar.classList.remove('bg-[#0a0a0a]/[0.98]');
+
+            navbar.classList.remove('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+        }
+    }
+});
+
+        // Intersection Observer for fade-in animations
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
-

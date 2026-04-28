@@ -2,980 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Learn how to order from nyxco. Simple 5-step process. Screenshot, DM, get price, pay, and receive your item.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Learn how to order from NYXCO. Simple 5-step process. Screenshot, DM, get price, pay, and receive your luxury streetwear items.">
     <title>How To Order | NYXCO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --black: #0a0a0a;
-            --black-light: #111111;
-            --black-lighter: #1a1a1a;
-            --gold: #d4af37;
-            --gold-light: #f4d03f;
-            --gold-dark: #b8860b;
-            --white: #ffffff;
-            --gray: #888888;
-            --gray-light: #cccccc;
-            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-nyxco-black: #0a0a0a;
+            --color-nyxco-black-light: #111111;
+            --color-nyxco-black-lighter: #1a1a1a;
+            --color-nyxco-gold: #d4af37;
+            --color-nyxco-gold-light: #f4d03f;
+            --color-nyxco-gold-dark: #b8860b;
+            --color-nyxco-white: #ffffff;
+            --color-nyxco-gray: #888888;
+            --color-nyxco-gray-light: #cccccc;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, .brand-font {
-            font-family: 'Playfair Display', serif;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 1.5rem;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.4s var(--transition-smooth);
-        }
-
-        .navbar.scrolled {
-            padding: 0.75rem 1.5rem;
-            background: rgba(10, 10, 10, 0.99);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 3px;
-            position: relative;
-        }
-
-        .logo::after {
-            content: '®';
-            font-size: 0.6rem;
+        
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        
+        .nav-link::after {
+            content: '';
             position: absolute;
-            top: 0;
-            right: -14px;
-            color: var(--gold);
-        }
-
-        .nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
+            bottom: 0;
             left: 0;
-            width: 100%;
-            background: var(--black);
-            flex-direction: column;
-            padding: 1.5rem;
-            gap: 0;
-            border-top: 1px solid var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            list-style: none;
-        }
-
-        .nav-links.active {
-            display: flex;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--black-lighter);
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .nav-links a:last-child {
-            border-bottom: none;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-            padding-left: 1rem;
-        }
-
-        .mobile-menu-btn {
-            display: flex;
-            background: none;
-            border: none;
-            color: var(--gold);
-            cursor: pointer;
-            padding: 0.5rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Page Header */
-        .page-header {
-            padding: 7rem 1.5rem 3rem;
-            background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .page-label {
-            color: var(--gold);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            display: block;
-            position: relative;
-            font-weight: 600;
-        }
-
-        .page-title {
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            margin-bottom: 1rem;
-            position: relative;
-            line-height: 1.1;
-        }
-
-        .page-subtitle {
-            color: var(--gray);
-            font-size: clamp(0.95rem, 4vw, 1.3rem);
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            line-height: 1.7;
-            padding: 0 0.5rem;
-        }
-
-        /* Steps Section */
-        .steps-section {
-            padding: 3rem 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .steps-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            position: relative;
-        }
-
-        .steps-container::before {
-            display: none;
-        }
-
-        .step-card {
-            text-align: center;
-            position: relative;
-            padding: 1.5rem;
-            background: rgba(255,255,255,0.02);
-            border-radius: 12px;
-            border: 1px solid var(--black-lighter);
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--black);
-            border: 3px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin: 0 auto 1.5rem;
-            position: relative;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-        }
-
-        .step-icon {
-            position: absolute;
-            bottom: -8px;
-            right: -8px;
-            width: 32px;
-            height: 32px;
-            background: var(--black-light);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-        }
-
-        .step-icon svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .step-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-
-        .step-desc {
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        /* Payment Methods */
-        .payment-section {
-            padding: 3rem 1rem;
-            background: var(--black-light);
-            border-top: 1px solid var(--black-lighter);
-            border-bottom: 1px solid var(--black-lighter);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            padding: 0 1rem;
-        }
-
-        .section-label {
-            color: var(--gold);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 0.75rem;
-            display: block;
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: clamp(1.75rem, 6vw, 3rem);
-            margin-bottom: 0.75rem;
-        }
-
-        .section-header p {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        .payment-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 0.5rem;
-        }
-
-        .payment-card {
-            background: var(--black);
-            border: 1px solid var(--black-lighter);
-            padding: 1.75rem 1.5rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            border-radius: 8px;
-        }
-
-        .payment-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-3px);
-        }
-
-        .payment-icon {
-            width: 56px;
-            height: 56px;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: var(--gold);
-        }
-
-        .payment-icon svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .payment-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .payment-desc {
-            color: var(--gray);
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-
-        /* Trust Section */
-        .trust-section {
-            padding: 3rem 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .trust-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        .trust-card {
-            display: flex;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: var(--black-light);
-            border: 1px solid var(--black-lighter);
-            border-radius: 8px;
-            transition: all 0.4s ease;
-        }
-
-        .trust-card:hover {
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .trust-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            flex-shrink: 0;
-        }
-
-        .trust-icon svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        .trust-content h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .trust-content p {
-            color: var(--gray);
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            padding: 3rem 1rem;
-            background: var(--black);
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid var(--black-lighter);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            width: 100%;
-            padding: 1.25rem 0;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .faq-question:hover {
-            color: var(--gold);
-        }
-
-        .faq-question svg {
-            transition: transform 0.3s ease;
-            color: var(--gold);
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-        }
-
-        .faq-item.active .faq-question svg {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-            color: var(--gray);
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding-bottom: 1.25rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 4rem 1.5rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
-            position: relative;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-title {
-            font-size: clamp(1.5rem, 6vw, 3rem);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .cta-text {
-            color: var(--gray);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            position: relative;
-            padding: 0 0.5rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            border-radius: 4px;
-            width: 100%;
-            max-width: 280px;
-        }
-
-        .btn-primary {
-            background: var(--gold);
-            color: var(--black);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.35);
-        }
-
-        .btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--black);
-            padding: 3rem 1.5rem 1.5rem;
-            border-top: 1px solid var(--black-lighter);
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 1rem;
-            display: inline-block;
-            font-size: 2rem;
-        }
-
-        .footer-brand p {
-            color: var(--gray);
-            line-height: 1.7;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .social-links a {
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--black-lighter);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
-        }
-
-        .social-links a svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .footer-links h4 {
-            color: var(--gold);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--black-lighter);
-            color: var(--gray);
-            font-size: 0.8rem;
-        }
-
-        /* Animations */
+            width: 0;
+            height: 2px;
+            background: var(--color-nyxco-gold);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(25px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* TABLET BREAKPOINT (768px and up) */
-        @media (min-width: 768px) {
-            .navbar {
-                padding: 1.25rem 2rem;
-            }
-
-            .logo {
-                font-size: 1.75rem;
-            }
-
-            .mobile-menu-btn {
-                display: none;
-            }
-
-            .nav-links {
-                display: flex !important;
-                position: static;
-                flex-direction: row;
-                padding: 0;
-                gap: 2rem;
-                border: none;
-                box-shadow: none;
-                background: transparent;
-                width: auto;
-            }
-
-            .nav-links a {
-                padding: 0.5rem 0;
-                border: none;
-                font-size: 0.8rem;
-                position: relative;
-            }
-
-            .nav-links a::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background: var(--gold);
-                transition: width 0.3s ease;
-            }
-
-            .nav-links a:hover {
-                padding-left: 0;
-                color: var(--gold);
-            }
-
-            .nav-links a:hover::after {
-                width: 100%;
-            }
-
-            .page-header {
-                padding: 9rem 2rem 5rem;
-            }
-
-            .page-label {
-                font-size: 0.8rem;
-            }
-
-            .page-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .steps-section {
-                padding: 4rem 2rem;
-            }
-
-            .steps-container {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .step-card {
-                padding: 2rem;
-            }
-
-            .step-number {
-                width: 90px;
-                height: 90px;
-                font-size: 2.25rem;
-            }
-
-            .payment-section,
-            .trust-section,
-            .faq-section {
-                padding: 4rem 2rem;
-            }
-
-            .payment-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .trust-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .trust-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 2rem;
-            }
-
-            .trust-icon {
-                margin: 0 auto 1rem;
-                width: 60px;
-                height: 60px;
-            }
-
-            .trust-icon svg {
-                width: 26px;
-                height: 26px;
-            }
-
-            .faq-question {
-                font-size: 1rem;
-                padding: 1.5rem 0;
-            }
-
-            .cta-section {
-                padding: 5rem 2rem;
-            }
-
-            .btn {
-                width: auto;
-                padding: 1.1rem 2.5rem;
-            }
-
-            footer {
-                padding: 4rem 2rem 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 3rem;
-            }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 1.5rem;
         }
-
-        /* DESKTOP BREAKPOINT (1024px and up) */
-        @media (min-width: 1024px) {
-            .navbar {
-                padding: 1.5rem 4rem;
-            }
-
-            .logo {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                gap: 3rem;
-            }
-
-            .nav-links a {
-                font-size: 0.85rem;
-            }
-
-            .page-header {
-                padding: 10rem 4rem 6rem;
-            }
-
-            .page-label {
-                font-size: 0.9rem;
-                letter-spacing: 4px;
-            }
-
-            .page-subtitle {
-                font-size: 1.3rem;
-            }
-
-            .steps-section {
-                padding: 6rem 4rem;
-            }
-
-            .steps-container {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 1.5rem;
-            }
-
-            .steps-container::before {
-                display: block;
-                content: '';
-                position: absolute;
-                top: 60px;
-                left: 10%;
-                right: 10%;
-                height: 2px;
-                background: linear-gradient(90deg, transparent, var(--gold), transparent);
-                z-index: 0;
-            }
-
-            .step-card {
-                background: transparent;
-                border: none;
-                padding: 0;
-            }
-
-            .step-number {
-                width: 120px;
-                height: 120px;
-                font-size: 3rem;
-            }
-
-            .step-icon {
-                width: 40px;
-                height: 40px;
-                bottom: -10px;
-                right: -10px;
-            }
-
-            .step-icon svg {
-                width: 20px;
-                height: 20px;
-            }
-
-            .step-title {
-                font-size: 1.3rem;
-            }
-
-            .payment-section,
-            .trust-section,
-            .faq-section {
-                padding: 6rem 4rem;
-            }
-
-            .payment-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 2rem;
-            }
-
-            .payment-card {
-                padding: 3rem 2rem;
-            }
-
-            .payment-icon {
-                width: 70px;
-                height: 70px;
-            }
-
-            .payment-icon svg {
-                width: 32px;
-                height: 32px;
-            }
-
-            .trust-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 2rem;
-            }
-
-            .trust-card {
-                flex-direction: row;
-                text-align: left;
-                padding: 2.5rem;
-            }
-
-            .trust-icon {
-                margin: 0;
-            }
-
-            .faq-question {
-                padding: 2rem 0;
-                font-size: 1.1rem;
-            }
-
-            .faq-item.active .faq-answer {
-                padding-bottom: 2rem;
-            }
-
-            .cta-section {
-                padding: 8rem 4rem;
-            }
-
-            .cta-text {
-                font-size: 1.2rem;
-            }
-
-            .btn {
-                padding: 1.2rem 3rem;
-                font-size: 0.9rem;
-            }
-
-            footer {
-                padding: 6rem 4rem 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 2fr 1fr 1fr 1fr;
-                gap: 6rem;
-            }
-
-            .footer-brand .logo {
-                font-size: 2.5rem;
-            }
+        .faq-item.active .faq-chevron {
+            transform: rotate(180deg);
         }
-
-        /* LARGE DESKTOP (1440px and up) */
-        @media (min-width: 1440px) {
-            .steps-container {
-                gap: 2rem;
-            }
-
-            .payment-grid {
-                gap: 2.5rem;
-            }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* REDUCED MOTION */
+        
+        .shimmer-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+        .shimmer-effect:hover::before {
+            left: 100%;
+        }
+        
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
@@ -984,290 +92,299 @@
         }
     </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">NYXCO</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="how-to-order.html">How to Order</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+<body class="font-body bg-nyxco-black text-white overflow-x-hidden">
+
+    <!-- Navigation - Exact same as shop.html -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 px-8 lg:px-16 py-3 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#d4af37]/10 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-display text-2xl font-bold text-[#d4af37] tracking-[4px] relative hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 flex items-center gap-3">
+    
+    <!-- LOGO IMAGE -->
+    <img src="/images/logo.jpg" alt="NYXCO Logo" class="h-14 w-auto object-contain">
+
+    NYXCO
+    <span class="text-[0.7rem] absolute -top-1 -right-5">®</span>
+</a>
+            <ul id="navLinks" class="hidden lg:flex gap-16 list-none">
+                <li><a href="index.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Home</a></li>
+                <li><a href="shop.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Shop</a></li>
+                <li><a href="how-to-order.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">How to Order</a></li>
+                <li><a href="about.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">About</a></li>
+                <li><a href="contact.html" class="nav-link relative text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+            <button id="mobileMenuBtn" class="lg:hidden bg-transparent border-none text-nyxco-gold cursor-pointer p-2" aria-label="Toggle menu">
+                <i data-lucide="menu" class="w-7 h-7"></i>
             </button>
         </div>
+        <!-- Mobile Menu -->
+        <ul id="mobileNavLinks" class="hidden lg:hidden flex-col absolute top-full left-0 w-full bg-nyxco-black p-8 gap-6 border-t border-nyxco-gold shadow-[0_20px_40px_rgba(0,0,0,0.5)] list-none">
+            <li><a href="index.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Home</a></li>
+            <li><a href="shop.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Shop</a></li>
+            <li><a href="how-to-order.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">How to Order</a></li>
+            <li><a href="about.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">About</a></li>
+            <li><a href="contact.html" class="block text-white text-sm font-medium tracking-[2px] uppercase py-2 hover:text-nyxco-gold transition-colors duration-300 no-underline">Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header">
-        <span class="page-label">Simple Process</span>
-        <h1 class="page-title">How To Order</h1>
-        <p class="page-subtitle">No complicated checkout. Just screenshot, DM, and deal. We make buying luxury streetwear simple and secure.</p>
+    <section class="pt-40 pb-16 px-8 lg:px-16 text-center bg-linear-to-b from-nyxco-black-light to-nyxco-black border-b border-nyxco-black-lighter relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-[circle_at_center,rgba(212,175,55,0.06)_0%,transparent_70%] pointer-events-none"></div>
+        <span class="relative text-nyxco-gold text-sm uppercase tracking-[4px] block mb-4 font-semibold">Simple Process</span>
+        <h1 class="relative font-display text-[clamp(2.5rem,5vw,4.5rem)] mb-4 leading-[1.1]">How To Order</h1>
+        <p class="relative text-nyxco-gray text-lg lg:text-xl max-w-[600px] mx-auto">No complicated checkout. Just screenshot, DM, and deal. We make buying luxury streetwear simple and secure.</p>
     </section>
 
     <!-- Steps Section -->
-    <section class="steps-section">
-        <div class="steps-container">
-            <div class="step-card fade-in">
-                <div class="step-number">
+    <section class="py-16 lg:py-24 px-8 lg:px-16 max-w-[1600px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6 lg:gap-5">
+            <!-- Step 1 -->
+            <div class="text-center p-6 bg-nyxco-black-light rounded-xl border border-nyxco-black-lighter hover:border-nyxco-gold/40 transition-all duration-300 hover:-translate-y-1 fade-in">
+                <div class="relative w-24 h-24 bg-nyxco-black border-2 border-nyxco-gold rounded-full flex items-center justify-center font-display text-3xl font-bold text-nyxco-gold mx-auto mb-5 shadow-lg">
                     1
-                    <div class="step-icon">
-                        <i data-lucide="smartphone"></i>
+                    <div class="absolute -bottom-2 -right-2 w-9 h-9 bg-nyxco-black-lighter border border-nyxco-gold rounded-full flex items-center justify-center">
+                        <i data-lucide="smartphone" class="w-4 h-4 text-nyxco-gold"></i>
                     </div>
                 </div>
-                <h3 class="step-title">Screenshot Item</h3>
-                <p class="step-desc">Browse our collection and screenshot the item(s) you're interested in purchasing or trading.</p>
+                <h3 class="text-xl font-semibold mb-2">Screenshot Item</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">Browse our collection and screenshot the item(s) you are interested in purchasing or trading.</p>
             </div>
-            
-            <div class="step-card fade-in">
-                <div class="step-number">
+            <!-- Step 2 -->
+            <div class="text-center p-6 bg-nyxco-black-light rounded-xl border border-nyxco-black-lighter hover:border-nyxco-gold/40 transition-all duration-300 hover:-translate-y-1 fade-in">
+                <div class="relative w-24 h-24 bg-nyxco-black border-2 border-nyxco-gold rounded-full flex items-center justify-center font-display text-3xl font-bold text-nyxco-gold mx-auto mb-5 shadow-lg">
                     2
-                    <div class="step-icon">
-                        <i data-lucide="send"></i>
+                    <div class="absolute -bottom-2 -right-2 w-9 h-9 bg-nyxco-black-lighter border border-nyxco-gold rounded-full flex items-center justify-center">
+                        <i data-lucide="send" class="w-4 h-4 text-nyxco-gold"></i>
                     </div>
                 </div>
-                <h3 class="step-title">Send DM</h3>
-                <p class="step-desc">Message us on Instagram or WhatsApp with the screenshot. We typically respond within 10 minutes.</p>
+                <h3 class="text-xl font-semibold mb-2">Send DM</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">Message us on Instagram or WhatsApp with the screenshot. We typically respond within 10 minutes.</p>
             </div>
-            
-            <div class="step-card fade-in">
-                <div class="step-number">
+            <!-- Step 3 -->
+            <div class="text-center p-6 bg-nyxco-black-light rounded-xl border border-nyxco-black-lighter hover:border-nyxco-gold/40 transition-all duration-300 hover:-translate-y-1 fade-in">
+                <div class="relative w-24 h-24 bg-nyxco-black border-2 border-nyxco-gold rounded-full flex items-center justify-center font-display text-3xl font-bold text-nyxco-gold mx-auto mb-5 shadow-lg">
                     3
-                    <div class="step-icon">
-                        <i data-lucide="tag"></i>
+                    <div class="absolute -bottom-2 -right-2 w-9 h-9 bg-nyxco-black-lighter border border-nyxco-gold rounded-full flex items-center justify-center">
+                        <i data-lucide="tag" class="w-4 h-4 text-nyxco-gold"></i>
                     </div>
                 </div>
-                <h3 class="step-title">Get Price</h3>
-                <p class="step-desc">We'll send you the price, condition details, and additional photos. Open to reasonable offers.</p>
+                <h3 class="text-xl font-semibold mb-2">Get Price</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">We will send you the price, condition details, and additional photos. Open to reasonable offers.</p>
             </div>
-            
-            <div class="step-card fade-in">
-                <div class="step-number">
+            <!-- Step 4 -->
+            <div class="text-center p-6 bg-nyxco-black-light rounded-xl border border-nyxco-black-lighter hover:border-nyxco-gold/40 transition-all duration-300 hover:-translate-y-1 fade-in">
+                <div class="relative w-24 h-24 bg-nyxco-black border-2 border-nyxco-gold rounded-full flex items-center justify-center font-display text-3xl font-bold text-nyxco-gold mx-auto mb-5 shadow-lg">
                     4
-                    <div class="step-icon">
-                        <i data-lucide="credit-card"></i>
+                    <div class="absolute -bottom-2 -right-2 w-9 h-9 bg-nyxco-black-lighter border border-nyxco-gold rounded-full flex items-center justify-center">
+                        <i data-lucide="credit-card" class="w-4 h-4 text-nyxco-gold"></i>
                     </div>
                 </div>
-                <h3 class="step-title">Make Payment</h3>
-                <p class="step-desc">Pay via Bank Transfer, CashApp, or Zelle. Once confirmed, your item is reserved and packaged.</p>
+                <h3 class="text-xl font-semibold mb-2">Make Payment</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">Pay via Bank Transfer, CashApp, or Zelle. Once confirmed, your item is reserved and packaged.</p>
             </div>
-            
-            <div class="step-card fade-in">
-                <div class="step-number">
+            <!-- Step 5 -->
+            <div class="text-center p-6 bg-nyxco-black-light rounded-xl border border-nyxco-black-lighter hover:border-nyxco-gold/40 transition-all duration-300 hover:-translate-y-1 fade-in">
+                <div class="relative w-24 h-24 bg-nyxco-black border-2 border-nyxco-gold rounded-full flex items-center justify-center font-display text-3xl font-bold text-nyxco-gold mx-auto mb-5 shadow-lg">
                     5
-                    <div class="step-icon">
-                        <i data-lucide="package"></i>
+                    <div class="absolute -bottom-2 -right-2 w-9 h-9 bg-nyxco-black-lighter border border-nyxco-gold rounded-full flex items-center justify-center">
+                        <i data-lucide="package" class="w-4 h-4 text-nyxco-gold"></i>
                     </div>
                 </div>
-                <h3 class="step-title">Receive Item</h3>
-                <p class="step-desc">We ship nationwide with tracking within 48 hours. Local delivery available in Hammond, LA.</p>
+                <h3 class="text-xl font-semibold mb-2">Receive Item</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">We ship nationwide with tracking within 48 hours. Local delivery available in Hammond, LA.</p>
             </div>
         </div>
     </section>
 
     <!-- Payment Methods -->
-    <section class="payment-section">
-        <div class="section-header fade-in">
-            <span class="section-label">Accepted Payments</span>
-            <h2 class="section-title">Payment Methods</h2>
-            <p>Secure manual payment options. No automated checkout required.</p>
+    <section class="py-16 lg:py-24 px-8 lg:px-16 bg-nyxco-black-light border-y border-nyxco-black-lighter">
+        <div class="text-center mb-12 fade-in">
+            <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-3 font-semibold">Accepted Payments</span>
+            <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] mb-3">Payment Methods</h2>
+            <p class="text-nyxco-gray text-base">Secure manual payment options. No automated checkout required.</p>
         </div>
         
-        <div class="payment-grid">
-            <div class="payment-card fade-in">
-                <div class="payment-icon">
-                    <i data-lucide="building-2"></i>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-[1200px] mx-auto">
+            <div class="bg-nyxco-black border border-nyxco-black-lighter p-8 text-center rounded-xl hover:border-nyxco-gold hover:-translate-y-1 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="building-2" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <h3 class="payment-name">Bank Transfer</h3>
-                <p class="payment-desc">Direct wire transfer<br>Most secure option</p>
+                <h3 class="text-lg font-semibold mb-1">Bank Transfer</h3>
+                <p class="text-nyxco-gray text-sm">Direct wire transfer<br>Most secure option</p>
             </div>
-            
-            <div class="payment-card fade-in">
-                <div class="payment-icon">
-                    <i data-lucide="wallet"></i>
+            <div class="bg-nyxco-black border border-nyxco-black-lighter p-8 text-center rounded-xl hover:border-nyxco-gold hover:-translate-y-1 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="wallet" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <h3 class="payment-name">CashApp</h3>
-                <p class="payment-desc">Instant transfer<br>$Cashtag payment</p>
+                <h3 class="text-lg font-semibold mb-1">CashApp</h3>
+                <p class="text-nyxco-gray text-sm">Instant transfer<br>$Cashtag payment</p>
             </div>
-            
-            <div class="payment-card fade-in">
-                <div class="payment-icon">
-                    <i data-lucide="zap"></i>
+            <div class="bg-nyxco-black border border-nyxco-black-lighter p-8 text-center rounded-xl hover:border-nyxco-gold hover:-translate-y-1 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="zap" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <h3 class="payment-name">Zelle</h3>
-                <p class="payment-desc">Bank to bank<br>No fees</p>
+                <h3 class="text-lg font-semibold mb-1">Zelle</h3>
+                <p class="text-nyxco-gray text-sm">Bank to bank<br>No fees</p>
             </div>
-            
-            <div class="payment-card fade-in">
-                <div class="payment-icon">
-                    <i data-lucide="repeat"></i>
+            <div class="bg-nyxco-black border border-nyxco-black-lighter p-8 text-center rounded-xl hover:border-nyxco-gold hover:-translate-y-1 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="repeat" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <h3 class="payment-name">Trade</h3>
-                <p class="payment-desc">Item exchange<br>Plus cash adjustment</p>
+                <h3 class="text-lg font-semibold mb-1">Trade</h3>
+                <p class="text-nyxco-gray text-sm">Item exchange<br>Plus cash adjustment</p>
             </div>
         </div>
     </section>
 
     <!-- Trust Section -->
-    <section class="trust-section">
-        <div class="section-header fade-in">
-            <span class="section-label">Why This Works</span>
-            <h2 class="section-title">Trust & Safety</h2>
+    <section class="py-16 lg:py-24 px-8 lg:px-16 max-w-[1600px] mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-3 font-semibold">Why This Works</span>
+            <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)]">Trust & Safety</h2>
         </div>
         
-        <div class="trust-grid">
-            <div class="trust-card fade-in">
-                <div class="trust-icon">
-                    <i data-lucide="shield-check"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex flex-col items-center text-center p-8 bg-nyxco-black-light border border-nyxco-black-lighter rounded-xl hover:border-nyxco-gold/30 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mb-5">
+                    <i data-lucide="shield-check" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <div class="trust-content">
-                    <h3>Secure Transactions</h3>
-                    <p>Every payment is verified before shipping. We provide proof of shipping and tracking numbers immediately.</p>
-                </div>
+                <h3 class="text-xl font-semibold mb-2">Secure Transactions</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">Every payment is verified before shipping. We provide proof of shipping and tracking numbers immediately.</p>
             </div>
-            
-            <div class="trust-card fade-in">
-                <div class="trust-icon">
-                    <i data-lucide="badge-check"></i>
+            <div class="flex flex-col items-center text-center p-8 bg-nyxco-black-light border border-nyxco-black-lighter rounded-xl hover:border-nyxco-gold/30 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mb-5">
+                    <i data-lucide="badge-check" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <div class="trust-content">
-                    <h3>Authentication First</h3>
-                    <p>All items are authenticated before listing. We guarantee 100% authenticity or your money back.</p>
-                </div>
+                <h3 class="text-xl font-semibold mb-2">Authentication First</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">All items are authenticated before listing. We guarantee 100% authenticity or your money back.</p>
             </div>
-            
-            <div class="trust-card fade-in">
-                <div class="trust-icon">
-                    <i data-lucide="message-circle"></i>
+            <div class="flex flex-col items-center text-center p-8 bg-nyxco-black-light border border-nyxco-black-lighter rounded-xl hover:border-nyxco-gold/30 transition-all duration-300 fade-in">
+                <div class="w-16 h-16 bg-nyxco-gold/10 rounded-full flex items-center justify-center mb-5">
+                    <i data-lucide="message-circle" class="w-7 h-7 text-nyxco-gold"></i>
                 </div>
-                <div class="trust-content">
-                    <h3>Direct Communication</h3>
-                    <p>Deal directly with us. No middlemen, no hidden fees. Build a relationship with your seller.</p>
-                </div>
+                <h3 class="text-xl font-semibold mb-2">Direct Communication</h3>
+                <p class="text-nyxco-gray text-sm leading-relaxed">Deal directly with us. No middlemen, no hidden fees. Build a relationship with your seller.</p>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="section-header fade-in">
-            <span class="section-label">Questions</span>
-            <h2 class="section-title">Frequently Asked</h2>
+    <section class="py-16 lg:py-24 px-8 lg:px-16 bg-nyxco-black-light">
+        <div class="text-center mb-12 fade-in">
+            <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-3 font-semibold">Questions</span>
+            <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)]">Frequently Asked</h2>
         </div>
         
-        <div class="faq-container">
-            <div class="faq-item fade-in">
-                <button class="faq-question">
-                    How long does shipping take?
-                    <i data-lucide="chevron-down"></i>
+        <div class="max-w-3xl mx-auto">
+            <div class="faq-item border-b border-nyxco-black-lighter overflow-hidden fade-in">
+                <button class="faq-question w-full py-6 bg-transparent border-none text-white text-left cursor-pointer flex justify-between items-center gap-4 hover:text-nyxco-gold transition-colors duration-300">
+                    <span class="font-semibold text-base lg:text-lg">How long does shipping take?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-nyxco-gold transition-transform duration-300 flex-shrink-0"></i>
                 </button>
-                <div class="faq-answer">
+                <div class="faq-answer text-nyxco-gray text-sm lg:text-base leading-relaxed">
                     We ship within 48 hours of payment confirmation. Domestic shipping typically takes 3-5 business days. Express shipping available upon request.
                 </div>
             </div>
             
-            <div class="faq-item fade-in">
-                <button class="faq-question">
-                    Do you accept returns?
-                    <i data-lucide="chevron-down"></i>
+            <div class="faq-item border-b border-nyxco-black-lighter overflow-hidden fade-in">
+                <button class="faq-question w-full py-6 bg-transparent border-none text-white text-left cursor-pointer flex justify-between items-center gap-4 hover:text-nyxco-gold transition-colors duration-300">
+                    <span class="font-semibold text-base lg:text-lg">Do you accept returns?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-nyxco-gold transition-transform duration-300 flex-shrink-0"></i>
                 </button>
-                <div class="faq-answer">
-                    All sales are final unless the item is not as described. We provide detailed photos and descriptions to ensure you know exactly what you're getting.
+                <div class="faq-answer text-nyxco-gray text-sm lg:text-base leading-relaxed">
+                    All sales are final unless the item is not as described. We provide detailed photos and descriptions to ensure you know exactly what you are getting.
                 </div>
             </div>
             
-            <div class="faq-item fade-in">
-                <button class="faq-question">
-                    Can I negotiate on price?
-                    <i data-lucide="chevron-down"></i>
+            <div class="faq-item border-b border-nyxco-black-lighter overflow-hidden fade-in">
+                <button class="faq-question w-full py-6 bg-transparent border-none text-white text-left cursor-pointer flex justify-between items-center gap-4 hover:text-nyxco-gold transition-colors duration-300">
+                    <span class="font-semibold text-base lg:text-lg">Can I negotiate on price?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-nyxco-gold transition-transform duration-300 flex-shrink-0"></i>
                 </button>
-                <div class="faq-answer">
+                <div class="faq-answer text-nyxco-gray text-sm lg:text-base leading-relaxed">
                     Yes! We are open to reasonable offers. DM us with your offer and we can discuss. Bundle deals available for multiple items.
                 </div>
             </div>
             
-            <div class="faq-item fade-in">
-                <button class="faq-question">
-                    How do trades work?
-                    <i data-lucide="chevron-down"></i>
+            <div class="faq-item border-b border-nyxco-black-lighter overflow-hidden fade-in">
+                <button class="faq-question w-full py-6 bg-transparent border-none text-white text-left cursor-pointer flex justify-between items-center gap-4 hover:text-nyxco-gold transition-colors duration-300">
+                    <span class="font-semibold text-base lg:text-lg">How do trades work?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-nyxco-gold transition-transform duration-300 flex-shrink-0"></i>
                 </button>
-                <div class="faq-answer">
-                    Send us photos of your item along with what you're interested in. If we like your item, we'll work out a fair trade value plus any cash adjustment needed.
+                <div class="faq-answer text-nyxco-gray text-sm lg:text-base leading-relaxed">
+                    Send us photos of your item along with what you are interested in. If we like your item, we will work out a fair trade value plus any cash adjustment needed.
                 </div>
             </div>
             
-            <div class="faq-item fade-in">
-                <button class="faq-question">
-                    Is local pickup available?
-                    <i data-lucide="chevron-down"></i>
+            <div class="faq-item border-b border-nyxco-black-lighter overflow-hidden fade-in">
+                <button class="faq-question w-full py-6 bg-transparent border-none text-white text-left cursor-pointer flex justify-between items-center gap-4 hover:text-nyxco-gold transition-colors duration-300">
+                    <span class="font-semibold text-base lg:text-lg">Is local pickup available?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-nyxco-gold transition-transform duration-300 flex-shrink-0"></i>
                 </button>
-                <div class="faq-answer">
-                    Yes! We're based in Hammond, Louisiana and offer free local delivery within the area. Contact us to arrange a meetup.
+                <div class="faq-answer text-nyxco-gray text-sm lg:text-base leading-relaxed">
+                    Yes! We are based in Hammond, Louisiana and offer free local delivery within the area. Contact us to arrange a meetup.
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="fade-in">
-            <h2 class="cta-title">Ready to Shop?</h2>
-            <p class="cta-text">Browse our current collection and find your next grail piece.</p>
-            <a href="shop.html" class="btn btn-primary">
+    <section class="py-16 lg:py-24 px-8 lg:px-16 text-center bg-linear-to-br from-nyxco-black to-nyxco-black-light relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-[circle_at_center,rgba(212,175,55,0.05)_0%,transparent_70%] pointer-events-none"></div>
+        <div class="fade-in relative z-10">
+            <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] mb-5">Ready to Shop?</h2>
+            <p class="text-nyxco-gray text-base lg:text-lg mb-8 max-w-[600px] mx-auto">Browse our current collection and find your next grail piece.</p>
+            <a href="shop.html" class="relative overflow-hidden px-8 py-4 text-sm font-semibold uppercase tracking-[3px] bg-nyxco-gold text-nyxco-black inline-flex items-center gap-2 shadow-lg hover:-translate-y-0.5 transition-all duration-300 no-underline shimmer-effect">
                 View Collection
-                <i data-lucide="arrow-right"></i>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">NYXCO</a>
-                <p>Premium streetwear marketplace based in Hammond, Louisiana.</p>
-                <div class="social-links">
-                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-                        <i data-lucide="instagram"></i>
+    <!-- Footer - Exact same as shop.html -->
+    <footer class="bg-nyxco-black pt-24 pb-8 px-8 lg:px-16 border-t border-nyxco-black-lighter">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 lg:gap-24 mb-16">
+            <div>
+                <a href="index.html" class="font-display text-[2.5rem] font-bold text-nyxco-gold tracking-[4px] relative inline-block mb-6 no-underline">NYXCO<span class="text-[0.7rem] absolute top-0 -right-4.5">®</span></a>
+                <p class="text-nyxco-gray leading-relaxed mb-8">Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://wa.me/1234567890" target="_blank" aria-label="WhatsApp">
-                        <i data-lucide="message-circle"></i>
+                    <a href="https://wa.me/1234567890" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="WhatsApp">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
                     </a>
-                    <a href="mailto:contact@nyxco.com" aria-label="Email">
-                        <i data-lucide="mail"></i>
+                    <a href="mailto:contact@nyxco.com" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Email">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
-            <div class="footer-links">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="shop.html">All Items</a></li>
-                    <li><a href="shop.html">Bags</a></li>
-                    <li><a href="shop.html">Hoodies</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Shop</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="shop.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">All Items</a></li>
+                    <li class="mb-4"><a href="shop.html#bags" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Bags</a></li>
+                    <li class="mb-4"><a href="shop.html#hoodies" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Hoodies</a></li>
+                    <li class="mb-4"><a href="shop.html#accessories" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Accessories</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="how-to-order.html">How to Order</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Support</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="how-to-order.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">How to Order</a></li>
+                    <li class="mb-4"><a href="about.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">About Us</a></li>
+                    <li class="mb-4"><a href="contact.html" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Contact</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Terms</a></li>
-                    <li><a href="#">Privacy</a></li>
+            <div>
+                <h4 class="text-nyxco-gold text-sm uppercase tracking-[3px] mb-8 font-semibold">Legal</h4>
+                <ul class="list-none">
+                    <li class="mb-4"><a href="#" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Terms of Service</a></li>
+                    <li class="mb-4"><a href="#" class="text-nyxco-gray no-underline hover:text-nyxco-gold transition-colors duration-300">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 NYXCO. All rights reserved.</p>
+        <div class="text-center pt-12 border-t border-nyxco-black-lighter text-nyxco-gray text-sm">
+            <p>&copy; 2026 NYXCO. All rights reserved. | Hammond, Louisiana</p>
         </div>
     </footer>
 
@@ -1275,44 +392,67 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // Mobile Menu Toggle
+        // Mobile Menu - Exact same as shop.html
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
+        const mobileNavLinks = document.getElementById('mobileNavLinks');
         mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const isOpen = navLinks.classList.contains('active');
-            mobileMenuBtn.innerHTML = isOpen 
-                ? '<i data-lucide="x" style="width: 24px; height: 24px;"></i>'
-                : '<i data-lucide="menu" style="width: 24px; height: 24px;"></i>';
+            const isHidden = mobileNavLinks.classList.contains('hidden');
+            if (isHidden) {
+                mobileNavLinks.classList.remove('hidden');
+                mobileNavLinks.classList.add('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
+            } else {
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+            }
             lucide.createIcons();
         });
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        document.querySelectorAll('#mobileNavLinks a').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i data-lucide="menu" style="width: 24px; height: 24px;"></i>';
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
                 lucide.createIcons();
             });
         });
 
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
+              // Navbar Scroll Effect
+      window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('py-2');
+            navbar.classList.remove('py-3');
+
+            navbar.classList.add('bg-[#0a0a0a]/[0.98]');
+            navbar.classList.remove('bg-[#0a0a0a]/95');
+
+            navbar.classList.add('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+
+        } else {
+            navbar.classList.add('py-3');
+            navbar.classList.remove('py-2');
+
+            navbar.classList.add('bg-[#0a0a0a]/95');
+            navbar.classList.remove('bg-[#0a0a0a]/[0.98]');
+
+            navbar.classList.remove('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+        }
+    }
+});
 
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(btn => {
             btn.addEventListener('click', () => {
-                const item = btn.parentElement;
+                const item = btn.closest('.faq-item');
                 const isActive = item.classList.contains('active');
                 
                 // Close all
                 document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
                 
-                // Open clicked if wasn't active
+                // Open clicked if was not active
                 if (!isActive) {
                     item.classList.add('active');
                 }
@@ -1329,12 +469,22 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Trigger initial check after slight delay
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }, 100);
     </script>
 </body>
 </html>
-
