@@ -220,7 +220,7 @@ Shoes Collection
                         Message on WhatsApp
                     </a>
                     <a href="#" id="instagramBtn" target="_blank" class="px-8 py-4 text-white text-sm font-semibold uppercase tracking-[2px] inline-flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(225,48,108,0.3)] hover:opacity-95 hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(225,48,108,0.4)] transition-all duration-400 no-underline" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
-                        <i data-lucide="instagram" class="w-[22px] h-[22px]"></i>
+                        <i data-lucide="camera" class="w-[22px] h-[22px]"></i>
                         DM on Instagram
                     </a>
                     <button onclick="closeModal()" class="px-8 py-4 bg-transparent text-white text-sm font-semibold uppercase tracking-[2px] border-2 border-nyxco-black-lighter hover:border-nyxco-gold hover:text-nyxco-gold transition-all duration-400 cursor-pointer">Continue Shopping</button>
@@ -249,7 +249,7 @@ Shoes Collection
                 <p class="text-nyxco-gray leading-relaxed mb-8">Premium streetwear marketplace based in Hammond, Louisiana. Specializing in authenticated luxury bags, hoodies, and accessories.</p>
                 <div class="flex gap-4">
                     <a href="https://instagram.com" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Instagram">
-                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                        <i data-lucide="camera" class="w-5 h-5"></i>
                     </a>
                     <a href="https://wa.me/1234567890" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="WhatsApp">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
@@ -295,16 +295,18 @@ const STORAGE_KEY = 'nyxco_products';
 
 // Default products (fallback if localStorage empty)
 
-
-// Load products from localStorage (or use defaults)
 function loadProducts() {
     const stored = localStorage.getItem(STORAGE_KEY);
+
     if (stored) {
-        try { return JSON.parse(stored); } catch(e) { return defaultProducts; }
+        try {
+            return JSON.parse(stored);
+        } catch (e) {
+            return [];
+        }
     }
-    // First time - save defaults
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProducts));
-    return defaultProducts;
+
+    return [];
 }
 
 let products = loadProducts();
