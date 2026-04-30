@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <style type="text/tailwindcss">
         @theme {
             --color-nyxco-black: #0a0a0a;
@@ -162,9 +165,7 @@
                 <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="streetwear">Streetwear Collection</button>
                 <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="regular">Regular Collection</button>
                 <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="bags">Bags & Accessories</button>
-                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="shoes">
-Shoes Collection
-</button>
+                <button class="tab-btn px-8 py-3.5 bg-transparent border border-nyxco-black-lighter text-nyxco-gray text-sm uppercase tracking-[2px] font-medium cursor-pointer transition-all duration-300" data-category="shoes">Shoes Collection</button>
             </div>
             <div class="text-nyxco-gray text-sm">Showing <span id="itemCount" class="text-nyxco-gold font-semibold">0</span> items</div>
         </div>
@@ -173,7 +174,12 @@ Shoes Collection
     <!-- Product Grid -->
     <section class="py-16 px-8 lg:px-16 max-w-[1600px] mx-auto">
         <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-            <!-- Products populated by JS from localStorage -->
+            <!-- Products populated by JS from Firebase -->
+        </div>
+        <!-- Loading State -->
+        <div id="loadingState" class="col-span-full text-center py-20 hidden">
+            <div class="w-16 h-16 border-4 border-nyxco-gold/30 border-t-nyxco-gold rounded-full animate-spin mx-auto mb-6"></div>
+            <p class="text-nyxco-gray text-lg">Loading products...</p>
         </div>
     </section>
 
@@ -215,10 +221,7 @@ Shoes Collection
                 </div>
 
                 <div class="flex flex-col gap-4">
-                    <a href="#" id="whatsappBtn" target="_blank" class="px-8 py-4 bg-[#25D366] text-white text-sm font-semibold uppercase tracking-[2px] inline-flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(37,211,102,0.3)] hover:bg-[#128C7E] hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(37,211,102,0.4)] transition-all duration-400 no-underline">
-                        <i data-lucide="message-circle" class="w-[22px] h-[22px]"></i>
-                        Message on WhatsApp
-                    </a>
+                   
                     <a href="#" id="instagramBtn" target="_blank" class="px-8 py-4 text-white text-sm font-semibold uppercase tracking-[2px] inline-flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(225,48,108,0.3)] hover:opacity-95 hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(225,48,108,0.4)] transition-all duration-400 no-underline" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
                         <i data-lucide="camera" class="w-[22px] h-[22px]"></i>
                         DM on Instagram
@@ -229,17 +232,7 @@ Shoes Collection
         </div>
     </div>
 
-    <!-- Recently Sold -->
-    <section class="py-16 lg:py-24 px-8 lg:px-16 bg-nyxco-black-light border-t border-nyxco-black-lighter">
-        <div class="text-center mb-16">
-            <span class="text-nyxco-gold text-sm uppercase tracking-[4px] block mb-4 font-semibold">Gone Fast</span>
-            <h2 class="font-display text-[2.5rem] lg:text-[3rem] mb-4">Recently Sold</h2>
-            <p class="text-nyxco-gray text-lg max-w-[600px] mx-auto">These items found new homes. Don't miss out on current stock.</p>
-        </div>
-        <div id="soldGrid" class="flex gap-8 overflow-x-auto py-4 px-2" style="scrollbar-width: thin; scrollbar-color: var(--color-nyxco-gold) var(--color-nyxco-black);">
-            <!-- Sold items populated by JS -->
-        </div>
-    </section>
+
 
     <!-- Footer -->
     <footer class="bg-nyxco-black pt-24 pb-8 px-8 lg:px-16 border-t border-nyxco-black-lighter">
@@ -251,9 +244,7 @@ Shoes Collection
                     <a href="https://instagram.com" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Instagram">
                         <i data-lucide="camera" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://wa.me/1234567890" target="_blank" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="WhatsApp">
-                        <i data-lucide="message-circle" class="w-5 h-5"></i>
-                    </a>
+                   
                     <a href="mailto:contact@nyxco.com" class="w-11 h-11 border border-nyxco-black-lighter flex items-center justify-center text-nyxco-gray hover:bg-nyxco-gold hover:border-nyxco-gold hover:text-nyxco-black transition-all duration-300 no-underline" aria-label="Email">
                         <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
@@ -288,292 +279,448 @@ Shoes Collection
             <p>&copy; 2026 NYXCO. All rights reserved. | Hammond, Louisiana</p>
         </div>
     </footer>
+
     <script>
-        // ========== SHOP.JS ==========
-
-const STORAGE_KEY = 'nyxco_products';
-
-// Default products (fallback if localStorage empty)
-
-function loadProducts() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-
-    if (stored) {
-        try {
-            return JSON.parse(stored);
-        } catch (e) {
-            return [];
+        // ========== SHOP.JS WITH FIREBASE FIRESTORE ==========
+        
+        // Firebase Configuration (MUST MATCH YOUR ADMIN DASHBOARD CONFIG)
+        const firebaseConfig = {
+           apiKey: "AIzaSyBjPqUrL-VNKjR7stTw7Y54VC0FYskQxxw",
+       authDomain: "nyxco-3b456.firebaseapp.com",
+       projectId: "nyxco-3b456",
+       storageBucket: "nyxco-3b456.firebasestorage.app",
+       messagingSenderId: "896233736049",
+       appId: "1:896233736049:web:ff0fa74e686a6820d358d0",
+       measurementId: "G-J0390QHEBV"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const productsCollection = db.collection("products");
+        
+        // Global products array
+        let products = [];
+        
+        // Sold Items Data (static for now)
+        const soldItems = [
+            { image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80", name: "LV Keepall 45", date: "2 days ago" },
+            { image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80", name: "Kith Hoodie", date: "3 days ago" },
+            { image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80", name: "Gucci Tote", date: "5 days ago" },
+            { image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=400&q=80", name: "Chrome Hearts", date: "1 week ago" },
+            { image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400&q=80", name: "Yeezy Hoodie", date: "1 week ago" },
+            { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80", name: "Balenciaga Bag", date: "2 weeks ago" }
+        ];
+        
+        // Tag labels mapping
+        const tagLabels = { limited: 'Limited Stock', new: 'New Arrival', hot: 'Hot Item', sold: 'Sold' };
+        const tagColors = {
+            limited: 'bg-nyxco-black text-nyxco-gold border border-nyxco-gold',
+            new: 'bg-nyxco-gold text-nyxco-black',
+            hot: 'bg-linear-to-br from-[#ff6b6b] to-[#ee5a24] text-white',
+            sold: 'bg-[#ff3333] text-white'
+        };
+        
+        // Category display names
+        const categoryNames = {
+            'all': 'All Items',
+            'designer': 'Designer Collection',
+            'streetwear': 'Streetwear Collection',
+            'regular': 'Regular Collection',
+            'bags': 'Bags & Accessories',
+            'shoes': 'Shoes Collection',
+        };
+        
+        // Load products from Firestore
+        async function loadProductsFromFirestore() {
+            const loadingState = document.getElementById('loadingState');
+            const productGrid = document.getElementById('productGrid');
+            
+            // Show loading state
+            if (loadingState) loadingState.classList.remove('hidden');
+            if (productGrid) productGrid.innerHTML = '';
+            
+            try {
+                const snapshot = await productsCollection
+                    .where('tag', '!=', 'sold') // Exclude sold items from main grid
+                    .orderBy('tag')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                
+                products = [];
+                snapshot.forEach(doc => {
+                    products.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Also get sold items for count reference
+                const soldSnapshot = await productsCollection
+                    .where('tag', '==', 'sold')
+                    .get();
+                
+                // You can use soldSnapshot for sold items if needed
+                
+                return products;
+            } catch (error) {
+                console.error('Error loading products from Firestore:', error);
+                // Fallback: Try loading without filters if index isn't created
+                try {
+                    const fallbackSnapshot = await productsCollection.orderBy('createdAt', 'desc').get();
+                    products = [];
+                    fallbackSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        if (data.tag !== 'sold') {
+                            products.push({ id: doc.id, ...data });
+                        }
+                    });
+                    return products;
+                } catch (fallbackError) {
+                    console.error('Fallback load also failed:', fallbackError);
+                    products = [];
+                    return [];
+                }
+            } finally {
+                if (loadingState) loadingState.classList.add('hidden');
+            }
         }
-    }
-
-    return [];
-}
-
-let products = loadProducts();
-
-// Sold Items Data
-const soldItems = [
-    { image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80", name: "LV Keepall 45", date: "2 days ago" },
-    { image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80", name: "Kith Hoodie", date: "3 days ago" },
-    { image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80", name: "Gucci Tote", date: "5 days ago" },
-    { image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=400&q=80", name: "Chrome Hearts", date: "1 week ago" },
-    { image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400&q=80", name: "Yeezy Hoodie", date: "1 week ago" },
-    { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80", name: "Balenciaga Bag", date: "2 weeks ago" }
-];
-
-// Tag labels mapping
-const tagLabels = { limited: 'Limited Stock', new: 'New Arrival', hot: 'Hot Item', sold: 'Sold' };
-const tagColors = {
-    limited: 'bg-nyxco-black text-nyxco-gold border border-nyxco-gold',
-    new: 'bg-nyxco-gold text-nyxco-black',
-    hot: 'bg-linear-to-br from-[#ff6b6b] to-[#ee5a24] text-white',
-    sold: 'bg-[#ff3333] text-white'
-};
-
-// Category display names
-const categoryNames = {
-    'all': 'All Items',
-    'designer': 'Designer Collection',
-    'streetwear': 'Streetwear Collection',
-    'regular': 'Regular Collection',
-    'bags': 'Bags & Accessories',
-    'shoes': 'Shoes Collection',
-};
-
-// Render Products
-function renderProducts(category = 'all') {
-    const grid = document.getElementById('productGrid');
-    const filtered = category === 'all' ? products : products.filter(p => p.category === category);
-    document.getElementById('itemCount').textContent = filtered.length;
-
-    if (filtered.length === 0) {
-        grid.innerHTML = `
-            <div class="col-span-full text-center py-20">
-                <i data-lucide="package-x" class="w-16 h-16 text-nyxco-gold/30 mx-auto mb-4"></i>
-                <h3 class="text-xl text-nyxco-gray mb-2">No products found</h3>
-                <p class="text-nyxco-gray/60">Check back later for new arrivals.</p>
-            </div>
-        `;
-        lucide.createIcons();
-        return;
-    }
-
-    grid.innerHTML = filtered.map(product => {
-        const tagClass = product.tag ? tagColors[product.tag] || '' : '';
-        const tagText = product.tag ? tagLabels[product.tag] || product.tag : '';
-        const catName = categoryNames[product.category] || product.category;
-        return `
-        <div class="product-card bg-nyxco-black-light border border-nyxco-black-lighter overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer relative hover:-translate-y-2.5 hover:border-nyxco-gold/40 hover:shadow-[0_30px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(212,175,55,0.1)] " onclick="openModal(${product.id})">
-            ${product.tag ? `<span class="absolute top-6 left-6 px-5 py-1.5 text-xs font-bold uppercase tracking-wide z-10 ${tagClass}">${tagText}</span>` : ''}
-            <div class="relative overflow-hidden aspect-square">
-                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x600/111111/d4af37?text=NYXCO'">
-                <div class="quick-view absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black/90 to-transparent">
-                    <button class="w-full py-4 bg-nyxco-gold text-nyxco-black text-sm font-semibold uppercase tracking-[2px] cursor-pointer hover:bg-nyxco-gold-light transition-colors duration-300">Quick View</button>
-                </div>
-            </div>
-            <div class="p-8">
-                <div class="text-nyxco-gold text-xs uppercase tracking-[2px] mb-2">${catName}</div>
-                <h3 class="text-[1.3rem] font-semibold mb-4 text-white leading-tight">${product.name}</h3>
-                <div class="flex justify-between items-center pt-4 border-t border-nyxco-black-lighter">
-                    <span class="text-nyxco-gray text-sm flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-nyxco-gold"></i>
-                        ${product.condition}
-                    </span>
-                    <span class="text-nyxco-gold font-bold text-base tracking-wide">${product.price}</span>
-                </div>
-            </div>
-        </div>`;
-    }).join('');
-
-    lucide.createIcons();
-    document.querySelectorAll('.fade-in').forEach(el => {
-        el.classList.remove('visible');
-        setTimeout(() => el.classList.add('visible'), 100);
-    });
-}
-
-// Render Sold Items
-function renderSold() {
-    const grid = document.getElementById('soldGrid');
-    grid.innerHTML = soldItems.map(item => `
-        <div class="min-w-[240px] lg:min-w-[280px] opacity-50 grayscale hover:opacity-80 hover:grayscale-[50%] transition-all duration-400 relative">
-            <div class="relative">
-                <img src="${item.image}" alt="${item.name}" class="w-[240px] lg:w-[280px] h-[240px] lg:h-[280px] object-cover border border-nyxco-black-lighter" onerror="this.src='https://via.placeholder.com/400x400/111111/d4af37?text=SOLD'">
-                <span class="absolute top-4 left-4 bg-[#ff3333] text-white px-4 py-1 text-xs font-bold uppercase tracking-wide">SOLD</span>
-            </div>
-            <div class="p-6 bg-nyxco-black border border-nyxco-black-lighter border-t-0">
-                <h4 class="text-[1.1rem] mb-2 line-through text-nyxco-gray">${item.name}</h4>
-                <p class="text-nyxco-gold text-sm">Sold ${item.date}</p>
-            </div>
-        </div>
-    `).join('');
-}
-// Modal Functions
-function openModal(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    // Fill modal data
-    document.getElementById('modalImage').src = product.gallery[0];
-    document.getElementById('modalImage').alt = product.name;
-
-    document.getElementById('modalCategory').textContent =
-        categoryNames[product.category] || product.category;
-
-    document.getElementById('modalTitle').textContent = product.name;
-    document.getElementById('modalCondition').textContent = product.condition;
-    document.getElementById('modalDescription').textContent = product.description;
-    document.getElementById('modalPrice').textContent = product.price;
-
-    // Gallery thumbnails
-    document.getElementById('modalThumbnails').innerHTML = product.gallery.map((img, idx) => `
-        <img 
-            src="${img}" 
-            class="modal-thumb w-20 h-20 object-cover border-2 border-transparent cursor-pointer transition-all duration-300 opacity-60 ${idx === 0 ? 'active opacity-100 border-nyxco-gold' : ''}"
-            onclick="changeImage('${img}', this)"
-            onerror="this.src='https://via.placeholder.com/100x100/111111/d4af37?text=IMG'"
-        >
-    `).join('');
-
-    // Features
-    document.getElementById('modalFeatures').innerHTML = product.features.map(f => `
-        <li class="text-nyxco-gray py-2 pl-6 relative before:content-['•'] before:text-nyxco-gold before:absolute before:left-0 before:text-lg">
-            ${f}
-        </li>
-    `).join('');
-
-    // Contact buttons
-    const phone = "1234567890";
-    const message = encodeURIComponent(`Hi, I'm interested in: ${product.name}`);
-
-    document.getElementById('whatsappBtn').href =
-        `https://wa.me/${phone}?text=${message}`;
-
-    document.getElementById('instagramBtn').href =
-        `https://instagram.com/direct/inbox`;
-
-    // ===== FIXED MODAL OPEN =====
-    const modal = document.getElementById('productModal');
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex', 'active');
-
-    document.body.style.overflow = 'hidden';
-
-    lucide.createIcons();
-}
-
-function changeImage(src, thumb) {
-    document.getElementById('modalImage').src = src;
-    document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-}
-
-function closeModal() {
-    const modal = document.getElementById('productModal');
-
-    // Hide modal properly
-    modal.classList.remove('flex', 'active');
-    modal.classList.add('hidden');
-
-    // Enable page scroll again
-    document.body.style.overflow = '';
-
-    // Optional reset image
-    document.getElementById('modalImage').src = '';
-}
-
-
-// Tab Filtering
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderProducts(btn.dataset.category);
-    });
-});
-
-// Mobile Menu
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileNavLinks = document.getElementById('mobileNavLinks');
-mobileMenuBtn.addEventListener('click', () => {
-    const isHidden = mobileNavLinks.classList.contains('hidden');
-    if (isHidden) {
-        mobileNavLinks.classList.remove('hidden');
-        mobileNavLinks.classList.add('flex');
-        mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
-    } else {
-        mobileNavLinks.classList.add('hidden');
-        mobileNavLinks.classList.remove('flex');
-        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
-    }
-    lucide.createIcons();
-});
-document.querySelectorAll('#mobileNavLinks a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileNavLinks.classList.add('hidden');
-        mobileNavLinks.classList.remove('flex');
-        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
-        lucide.createIcons();
-    });
-});
-
-     // Navbar Scroll Effect
-      window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-
-    if (navbar) {
-        if (window.scrollY > 50) {
-            navbar.classList.add('py-2');
-            navbar.classList.remove('py-3');
-
-            navbar.classList.add('bg-[#0a0a0a]/[0.98]');
-            navbar.classList.remove('bg-[#0a0a0a]/95');
-
-            navbar.classList.add('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
-
-        } else {
-            navbar.classList.add('py-3');
-            navbar.classList.remove('py-2');
-
-            navbar.classList.add('bg-[#0a0a0a]/95');
-            navbar.classList.remove('bg-[#0a0a0a]/[0.98]');
-
-            navbar.classList.remove('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+        
+        // Listen for real-time updates from Firestore
+        function setupRealtimeListener() {
+            productsCollection
+                .where('tag', '!=', 'sold')
+                .onSnapshot((snapshot) => {
+                    const updatedProducts = [];
+                    snapshot.forEach(doc => {
+                        updatedProducts.push({ id: doc.id, ...doc.data() });
+                    });
+                    
+                    // Sort by createdAt descending
+                    updatedProducts.sort((a, b) => {
+                        const timeA = a.createdAt?.toDate?.() || new Date(0);
+                        const timeB = b.createdAt?.toDate?.() || new Date(0);
+                        return timeB - timeA;
+                    });
+                    
+                    products = updatedProducts;
+                    
+                    // Refresh the display
+                    const activeTab = document.querySelector('.tab-btn.active');
+                    if (activeTab) {
+                        renderProducts(activeTab.dataset.category);
+                    } else {
+                        renderProducts('all');
+                    }
+                }, (error) => {
+                    console.error('Realtime listener error:', error);
+                    // Fallback to one-time load
+                    loadProductsFromFirestore().then(() => {
+                        const activeTab = document.querySelector('.tab-btn.active');
+                        renderProducts(activeTab ? activeTab.dataset.category : 'all');
+                    });
+                });
         }
-    }
-});
-
-// Listen for storage changes (when admin updates products)
-window.addEventListener('storage', (e) => {
-    if (e.key === STORAGE_KEY) {
-        products = loadProducts();
-        const activeTab = document.querySelector('.tab-btn.active');
-        renderProducts(activeTab ? activeTab.dataset.category : 'all');
-    }
-});
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
-    renderProducts();
-    renderSold();
-
-    // Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Modal close events
-    document.getElementById('modalClose').addEventListener('click', closeModal);
-    document.getElementById('productModal').addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) closeModal();
-    });
-
-    // Escape key
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-});
+        
+        // Render Products
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('productGrid');
+            const filtered = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            document.getElementById('itemCount').textContent = filtered.length;
+        
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-20">
+                        <i data-lucide="package-x" class="w-16 h-16 text-nyxco-gold/30 mx-auto mb-4"></i>
+                        <h3 class="text-xl text-nyxco-gray mb-2">No products found</h3>
+                        <p class="text-nyxco-gray/60">Check back later for new arrivals.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+        
+            grid.innerHTML = filtered.map(product => {
+                const tagClass = product.tag ? tagColors[product.tag] || '' : '';
+                const tagText = product.tag ? tagLabels[product.tag] || product.tag : '';
+                const catName = categoryNames[product.category] || product.category;
+                const mainImage = product.gallery && product.gallery.length > 0 
+                    ? product.gallery[0] 
+                    : product.image || 'https://via.placeholder.com/600x600/111111/d4af37?text=NYXCO';
+                
+                return `
+                <div class="product-card bg-nyxco-black-light border border-nyxco-black-lighter overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer relative hover:-translate-y-2.5 hover:border-nyxco-gold/40 hover:shadow-[0_30px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(212,175,55,0.1)]" onclick="openModal('${product.id}')">
+                    ${product.tag ? `<span class="absolute top-6 left-6 px-5 py-1.5 text-xs font-bold uppercase tracking-wide z-10 ${tagClass}">${tagText}</span>` : ''}
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="${mainImage}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x600/111111/d4af37?text=NYXCO'">
+                        <div class="quick-view absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black/90 to-transparent">
+                            <button class="w-full py-4 bg-nyxco-gold text-nyxco-black text-sm font-semibold uppercase tracking-[2px] cursor-pointer hover:bg-nyxco-gold-light transition-colors duration-300">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="text-nyxco-gold text-xs uppercase tracking-[2px] mb-2">${catName}</div>
+                        <h3 class="text-[1.3rem] font-semibold mb-4 text-white leading-tight">${product.name}</h3>
+                        <div class="flex justify-between items-center pt-4 border-t border-nyxco-black-lighter">
+                            <span class="text-nyxco-gray text-sm flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-nyxco-gold"></i>
+                                ${product.condition}
+                            </span>
+                            <span class="text-nyxco-gold font-bold text-base tracking-wide">${product.price || 'Contact for Price'}</span>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        
+            lucide.createIcons();
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.classList.remove('visible');
+                setTimeout(() => el.classList.add('visible'), 100);
+            });
+        }
+        
+        // Render Sold Items (now from Firebase - sold tag products)
+        async function renderSoldFromFirebase() {
+            const grid = document.getElementById('soldGrid');
+            
+            try {
+                const soldSnapshot = await productsCollection
+                    .where('tag', '==', 'sold')
+                    .orderBy('createdAt', 'desc')
+                    .limit(6)
+                    .get();
+                
+                const soldProducts = [];
+                soldSnapshot.forEach(doc => {
+                    soldProducts.push({ id: doc.id, ...doc.data() });
+                });
+                
+                if (soldProducts.length > 0) {
+                    grid.innerHTML = soldProducts.map(item => {
+                        const mainImage = item.gallery && item.gallery.length > 0 
+                            ? item.gallery[0] 
+                            : item.image || 'https://via.placeholder.com/400x400/111111/d4af37?text=SOLD';
+                        
+                        // Format the sold date
+                        let soldDate = 'Recently';
+                        if (item.createdAt && item.createdAt.toDate) {
+                            const date = item.createdAt.toDate();
+                            const now = new Date();
+                            const diffTime = Math.abs(now - date);
+                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                            
+                            if (diffDays === 0) soldDate = 'Today';
+                            else if (diffDays === 1) soldDate = 'Yesterday';
+                            else if (diffDays < 7) soldDate = `${diffDays} days ago`;
+                            else if (diffDays < 30) soldDate = `${Math.floor(diffDays/7)} week(s) ago`;
+                            else soldDate = date.toLocaleDateString();
+                        }
+                        
+                        return `
+                        <div class="min-w-[240px] lg:min-w-[280px] opacity-50 grayscale hover:opacity-80 hover:grayscale-[50%] transition-all duration-400 relative">
+                            <div class="relative">
+                                <img src="${mainImage}" alt="${item.name}" class="w-[240px] lg:w-[280px] h-[240px] lg:h-[280px] object-cover border border-nyxco-black-lighter" onerror="this.src='https://via.placeholder.com/400x400/111111/d4af37?text=SOLD'">
+                                <span class="absolute top-4 left-4 bg-[#ff3333] text-white px-4 py-1 text-xs font-bold uppercase tracking-wide">SOLD</span>
+                            </div>
+                            <div class="p-6 bg-nyxco-black border border-nyxco-black-lighter border-t-0">
+                                <h4 class="text-[1.1rem] mb-2 line-through text-nyxco-gray">${item.name}</h4>
+                                <p class="text-nyxco-gold text-sm">Sold ${soldDate}</p>
+                            </div>
+                        </div>`;
+                    }).join('');
+                } else {
+                    // Fallback to static sold items
+                    renderStaticSold();
+                }
+            } catch (error) {
+                console.error('Error loading sold items:', error);
+                // Fallback to static sold items
+                renderStaticSold();
+            }
+        }
+        
+        function renderStaticSold() {
+            const grid = document.getElementById('soldGrid');
+            grid.innerHTML = soldItems.map(item => `
+                <div class="min-w-[240px] lg:min-w-[280px] opacity-50 grayscale hover:opacity-80 hover:grayscale-[50%] transition-all duration-400 relative">
+                    <div class="relative">
+                        <img src="${item.image}" alt="${item.name}" class="w-[240px] lg:w-[280px] h-[240px] lg:h-[280px] object-cover border border-nyxco-black-lighter" onerror="this.src='https://via.placeholder.com/400x400/111111/d4af37?text=SOLD'">
+                        <span class="absolute top-4 left-4 bg-[#ff3333] text-white px-4 py-1 text-xs font-bold uppercase tracking-wide">SOLD</span>
+                    </div>
+                    <div class="p-6 bg-nyxco-black border border-nyxco-black-lighter border-t-0">
+                        <h4 class="text-[1.1rem] mb-2 line-through text-nyxco-gray">${item.name}</h4>
+                        <p class="text-nyxco-gold text-sm">Sold ${item.date}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Modal Functions
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+        
+            const mainImage = product.gallery && product.gallery.length > 0 
+                ? product.gallery[0] 
+                : product.image;
+            
+            document.getElementById('modalImage').src = mainImage;
+            document.getElementById('modalImage').alt = product.name;
+        
+            document.getElementById('modalCategory').textContent =
+                categoryNames[product.category] || product.category;
+        
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalCondition').textContent = product.condition;
+            document.getElementById('modalDescription').textContent = product.description;
+            document.getElementById('modalPrice').textContent = product.price || 'Contact for Price';
+        
+            // Gallery thumbnails - combine main image and gallery
+            const allImages = [product.image, ...(product.gallery || [])].filter(Boolean);
+            const uniqueImages = [...new Set(allImages)];
+            
+            document.getElementById('modalThumbnails').innerHTML = uniqueImages.map((img, idx) => `
+                <img 
+                    src="${img}" 
+                    class="modal-thumb w-20 h-20 object-cover border-2 border-transparent cursor-pointer transition-all duration-300 opacity-60 ${idx === 0 ? 'active opacity-100 border-nyxco-gold' : ''}"
+                    onclick="changeImage('${img}', this)"
+                    onerror="this.src='https://via.placeholder.com/100x100/111111/d4af37?text=IMG'"
+                >
+            `).join('');
+        
+            // Features
+            document.getElementById('modalFeatures').innerHTML = (product.features || []).map(f => `
+                <li class="text-nyxco-gray py-2 pl-6 relative before:content-['•'] before:text-nyxco-gold before:absolute before:left-0 before:text-lg">
+                    ${f}
+                </li>
+            `).join('');
+        
+            // Contact buttons
+            const phone = "1234567890"; // Replace with your actual WhatsApp number
+            const message = encodeURIComponent(`Hi, I'm interested in: ${product.name}`);
+        
+        
+        
+            document.getElementById('instagramBtn').href =
+                `https://instagram.com/direct/inbox`;
+        
+            // Show modal
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex', 'active');
+            document.body.style.overflow = 'hidden';
+        
+            lucide.createIcons();
+        }
+        
+        function changeImage(src, thumb) {
+            document.getElementById('modalImage').src = src;
+            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('flex', 'active');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+            document.getElementById('modalImage').src = '';
+        }
+        
+        // Tab Filtering
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProducts(btn.dataset.category);
+            });
+        });
+        
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNavLinks = document.getElementById('mobileNavLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileNavLinks.classList.contains('hidden');
+            if (isHidden) {
+                mobileNavLinks.classList.remove('hidden');
+                mobileNavLinks.classList.add('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
+            } else {
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+            }
+            lucide.createIcons();
+        });
+        
+        document.querySelectorAll('#mobileNavLinks a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+                lucide.createIcons();
+            });
+        });
+        
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('py-2');
+                    navbar.classList.remove('py-3');
+                    navbar.classList.add('bg-[#0a0a0a]/[0.98]');
+                    navbar.classList.remove('bg-[#0a0a0a]/95');
+                    navbar.classList.add('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+                } else {
+                    navbar.classList.add('py-3');
+                    navbar.classList.remove('py-2');
+                    navbar.classList.add('bg-[#0a0a0a]/95');
+                    navbar.classList.remove('bg-[#0a0a0a]/[0.98]');
+                    navbar.classList.remove('shadow-[0_10px_40px_rgba(0,0,0,0.5)]');
+                }
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+            
+            // Load products from Firebase
+            await loadProductsFromFirestore();
+            
+            // Initial render
+            renderProducts('all');
+            
+            // Load sold items from Firebase (or fallback)
+            await renderSoldFromFirebase();
+            
+            // Setup real-time listener for live updates
+            setupRealtimeListener();
+        
+            // Intersection Observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { 
+                    if (entry.isIntersecting) entry.target.classList.add('visible'); 
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+            // Modal close events
+            document.getElementById('modalClose').addEventListener('click', closeModal);
+            document.getElementById('productModal').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeModal();
+            });
+        
+            // Escape key
+            document.addEventListener('keydown', (e) => { 
+                if (e.key === 'Escape') closeModal(); 
+            });
+        });
+        
+        // Make functions globally accessible
+        window.openModal = openModal;
+        window.changeImage = changeImage;
+        window.closeModal = closeModal;
     </script>
 </body>
 </html>
